@@ -11,7 +11,6 @@ class User < ApplicationRecord
   validates :email, presence: true, uniqueness: true, format: { with: EMAIL_FORMAT }
 
 
-
   class << self
 
     # ランダムな値を作成する
