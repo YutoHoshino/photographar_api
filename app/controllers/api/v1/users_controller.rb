@@ -5,9 +5,9 @@ class Api::V1::UsersController < ApplicationController
     @user = User.new(registrations_params)
     if @user.save
       login!
-      render json: { status: :created, user: @user }
+      render json: { user: @user }, status: :ok
     else
-      render json: { status: 500 }
+      render json: {}, status: :internal_server_error
     end
   end
 
