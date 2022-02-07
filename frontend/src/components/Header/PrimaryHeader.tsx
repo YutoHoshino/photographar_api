@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 
 // material
 import { AppBar, Toolbar, IconButton, makeStyles, Typography, Button } from "@material-ui/core"
@@ -13,6 +13,7 @@ import { Link, useHistory } from "react-router-dom";
 
 // apis
 import { signOut } from "apis/auth";
+import { PostModal } from "components/Modal/PostModal";
 
 const useStyles = makeStyles(
   {
@@ -35,10 +36,12 @@ export const PrimaryHeader = () => {
 
   const history = useHistory();
 
+  const [isOpen, setIsOpen] = useState<boolean>(false)
+
+
   // ログアウト
   const handleSignOut = (e: any)  => {
     e.preventDefault()
-
     signOut()
     .then(data => {
       setIsSignedIn(false)
@@ -47,6 +50,11 @@ export const PrimaryHeader = () => {
     })
   }
 
+  // 投稿モーダル表示
+  const handlePost = (e: any) => {
+    e.preventDefault()
+    setIsOpen(true)
+  }
   
 
   return (
@@ -68,17 +76,23 @@ export const PrimaryHeader = () => {
         </Typography>
 
         <>
+          {/* 投稿 */}
           <Button
             color="inherit"
+            onClick={handlePost}
           >
             <Icon path={mdiImagePlus} size={1.3}/>
           </Button>
+
+
+          {/* ユーザーアイコン */}
           <Button
             color="inherit"
           >
             <Icon path={mdiAccountCircle} size={1.3}/>
           </Button>
 
+          {/* ログアウト */}
           <Button
             color="inherit"
             onClick={handleSignOut}
@@ -86,6 +100,13 @@ export const PrimaryHeader = () => {
             ログアウト
           </Button>
         </>
+
+        {
+          <PostModal
+            isOpen={isOpen}
+            onClose={() => setIsOpen(false)}
+          />
+        }
 
 
       </Toolbar>
