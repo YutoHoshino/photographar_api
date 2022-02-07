@@ -29,7 +29,7 @@ const useStyles = makeStyles(
 
 export const PrimaryHeader = () => {
 
-  const { isSignedIn, setIsSignedIn, setCurrentUser } = useContext(AuthContext)
+  const { setIsSignedIn, setCurrentUser } = useContext(AuthContext)
 
   const classes = useStyles();
 
@@ -58,7 +58,6 @@ export const PrimaryHeader = () => {
         className={classes.toolbar}
       >
 
-         {/* ロゴ */}
         <Typography
             component={Link}
             to="/"
@@ -68,39 +67,26 @@ export const PrimaryHeader = () => {
             photographar
         </Typography>
 
+        <>
+          <Button
+            color="inherit"
+          >
+            <Icon path={mdiImagePlus} size={1.3}/>
+          </Button>
+          <Button
+            color="inherit"
+          >
+            <Icon path={mdiAccountCircle} size={1.3}/>
+          </Button>
 
-         {/* ログイン&ログアウトボタン */}
-        {
-          isSignedIn ? (
-            <>
-              <Button
-                color="inherit"
-              >
-                <Icon path={mdiImagePlus} size={1.3}/>
-              </Button>
-              <Button
-                color="inherit"
-              >
-                <Icon path={mdiAccountCircle} size={1.3}/>
-              </Button>
+          <Button
+            color="inherit"
+            onClick={handleSignOut}
+          >
+            ログアウト
+          </Button>
+        </>
 
-              <Button
-                color="inherit"
-                onClick={handleSignOut}
-              >
-                ログアウト
-              </Button>
-            </>
-          ) : (
-            <Button
-              component={Link}
-              to="/signin"
-              color="inherit"
-            >
-              ログイン
-            </Button>
-          ) 
-        }
 
       </Toolbar>
     </AppBar>

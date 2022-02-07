@@ -3,6 +3,9 @@ import { useContext } from "react"
 // useContext
 import { AuthContext } from "App"
 
+// components
+import { CommonLayout } from "components/Layout/CommonLayout"
+
 export const Home = () => {
 
   const { currentUser, isSignedIn } = useContext(AuthContext)
@@ -10,7 +13,7 @@ export const Home = () => {
   console.log(isSignedIn)
 
   return(
-    <>
+    <CommonLayout>
       {
         currentUser && isSignedIn ? (
           <>
@@ -20,6 +23,6 @@ export const Home = () => {
           <></>
         )
       }
-    </>
+    </CommonLayout>
   )
 }

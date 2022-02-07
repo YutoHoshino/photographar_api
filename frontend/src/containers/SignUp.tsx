@@ -8,6 +8,7 @@ import { Box, CardContent, CardHeader, makeStyles, Theme, Typography } from "@ma
 //components
 import { PrimaryTextField } from 'components/TextField/PrimaryTextField';
 import { SubmitButton } from 'components/Button/SubmitButton';
+import { AuthLayout } from "components/Layout/AuthLayout";
 
 // interface
 import { SignUpData } from "interfaces/index";
@@ -78,7 +79,7 @@ export const SignUp = () => {
 
 
   return (
-    <>
+    <AuthLayout>
       <Form onSubmit={handleSubmit}>
         <CardContent>
           <CardHeader title="新規アカウント" />
@@ -117,6 +118,6 @@ export const SignUp = () => {
   
         </CardContent>
       </Form>
-    </>
+    </AuthLayout>
   )
 }

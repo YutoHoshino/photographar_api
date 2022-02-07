@@ -5,7 +5,6 @@ import { BrowserRouter as Router, Switch, Route, Redirect, RouteProps } from "re
 import 'App.css'
 
 // containers
-import { CommonLayout } from "components/Layout/CommonLayout"
 import { SignUp } from 'containers/SignUp'
 import { SignIn } from "containers/SignIn"
 import { Home } from "containers/Home"
@@ -15,7 +14,6 @@ import { User } from 'interfaces/index'
 
 // apis
 import { getCurrentUser } from "apis/auth"
-
 
 // グローバルで扱う変数・関数
 export const AuthContext = createContext({} as {
@@ -63,17 +61,13 @@ const App = () => {
   return (
     <Router>
       <AuthContext.Provider value={{ isSignedIn, setIsSignedIn, currentUser, setCurrentUser }}>
-        <CommonLayout>
           <Switch>
-            <Route exact path="/signup" component={ SignUp } />
-            <Route exact path="/signin" component={ SignIn } />
-            <Private>
-              <Switch>
-                <Route exact path="/" component={ Home } />
-              </Switch>
-            </Private>
+            <Switch>
+              <Route exact path="/signup" component={ SignUp } />
+              <Route exact path="/signin" component={ SignIn } />
+              <Route exact path="/" component={ Home } />
+            </Switch>
           </Switch>
-        </CommonLayout>
       </AuthContext.Provider>
     </Router>
   );
