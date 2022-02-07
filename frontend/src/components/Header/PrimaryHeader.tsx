@@ -2,7 +2,10 @@ import { useContext } from "react";
 
 // material
 import { AppBar, Toolbar, IconButton, makeStyles, Typography, Button } from "@material-ui/core"
-import MenuIcon from "@material-ui/icons/Menu"
+
+import Icon from '@mdi/react'
+import { mdiImagePlus, mdiAccountCircle } from '@mdi/js'
+
 
 // useContext
 import { AuthContext } from "App";
@@ -69,12 +72,25 @@ export const PrimaryHeader = () => {
          {/* ログイン&ログアウトボタン */}
         {
           isSignedIn ? (
-            <Button
-              color="inherit"
-              onClick={handleSignOut}
-            >
-              ログアウト
-            </Button>
+            <>
+              <Button
+                color="inherit"
+              >
+                <Icon path={mdiImagePlus} size={1.3}/>
+              </Button>
+              <Button
+                color="inherit"
+              >
+                <Icon path={mdiAccountCircle} size={1.3}/>
+              </Button>
+
+              <Button
+                color="inherit"
+                onClick={handleSignOut}
+              >
+                ログアウト
+              </Button>
+            </>
           ) : (
             <Button
               component={Link}
