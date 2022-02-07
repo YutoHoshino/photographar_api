@@ -7,7 +7,7 @@ export const Home = () => {
 
   const { currentUser, isSignedIn } = useContext(AuthContext)
 
-  console.log(currentUser)
+  console.log(isSignedIn)
 
   return(
     <>
