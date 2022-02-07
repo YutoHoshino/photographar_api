@@ -50,15 +50,7 @@ const Image = styled.img`
   margin: 0;
 `
 
-
-
-const useStyles = makeStyles((theme: Theme) => ({
-
-}))
-
 export const PostModal = (props: Props) => {
-
-  const classes = useStyles();
 
   const [text, setText] = useState<string>("")
   const [images, setImages] = useState<File[]>([]);
@@ -78,6 +70,7 @@ export const PostModal = (props: Props) => {
     newImages.splice(index, 1);
     setImages(newImages);
   };
+
 
   return (
   <Dialog
