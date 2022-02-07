@@ -1,22 +1,23 @@
 class Api::V1::SessionsController < ApplicationController
+  skip_before_action :current_user, only: [:signin]
   
-  def login
+  def signin
     @user = User.find_by(email: session_params[:email])
     if @user && @user.authenticate(session_params[:password])
-      login!
-      render json: { user: @user }, status: :created
+      login(@user)
+      render json: { user: @current_user }, status: :ok
     else
       render json: {}, status: :internal_server_error
     end
   end
 
-  def logout
+  def signout
     reset_session
-    render json: {}, status: :no_content
+    render json: {}, status: :ok
   end
 
-  def logged
-    if @current_user.blank?
+  def sign_in?
+    if @current_user
         render json: { user: current_user }, status: :ok
     else
         render json: {}, status: :no_content

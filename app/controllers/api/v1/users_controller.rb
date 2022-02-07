@@ -4,8 +4,8 @@ class Api::V1::UsersController < ApplicationController
   def signup
     @user = User.new(registrations_params)
     if @user.save
-      login!
-      render json: { user: @user }, status: :ok
+      login(@user)
+      render json: { user: @current_user }, status: :ok
     else
       render json: {}, status: :internal_server_error
     end

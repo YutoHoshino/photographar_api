@@ -11,17 +11,16 @@ import { SubmitButton } from 'components/Button/SubmitButton';
 import { AuthHeader } from "components/Header/AuthHeader";
 
 // interface
-import { SignUpData } from "interfaces/index";
+import { SignInData } from "interfaces/index";
 
 // apis
-import { siginUp } from "apis/auth";
+import { siginIn } from "apis/auth";
 
 // AuthProvider
 import { AuthContext } from "App";
 import { Link } from "react-router-dom";
 
 
-//style
 const Form = styled.form`
   max-width: 400px;
   margin: 0 auto;
@@ -43,7 +42,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   }
 }))
 
-export const SignUp = () => {
+export const SignIn = () => {
 
   const classes = useStyles();
 
@@ -53,23 +52,19 @@ export const SignUp = () => {
   const { setIsSignedIn, setCurrentUser } = useContext(AuthContext)
 
   // フォームデータ
-  const [name, setName] = useState<string>("")
   const [email, setEmail] = useState<string>("")
   const [password, setPassword] = useState<string>("")
-  const [passwordConfirmation, setPasswordConfirmation] = useState<string>("")
 
   // 送信イベント
   const handleSubmit = async (e: any) => {
     e.preventDefault()
-    const params: SignUpData = {
+    const params: SignInData = {
       user: {
-        name: name,
         email: email,
         password: password,
-        passwordConfirmation: passwordConfirmation
       }
     }
-    siginUp(params)
+    siginIn(params)
     .then(data => {
       setIsSignedIn(true)
       setCurrentUser(data.user)
@@ -83,11 +78,7 @@ export const SignUp = () => {
       <AuthHeader/>
       <Form onSubmit={handleSubmit}>
         <CardContent>
-          <CardHeader title="新規アカウント" />
-          <PrimaryTextField
-            label="名前"
-            setState={setName}
-          />
+          <CardHeader title="ログイン" />
           <PrimaryTextField
             label="メールアドレス"
             setState={setEmail}
@@ -98,25 +89,19 @@ export const SignUp = () => {
             placeholder="6文字以上"
             setState={setPassword}
           />
-          <PrimaryTextField
-            label="パスワード（確認用）"
-            type="password"
-            placeholder="6文字以上"
-            setState={setPasswordConfirmation}
-          />
           <ButtonWrapper>
             <SubmitButton>登録</SubmitButton>
           </ButtonWrapper>
 
+
           <Box textAlign="right" className={classes.box}>
             <Typography variant="body2">  
-              既にアカウントをお持ちの方は
-              <Link to="/signin" className={classes.link}>
-                こちらから
+              <Link to="/signup" className={classes.link}>
+                新規アカウントを作成
               </Link>
             </Typography>
           </Box>
-  
+
         </CardContent>
       </Form>
     </>

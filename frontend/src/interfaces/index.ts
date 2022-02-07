@@ -1,4 +1,4 @@
-// サインアップ
+// サインアップ（送信系）
 export interface SignUpData {
   user : {
     name: string
@@ -8,13 +8,15 @@ export interface SignUpData {
   }
 }
 
-// サインイン
+// サインイン（送信系）
 export interface SignInData {
+  user : {
   email: string
   password: string
+  }
 }
 
-// ユーザー
+// ユーザー（UseState系）
 export interface User {
   id: number
   name: string

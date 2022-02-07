@@ -1,15 +1,29 @@
 import { useContext } from "react"
 
+// useContext
 import { AuthContext } from "App"
+
+// components
+import { HomeHeader } from "components/Header/HomeHeader"
 
 export const Home = () => {
 
   const { currentUser } = useContext(AuthContext)
 
+  console.log(currentUser)
+
   return(
     <>
-      <h1>ホーム画面です</h1>
-      {console.log(currentUser)}
+      {
+        currentUser ? (
+          <>
+            <HomeHeader/>
+            <h1>{currentUser.name}</h1>
+          </>
+        ) : (
+          <></>
+        )
+      }
     </>
   )
 }

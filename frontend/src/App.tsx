@@ -1,15 +1,18 @@
 import { useState, useEffect, createContext } from "react"
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom"
+import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom"
 
 // CSSシート
 import 'App.css'
 
 // containers
 import { SignUp } from 'containers/SignUp'
+import { SignIn } from "containers/SignIn"
 import { Home } from "containers/Home"
 
 // interface
 import { User } from 'interfaces/index'
+
+// apis
 import { getCurrentUser } from "apis/auth"
 
 
@@ -30,7 +33,6 @@ const App = () => {
   // ユーザー情報取得
   const handleGetCurrentUser = async () => {
     const data = await getCurrentUser()
-    console.log(data)
     if (data) {
       setIsSignedIn(true)
       setCurrentUser(data?.user)
@@ -40,7 +42,7 @@ const App = () => {
   }
   useEffect(() => {
     handleGetCurrentUser()
-  }, [])
+  }, [setCurrentUser])
 
   
   return (
@@ -48,6 +50,7 @@ const App = () => {
       <AuthContext.Provider value={{ isSignedIn, setIsSignedIn, currentUser, setCurrentUser }}>
         <Switch>
           <Route exact path="/signup" component={ SignUp } />
+          <Route exact path="/signin" component={ SignIn } />
           <Route exact path="/" component={ Home } />
         </Switch>
       </AuthContext.Provider>
