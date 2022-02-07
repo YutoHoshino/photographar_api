@@ -8,13 +8,12 @@ import { Box, CardContent, CardHeader, makeStyles, Theme, Typography } from "@ma
 //components
 import { PrimaryTextField } from 'components/TextField/PrimaryTextField';
 import { SubmitButton } from 'components/Button/SubmitButton';
-import { AuthHeader } from "components/Header/AuthHeader";
 
 // interface
 import { SignUpData } from "interfaces/index";
 
 // apis
-import { siginUp } from "apis/auth";
+import { signUp } from "apis/auth";
 
 // AuthProvider
 import { AuthContext } from "App";
@@ -69,7 +68,7 @@ export const SignUp = () => {
         passwordConfirmation: passwordConfirmation
       }
     }
-    siginUp(params)
+    signUp(params)
     .then(data => {
       setIsSignedIn(true)
       setCurrentUser(data.user)
@@ -80,7 +79,6 @@ export const SignUp = () => {
 
   return (
     <>
-      <AuthHeader/>
       <Form onSubmit={handleSubmit}>
         <CardContent>
           <CardHeader title="新規アカウント" />

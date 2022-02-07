@@ -6,7 +6,7 @@ import { SignUpData, SignInData } from 'interfaces';
 
 
 // サインアップ
-export const siginUp = async (params: SignUpData) => {
+export const signUp = async (params: SignUpData) => {
   return await client.post("signup", params)
   .then( res => {
     return res.data
@@ -15,7 +15,7 @@ export const siginUp = async (params: SignUpData) => {
 }
 
 // サインイン
-export const siginIn = async (params: SignInData) => {
+export const signIn = async (params: SignInData) => {
   return await client.post("signin", params)
   .then( res => {
     return res.data
@@ -23,7 +23,7 @@ export const siginIn = async (params: SignInData) => {
   .catch ((e) => console.error(e))
 }
 
-// ユーザ情報取得
+// ログアウト
 export const signOut = async () => {
   return await client.delete("signout")
   .then( res => {

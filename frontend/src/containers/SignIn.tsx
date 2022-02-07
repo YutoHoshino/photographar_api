@@ -8,13 +8,12 @@ import { Box, CardContent, CardHeader, makeStyles, Theme, Typography } from "@ma
 //components
 import { PrimaryTextField } from 'components/TextField/PrimaryTextField';
 import { SubmitButton } from 'components/Button/SubmitButton';
-import { AuthHeader } from "components/Header/AuthHeader";
 
 // interface
 import { SignInData } from "interfaces/index";
 
 // apis
-import { siginIn } from "apis/auth";
+import { signIn } from "apis/auth";
 
 // AuthProvider
 import { AuthContext } from "App";
@@ -64,7 +63,7 @@ export const SignIn = () => {
         password: password,
       }
     }
-    siginIn(params)
+    signIn(params)
     .then(data => {
       setIsSignedIn(true)
       setCurrentUser(data.user)
@@ -75,7 +74,6 @@ export const SignIn = () => {
 
   return (
     <>
-      <AuthHeader/>
       <Form onSubmit={handleSubmit}>
         <CardContent>
           <CardHeader title="ログイン" />

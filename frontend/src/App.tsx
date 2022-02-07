@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-d
 import 'App.css'
 
 // containers
+import { CommonLayout } from "components/Layout/CommonLayout"
 import { SignUp } from 'containers/SignUp'
 import { SignIn } from "containers/SignIn"
 import { Home } from "containers/Home"
@@ -48,11 +49,13 @@ const App = () => {
   return (
     <Router>
       <AuthContext.Provider value={{ isSignedIn, setIsSignedIn, currentUser, setCurrentUser }}>
-        <Switch>
-          <Route exact path="/signup" component={ SignUp } />
-          <Route exact path="/signin" component={ SignIn } />
-          <Route exact path="/" component={ Home } />
-        </Switch>
+        <CommonLayout>
+          <Switch>
+            <Route exact path="/signup" component={ SignUp } />
+            <Route exact path="/signin" component={ SignIn } />
+            <Route exact path="/" component={ Home } />
+          </Switch>
+        </CommonLayout>
       </AuthContext.Provider>
     </Router>
   );
