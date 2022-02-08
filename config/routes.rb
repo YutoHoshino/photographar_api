@@ -7,7 +7,8 @@ Rails.application.routes.draw do
       delete  '/signout',     to: 'sessions#signout'
       get     '/logged',      to: 'sessions#sign_in?'
 
-      post     '/post',       to: 'posts#create'
+      get     '/posts',       to: 'posts#index'
+      post    '/post',        to: 'posts#create'
 
 
     end

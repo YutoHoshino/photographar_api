@@ -1,5 +1,10 @@
 class Api::V1::PostsController < ApplicationController
 
+  def index
+    posts = Post.alive_records
+    render json: { posts: posts }, status: :ok
+  end
+
   def create
     post = Post.new(post_params)
     if post.save
