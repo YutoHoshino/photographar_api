@@ -4,6 +4,8 @@ class User < ApplicationRecord
   
   mount_uploader :image, ImageUploader
 
+  has_many :posts, dependent: :destroy
+
   # メールアドレスのフォーマット
   EMAIL_FORMAT= /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
 
