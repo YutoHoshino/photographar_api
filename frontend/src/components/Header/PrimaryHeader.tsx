@@ -1,4 +1,5 @@
 import { useContext, useState } from "react";
+import { Link, useHistory } from "react-router-dom";
 
 // material
 import { AppBar, Toolbar, IconButton, makeStyles, Typography, Button } from "@material-ui/core"
@@ -6,15 +7,16 @@ import { AppBar, Toolbar, IconButton, makeStyles, Typography, Button } from "@ma
 import Icon from '@mdi/react'
 import { mdiImagePlus, mdiAccountCircle } from '@mdi/js'
 
-
 // useContext
 import { AuthContext } from "App";
-import { Link, useHistory } from "react-router-dom";
 
 // apis
-import { signOut } from "apis/auth";
 import { PostModal } from "components/Modal/PostModal";
 
+// containers
+import { SignOut } from "containers/SignOut";
+
+// material css
 const useStyles = makeStyles(
   {
     toolbar: {
@@ -42,8 +44,8 @@ export const PrimaryHeader = () => {
   // ログアウト
   const handleSignOut = (e: any)  => {
     e.preventDefault()
-    signOut()
-    .then(data => {
+    SignOut()
+    .then(res => {
       setIsSignedIn(false)
       setCurrentUser(undefined)
       history.push("/signin")
