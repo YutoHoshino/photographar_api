@@ -12,6 +12,7 @@ import { PostData } from 'interfaces';
 
 // apis
 import { postCreate } from 'apis/post';
+import { PostCreate } from 'containers/PostCreate';
 
 interface Props {
   isOpen: boolean,
@@ -57,9 +58,7 @@ const Image = styled.img`
 
 export const PostModal = (props: Props) => {
 
-  const [loading, setLoading] = useState<boolean>(false)
-
-  const [text, setText] = useState<string>("")
+  const [caption, setCaption] = useState<string>("")
   const [images, setImages] = useState<File[]>([]);
   const maxImagesUpload = 3;
   const inputId = Math.random().toString(32).substring(2);
@@ -80,18 +79,12 @@ export const PostModal = (props: Props) => {
 
   // 投稿
   const handleSubmit = (e: React.SyntheticEvent) => {
-    setLoading(true)
     e.preventDefault();
-    const formData = new FormData()
-    formData.append('post[caption]', text)
-    images.map((image, i) => {formData.append(`post[photos_attributes[${i}[image]]]`, image)});
-    postCreate(formData)
-    .then( data => {
-      console.log(data)
-      setLoading(false)
-      props.onClose();
+    PostCreate({caption, images})
+    .then((res) => {
       setImages([])
-      setText("")
+      setCaption("")
+      props.onClose();
     })
   }
 
@@ -103,75 +96,63 @@ export const PostModal = (props: Props) => {
       onClose={props.onClose}
       fullWidth
     >
+      <DialogTitle>写真を投稿する</DialogTitle>
+      <form onSubmit={handleSubmit}>
+        <DialogInner>
+          <TextField
+          rows={4}
+          variant="outlined"
+          required
+          fullWidth
+          label="キャプション"
+          multiline
+          placeholder='キャプションを入力...'
+          onChange={e => setCaption(e.target.value)}
+        />
 
-        {
-          loading ? (
-            <DialogInner>
-              <DialogTitle>
-                <LinearProgress/>
-              </DialogTitle>
-            </DialogInner>
-          ) : (
-            <>
-              <DialogTitle>写真を投稿する</DialogTitle>
-              <form onSubmit={handleSubmit}>
-                <DialogInner>
-                  <TextField
-                  rows={4}
-                  variant="outlined"
-                  required
-                  fullWidth
-                  label="キャプション"
-                  multiline
-                  placeholder='キャプションを入力...'
-                  onChange={e => setText(e.target.value)}
-                />
+          <ImageWapper>
+            <label 
+              htmlFor={inputId}>
+              <Button
+                variant="contained"
+                disabled={images.length >= maxImagesUpload}
+                component="span"
+              >
+                ＋
+              </Button>
+              <input
+                id={inputId}
+                type="file"
+                multiple
+                accept="image/*,.png,.jpg,.jpeg,.gif"
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleOnAddImage(e)}
+                disabled={images.length >= maxImagesUpload}
+                style={{ display: "none" }}
+              />
+            </label>
+            <ImagesArea>
+              {images.map((image, i) => (
+                <ImagesBox key={i} >
+                  <Image src={URL.createObjectURL(image)}/>
+                  <IconButton
+                    style={{
+                      top: -15,
+                      left: -10,
+                      color: "#aaa"
+                    }}
+                    onClick={() => handleOnRemoveImage(i)}>
+                      <div>×</div>
+                  </IconButton>
+                </ImagesBox>
+              ))}
+            </ImagesArea>
+          </ImageWapper>
 
-                <ImageWapper>
-                  <label htmlFor={inputId}>
-                    <Button
-                      variant="contained"
-                      disabled={images.length >= maxImagesUpload}
-                      component="span"
-                    >
-                      ＋
-                    </Button>
-                    <input
-                      id={inputId}
-                      type="file"
-                      multiple
-                      accept="image/*,.png,.jpg,.jpeg,.gif"
-                      onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleOnAddImage(e)}
-                      style={{ display: "none" }}
-                    />
-                  </label>
-                  <ImagesArea>
-                    {images.map((image, i) => (
-                      <ImagesBox key={i} >
-                        <Image src={URL.createObjectURL(image)}/>
-                        <IconButton
-                          style={{
-                            top: -15,
-                            left: -10,
-                            color: "#aaa"
-                          }}
-                          onClick={() => handleOnRemoveImage(i)}>
-                            <div>×</div>
-                        </IconButton>
-                      </ImagesBox>
-                    ))}
-                  </ImagesArea>
-                </ImageWapper>
-
-                <ButtonWrapper>
-                  <SubmitButton>送信</SubmitButton>
-                </ButtonWrapper>
-              </DialogInner>
-            </form>
-          </>
-          )
-        }
-
+          <ButtonWrapper>
+            <SubmitButton>送信</SubmitButton>
+          </ButtonWrapper>
+        </DialogInner>
+      </form>
     </Dialog>
   )
 }
