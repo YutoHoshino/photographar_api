@@ -16,6 +16,14 @@ export interface SignInData {
   }
 }
 
+// 新規投稿（送信系）
+export interface PostData {
+  append: {
+    caption: string,
+    images: File[]
+  }
+}
+
 // ユーザー（UseState系）
 export interface User {
   id: number
