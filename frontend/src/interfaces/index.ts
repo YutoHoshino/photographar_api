@@ -18,10 +18,7 @@ export interface SignInData {
 
 // 新規投稿（送信系）
 export interface PostData {
-  append: {
-    caption: string,
-    images: File[]
-  }
+
 }
 
 // ユーザー（UseState系）
@@ -30,4 +27,15 @@ export interface User {
   name: string
   email: string
   image?: string
+}
+
+// 新規投稿（送信系）
+export interface Post {
+  id: number,
+  caption: string,
+  user_id: number,
+  deleted: Date,
+  deleted_at: Date,
+  created_at: Date,
+  updated_at: Date
 }

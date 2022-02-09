@@ -7,7 +7,7 @@ import 'App.css'
 // containers
 import { SignUp } from 'containers/SignUp'
 import { SignIn } from "containers/SignIn"
-import { Home } from "containers/Home"
+import { Post } from "containers/Post"
 
 // interface
 import { User } from 'interfaces/index'
@@ -65,7 +65,7 @@ const App = () => {
             <Switch>
               <Route exact path="/signup" component={ SignUp } />
               <Route exact path="/signin" component={ SignIn } />
-              <Route exact path="/" component={ Home } />
+              <Route exact path="/" component={ Post } />
             </Switch>
           </Switch>
       </AuthContext.Provider>

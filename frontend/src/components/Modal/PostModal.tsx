@@ -7,11 +7,7 @@ import { DialogContent, Dialog, DialogTitle, TextField, Button, makeStyles, Them
 //components
 import { SubmitButton } from 'components/Button/SubmitButton';
 
-// interface
-import { PostData } from 'interfaces';
-
 // apis
-import { postCreate } from 'apis/post';
 import { PostCreate } from 'containers/PostCreate';
 
 interface Props {

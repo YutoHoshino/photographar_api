@@ -4,7 +4,7 @@ import { client } from './client';
 // interface
 import { PostData } from 'interfaces';
 
-// サインアップ
+// 投稿作成
 export const postCreate = async (params: any) => {
   const config = {
     headers: {
@@ -13,6 +13,15 @@ export const postCreate = async (params: any) => {
   }
   return await client.post("post", params, config)
   .then( res => {
+    return res.data
+  })
+  .catch ((e) => console.error(e))
+}
+
+// 投稿一覧を取得する
+export const PostGetData = async () => {
+  return await client.get("posts")
+  .then(res => {
     return res.data
   })
   .catch ((e) => console.error(e))
