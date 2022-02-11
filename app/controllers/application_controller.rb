@@ -1,4 +1,5 @@
 class ApplicationController < ActionController::API
+  before_action :current_user
 
   def login(user)
     remember_token = User.new_remember_token

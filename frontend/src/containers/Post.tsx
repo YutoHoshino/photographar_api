@@ -23,10 +23,14 @@ const SCard = styled(Card)`
 const useStyles = makeStyles(() => ({
   container: {
     paddingTop: "3rem"
+  },
+  card: {
+    marginBottom: "3rem"
   }
 }))
 
 type Props = {
+  post: {
     id: number,
     caption: string,
     user_id: number,
@@ -34,6 +38,26 @@ type Props = {
     deleted_at: Date,
     created_at: Date,
     updated_at: Date
+  },
+  photos: Array<{
+      id: number,
+      image?: {
+        url: string
+      },
+      post_id: number,
+      created_at: Date,
+      updated_at: Date,
+  }>,
+  user: {
+    id: number,
+    name: string,
+    email: string,
+    image?: {
+      url: string
+    },
+    created_at: Date,
+    updated_at: Date,
+  }
 }
 
 export const Post = () => {
@@ -60,7 +84,7 @@ export const Post = () => {
     })
   }, [])
 
-  console.log(state.fetchState)
+
 
   return(
     <>
@@ -75,37 +99,56 @@ export const Post = () => {
               {
                 state.fetchState == "OK" ? 
                 (
-                  state.postList.posts.map((post: Props) => {
+                  state.postList.posts.map((postdata: Props) => {
                     return (
-                      <Card>
+                      <Card 
+                        className={classes.card}
+                        key={postdata.post.id}>
+           
                         <CardHeader
                           avatar={
-                            <Avatar
-                              alt="Ted talk"
-                              src="https://pbs.twimg.com/profile_images/877631054525472768/Xp5FAPD5_reasonably_small.jpg"
-                            />
+                            postdata.user.image ? (
+                              <Avatar
+                                alt={postdata.user.name}
+                                src={postdata.user.image.url}
+                              />
+                            ) : (
+                              null
+                            )
                           }
                           action={
                             <IconButton aria-label="settings"><>:</></IconButton>
                           }
                           title={
-                            post.caption
+                            postdata.user.name
                           }
                           subheader={
-                            '5 hours ago'
+                            postdata.post.created_at
                           }
                         />
-                  
-                        <CardMedia
-                          component="img"
-                          height="400"
-                          image="https://pi.tedcdn.com/r/talkstar-photos.s3.amazonaws.com/uploads/72bda89f-9bbf-4685-910a-2f151c4f3a8a/NicolaSturgeon_2019T-embed.jpg?w=512"
-                          alt="Nicola Sturgeon on a TED talk stage"
+                        
+                        {postdata.photos[0].image ? (
+                          <CardMedia
+                            component="img"
+                            height="400"
+                            image={postdata.photos[0].image.url}
                         />
+                        ) : (
+                          null
+                        )}
+                        
+                        { postdata.photos[0].image ? (
+
+                          console.log(postdata.photos[0].image.url)
+                        ) : (
+                          null
+                        )
+                        }
                   
                         <CardContent>
+                          
                           <Typography variant="body2">
-                            "Why First Minister of Scotland Nicola Sturgeon thinks GDP is the wrong measure of a country's success:"  
+                            {postdata.post.caption}
                           </Typography>
                         </CardContent>
                   

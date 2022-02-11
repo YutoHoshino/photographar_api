@@ -31,11 +31,28 @@ export interface User {
 
 // 新規投稿（送信系）
 export interface Post {
-  id: number,
-  caption: string,
-  user_id: number,
-  deleted: Date,
-  deleted_at: Date,
-  created_at: Date,
-  updated_at: Date
+  post: {
+    id: number,
+    caption: string,
+    user_id: number,
+    deleted: Date,
+    deleted_at: Date,
+    created_at: Date,
+    updated_at: Date
+  },
+  photos: Array<{
+      id: number,
+      image: any,
+      post_id: number,
+      created_at: Date,
+      updated_at: Date,
+  }>,
+  user: {
+    id: number,
+    name: string,
+    email: string,
+    image: any,
+    created_at: Date,
+    updated_at: Date,
+  }
 }
