@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useState } from "react";
 import styled from 'styled-components';
 
@@ -9,6 +9,8 @@ import { SubmitButton } from 'components/Button/SubmitButton';
 
 // apis
 import { PostCreate } from 'containers/PostCreate';
+import { PostGetData } from 'apis/post';
+import { PostContext } from 'containers/Post';
 
 interface Props {
   isOpen: boolean,
@@ -54,6 +56,8 @@ const Image = styled.img`
 
 export const PostModal = (props: Props) => {
 
+  const { setBoolean } = useContext(PostContext)
+
   const [caption, setCaption] = useState<string>("")
   const [images, setImages] = useState<File[]>([]);
   const maxImagesUpload = 3;
@@ -81,6 +85,7 @@ export const PostModal = (props: Props) => {
       setImages([])
       setCaption("")
       props.onClose();
+      setBoolean(true)
     })
   }
 

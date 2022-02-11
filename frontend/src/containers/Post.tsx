@@ -1,4 +1,4 @@
-import { useContext, useEffect, useReducer, useState } from "react"
+import { createContext, memo, useContext, useEffect, useReducer, useState } from "react"
 
 // material
 import { Avatar, Card, CardContent, CardHeader, CardMedia, Container, Grid, IconButton, LinearProgress, makeStyles, Typography } from '@material-ui/core';
@@ -60,9 +60,16 @@ type Props = {
   }
 }
 
+export const PostContext = createContext({} as {
+  boolean: boolean
+  setBoolean: React.Dispatch<React.SetStateAction<boolean>>
+})
+
 export const Post = () => {
 
   const classes = useStyles()
+
+  const [boolean, setBoolean] = useState(false);
 
   const initialState = {
     fetchState: "INITIAL",
@@ -80,14 +87,17 @@ export const Post = () => {
         payload: data,
       });
     })
-  }, [])
+    setBoolean(false)
+  }, [boolean])
 
 
 
   return(
     <>
       <header>
-        <PrimaryHeader />
+        <PostContext.Provider value={{ boolean, setBoolean }}>
+          <PrimaryHeader />
+        </PostContext.Provider>
       </header>
 
       <main>
