@@ -56,7 +56,7 @@ const Image = styled.img`
 
 export const PostModal = (props: Props) => {
 
-  const { setBoolean } = useContext(PostContext)
+  const { setIsCreatePost } = useContext(PostContext)
 
   const [caption, setCaption] = useState<string>("")
   const [images, setImages] = useState<File[]>([]);
@@ -82,10 +82,10 @@ export const PostModal = (props: Props) => {
     e.preventDefault();
     PostCreate({caption, images})
     .then((res) => {
+      props.onClose();
       setImages([])
       setCaption("")
-      props.onClose();
-      setBoolean(true)
+      setIsCreatePost(true)
     })
   }
 

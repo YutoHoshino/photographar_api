@@ -61,15 +61,15 @@ type Props = {
 }
 
 export const PostContext = createContext({} as {
-  boolean: boolean
-  setBoolean: React.Dispatch<React.SetStateAction<boolean>>
+  isCreatePost: boolean
+  setIsCreatePost: React.Dispatch<React.SetStateAction<boolean>>
 })
 
 export const Post = () => {
 
   const classes = useStyles()
 
-  const [boolean, setBoolean] = useState(false);
+  const [isCreatePost, setIsCreatePost] = useState(false);
 
   const initialState = {
     fetchState: "INITIAL",
@@ -87,15 +87,15 @@ export const Post = () => {
         payload: data,
       });
     })
-    setBoolean(false)
-  }, [boolean])
+    setIsCreatePost(false)
+  }, [isCreatePost])
 
 
 
   return(
     <>
       <header>
-        <PostContext.Provider value={{ boolean, setBoolean }}>
+        <PostContext.Provider value={{ isCreatePost, setIsCreatePost }}>
           <PrimaryHeader />
         </PostContext.Provider>
       </header>
