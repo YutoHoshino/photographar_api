@@ -64,8 +64,6 @@ export const Post = () => {
 
   const classes = useStyles()
 
-  const { currentUser, isSignedIn } = useContext(AuthContext)
-
   const initialState = {
     fetchState: "INITIAL",
     postList: []
@@ -127,23 +125,14 @@ export const Post = () => {
                           }
                         />
                         
-                        {postdata.photos[0].image ? (
+                        {postdata.photos[0].image ?
                           <CardMedia
                             component="img"
                             height="400"
                             image={postdata.photos[0].image.url}
-                        />
-                        ) : (
-                          null
-                        )}
-                        
-                        { postdata.photos[0].image ? (
-
-                          console.log(postdata.photos[0].image.url)
-                        ) : (
-                          null
-                        )
+                          /> : null
                         }
+
                   
                         <CardContent>
                           
