@@ -9,7 +9,6 @@ import { SubmitButton } from 'components/Button/SubmitButton';
 
 // apis
 import { PostCreate } from 'containers/PostCreate';
-import { PostGetData } from 'apis/post';
 import { PostContext } from 'containers/Post';
 
 interface Props {

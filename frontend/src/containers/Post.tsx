@@ -10,7 +10,7 @@ import Comment from "@material-ui/icons/Comment"
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 
 // apis
-import { PostGetData } from "apis/post"
+import { postGetData } from "apis/post"
 
 // reductor
 import { postsReductor } from "reducers/postsReductor"
@@ -20,6 +20,7 @@ import { PostActionModal } from "components/Modal/PostActionModal";
 // style css
 const SCard = styled(Card)`
   max-width: 500px;
+  margin-bottom: 50px;
 `
 
 const STypography = styled(Typography)`
@@ -89,7 +90,7 @@ export const Post = () => {
   const [state, dispatch] = useReducer(postsReductor, initialState);
   useEffect(() => {
     dispatch({ type: 'FETCHING' });
-    PostGetData()
+    postGetData()
     .then((data) => {
       dispatch({ 
         type: 'FETCH_SUCCESS',
@@ -103,7 +104,6 @@ export const Post = () => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const isPostModal = Boolean(anchorEl);
   const handleMobileMenuOpen = (event: any) => {
-    console.log(event)
     setAnchorEl(event.currentTarget);
   }
 
@@ -126,7 +126,6 @@ export const Post = () => {
                   state.postList.posts.map((postdata: Props) => {
                     return (
                       <SCard 
-                        className={classes.card}
                         key={postdata.post.id}>
            
                         <CardHeader
@@ -144,7 +143,7 @@ export const Post = () => {
                             <>
                               <IconButton aria-label="settings">
                                 <MoreVertIcon onClick={handleMobileMenuOpen}/>
-                                <PostActionModal 
+                                <PostActionModal
                                   isPostModal={isPostModal}
                                   onClose={() => setAnchorEl(null)}
                                   anchorEl={anchorEl}
