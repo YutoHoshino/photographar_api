@@ -21,6 +21,8 @@ import { PostActionModal } from "components/Modal/PostActionModal";
 const SCard = styled(Card)`
   max-width: 500px;
   margin-bottom: 50px;
+  box-shadow: none;
+  border: 1px solid #dbdbdb;
 `
 
 const STypography = styled(Typography)`
@@ -30,12 +32,23 @@ const STypography = styled(Typography)`
   white-space: nowrap;
 `
 
+const Sheader = styled.header`
+  margin-bottom: 80px;
+`
+
+const Sdiv = styled.div`
+  display: none;
+`
+
 const useStyles = makeStyles(() => ({
   container: {
     paddingTop: "3rem"
   },
   card: {
     marginBottom: "3rem"
+  },
+  iconButton: {
+    display: "none"
   }
 }))
 
@@ -105,18 +118,18 @@ export const Post = () => {
   const [postId, setPostId] = useState<null | Number>(null);
   const isPostModal = Boolean(anchorEl);
   const handleMobileMenuOpen = (event: any) => {
-    setPostId(event.target.parentElement.textContent)
+    setPostId(event.target.previousElementSibling.textContent)
     setAnchorEl(event.currentTarget);
   }
 
 
   return(
     <>
-      <header>
+      <Sheader>
         <PostContext.Provider value={{ isCreatePost, setIsCreatePost }}>
           <PrimaryHeader />
         </PostContext.Provider>
-      </header>
+      </Sheader>
 
       <main>
         <Container maxWidth="lg" className={classes.container}>
@@ -143,8 +156,11 @@ export const Post = () => {
                           }
                           action={
                             <>
-                              <IconButton aria-label="settings" onClick={handleMobileMenuOpen}>
-                                {postdata.post.id}
+                              <IconButton 
+                                aria-label="settings" 
+                                onClick={handleMobileMenuOpen} 
+                              >
+                                <Sdiv>{postdata.post.id}</Sdiv>
                                 <MoreVertIcon/>
                               </IconButton>
                             </>

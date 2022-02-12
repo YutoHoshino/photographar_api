@@ -19,8 +19,12 @@ import { SignOut } from "containers/SignOut";
 // material css
 const useStyles = makeStyles(
   {
+    appBar: {
+      boxShadow: 'none',
+      borderBottom: "solid 1px #dbdbdb"
+    },
     toolbar: {
-        minHeight: `50px`,
+        minHeight: `60px`,
     },
     title: {
       flexGrow: 1,
@@ -61,8 +65,8 @@ export const PrimaryHeader = () => {
 
   return (
     <AppBar 
-      position="static"
-      elevation={0}
+      color="primary"
+      className={classes.appBar}
     >
       <Toolbar
         className={classes.toolbar}
