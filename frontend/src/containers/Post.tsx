@@ -15,6 +15,7 @@ import { PostGetData } from "apis/post"
 // reductor
 import { postsReductor } from "reducers/postsReductor"
 import { PrimaryHeader } from "components/Header/PrimaryHeader";
+import { PostActionModal } from "components/Modal/PostActionModal";
 
 // style css
 const SCard = styled(Card)`
@@ -77,15 +78,15 @@ export const Post = () => {
 
   const classes = useStyles()
 
+  // 投稿されたかどうかのuseStatue
   const [isCreatePost, setIsCreatePost] = useState(false);
 
+  // 投稿内容取得
   const initialState = {
     fetchState: "INITIAL",
     postList: []
   }
-
   const [state, dispatch] = useReducer(postsReductor, initialState);
-
   useEffect(() => {
     dispatch({ type: 'FETCHING' });
     PostGetData()
@@ -97,6 +98,15 @@ export const Post = () => {
     })
     setIsCreatePost(false)
   }, [isCreatePost])
+
+  // PostMenuモーダル表示
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const isPostModal = Boolean(anchorEl);
+  const handleMobileMenuOpen = (event: any) => {
+    console.log(event)
+    setAnchorEl(event.currentTarget);
+  }
+
 
   return(
     <>
@@ -133,9 +143,13 @@ export const Post = () => {
                           action={
                             <>
                               <IconButton aria-label="settings">
-                                <MoreVertIcon/>
+                                <MoreVertIcon onClick={handleMobileMenuOpen}/>
+                                <PostActionModal 
+                                  isPostModal={isPostModal}
+                                  onClose={() => setAnchorEl(null)}
+                                  anchorEl={anchorEl}
+                                />
                               </IconButton>
-
                             </>
                           }
                           title={
