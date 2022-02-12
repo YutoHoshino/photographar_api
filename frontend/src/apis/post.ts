@@ -29,7 +29,7 @@ export const postGetData = async () => {
 
 // 投稿削除
 export const postDelete = async (params: any) => {
-  return await client.delete("posts", params)
+  return await client.delete(`posts/${params.id}`)
   .then(res => {
     return res.data
   })

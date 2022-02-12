@@ -17,7 +17,7 @@ class Api::V1::PostsController < ApplicationController
 
   def destroy
     post = Post.find_by(id: params[:id])
-    if post.destroy
+    if post.update!(deleted: "deleted")
       render json: {}, status: :ok
     else
       render json: {}, status: :internal_server_error
