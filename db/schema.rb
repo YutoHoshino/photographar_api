@@ -16,7 +16,7 @@ ActiveRecord::Schema.define(version: 2022_02_08_033005) do
   enable_extension "plpgsql"
 
   create_table "photos", force: :cascade do |t|
-    t.string "image", comment: "画像"
+    t.string "image", null: false, comment: "画像"
     t.bigint "post_id", null: false, comment: "投稿ID"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -24,7 +24,7 @@ ActiveRecord::Schema.define(version: 2022_02_08_033005) do
   end
 
   create_table "posts", force: :cascade do |t|
-    t.string "caption", null: false, comment: "キャンプション"
+    t.string "caption", comment: "キャンプション"
     t.bigint "user_id", null: false, comment: "ユーザーID"
     t.integer "deleted", default: 0, null: false, comment: "削除フラグ(0=>未削除,1=>削除)"
     t.datetime "deleted_at", comment: "削除日時"
