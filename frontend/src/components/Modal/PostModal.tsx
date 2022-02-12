@@ -103,7 +103,6 @@ export const PostModal = (props: Props) => {
           <TextField
           rows={4}
           variant="outlined"
-          required
           fullWidth
           label="キャプション"
           multiline
@@ -122,6 +121,7 @@ export const PostModal = (props: Props) => {
                 ＋
               </Button>
               <input
+                required
                 id={inputId}
                 type="file"
                 multiple

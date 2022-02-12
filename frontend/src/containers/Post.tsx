@@ -98,8 +98,6 @@ export const Post = () => {
     setIsCreatePost(false)
   }, [isCreatePost])
 
-
-
   return(
     <>
       <header>
@@ -113,7 +111,7 @@ export const Post = () => {
           <Grid container justifyContent="center">
             <Grid item>
               {
-                state.fetchState == "OK" ? 
+                state.fetchState == "OK" && state.postList.posts != undefined ? 
                 (
                   state.postList.posts.map((postdata: Props) => {
                     return (
