@@ -102,8 +102,10 @@ export const Post = () => {
 
   // PostMenuモーダル表示
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const [postId, setPostId] = useState<null | Number>(null);
   const isPostModal = Boolean(anchorEl);
   const handleMobileMenuOpen = (event: any) => {
+    setPostId(event.target.parentElement.textContent)
     setAnchorEl(event.currentTarget);
   }
 
@@ -141,13 +143,9 @@ export const Post = () => {
                           }
                           action={
                             <>
-                              <IconButton aria-label="settings">
-                                <MoreVertIcon onClick={handleMobileMenuOpen}/>
-                                <PostActionModal
-                                  isPostModal={isPostModal}
-                                  onClose={() => setAnchorEl(null)}
-                                  anchorEl={anchorEl}
-                                />
+                              <IconButton aria-label="settings" onClick={handleMobileMenuOpen}>
+                                {postdata.post.id}
+                                <MoreVertIcon/>
                               </IconButton>
                             </>
                           }
@@ -202,6 +200,18 @@ export const Post = () => {
           </Grid>
         </Container>
       </main>
+
+
+        {/* メニューモーダル */}
+      {
+        <PostActionModal
+          isPostModal={isPostModal}
+          onClose={() => setAnchorEl(null)}
+          anchorEl={anchorEl}
+          postId={postId}
+        />
+      }
+
     </>
   )
 }

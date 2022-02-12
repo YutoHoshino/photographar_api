@@ -5,6 +5,7 @@ interface Props {
   isPostModal: boolean,
   onClose: () => void,
   anchorEl: any,
+  postId: Number | null
 }
 
 
@@ -14,13 +15,13 @@ export const PostActionModal = (props: Props) => {
   // 投稿編集
   const handleEdit = (e: React.SyntheticEvent) => {
     console.log("編集")
-    console.log(props)
+    console.log(props.postId)
   }
 
   // 投稿削除
   const handleDelete = (e: React.SyntheticEvent) => {
     console.log("削除")
-    console.log(props)
+    console.log(props.postId)
   }
 
 
