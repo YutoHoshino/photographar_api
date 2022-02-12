@@ -1,12 +1,13 @@
 import { createContext, memo, useContext, useEffect, useReducer, useState } from "react"
 
 // material
-import { Avatar, Card, CardContent, CardHeader, CardMedia, Container, Grid, IconButton, LinearProgress, makeStyles, Typography } from '@material-ui/core';
+import { Avatar, Card, CardActions, CardContent, CardHeader, CardMedia, Container, Grid, IconButton, LinearProgress, makeStyles, Typography } from '@material-ui/core';
 import Skeleton from '@material-ui/lab/Skeleton';
 import styled from "styled-components";
-
-// useContext
-import { AuthContext } from "App"
+import FavoriteIcon from "@material-ui/icons/Favorite"
+import ShareIcon from "@material-ui/icons/Share"
+import Comment from "@material-ui/icons/Comment"
+import MoreVertIcon from "@material-ui/icons/MoreVert";
 
 // apis
 import { PostGetData } from "apis/post"
@@ -17,7 +18,14 @@ import { PrimaryHeader } from "components/Header/PrimaryHeader";
 
 // style css
 const SCard = styled(Card)`
-  max-width: 345px;
+  max-width: 500px;
+`
+
+const STypography = styled(Typography)`
+  width: 300px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 `
 
 const useStyles = makeStyles(() => ({
@@ -109,7 +117,7 @@ export const Post = () => {
                 (
                   state.postList.posts.map((postdata: Props) => {
                     return (
-                      <Card 
+                      <SCard 
                         className={classes.card}
                         key={postdata.post.id}>
            
@@ -125,7 +133,12 @@ export const Post = () => {
                             )
                           }
                           action={
-                            <IconButton aria-label="settings"><>:</></IconButton>
+                            <>
+                              <IconButton aria-label="settings">
+                                <MoreVertIcon/>
+                              </IconButton>
+
+                            </>
                           }
                           title={
                             postdata.user.name
@@ -143,15 +156,26 @@ export const Post = () => {
                           /> : null
                         }
 
-                  
+                        <CardActions disableSpacing>
+                          <IconButton>
+                            <FavoriteIcon />
+                          </IconButton>
+                          <IconButton>
+                            <Comment />
+                          </IconButton>
+                          <IconButton>
+                            <ShareIcon />
+                          </IconButton>
+                        </CardActions>
+
                         <CardContent>
                           
-                          <Typography variant="body2">
+                          <STypography variant="body2" >
                             {postdata.post.caption}
-                          </Typography>
+                          </STypography>
                         </CardContent>
                   
-                      </Card>
+                      </SCard>
                     )
                   })
                 )
