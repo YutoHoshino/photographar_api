@@ -1,6 +1,7 @@
 import { useContext } from "react"
 import { MenuItem } from "@material-ui/core"
 
+import styled from "styled-components";
 import Menu from '@mui/material/Menu';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
@@ -10,6 +11,11 @@ import { postDelete } from "apis/post"
 
 // container
 import { PostContext } from "containers/Post"
+
+//style css
+const SMenuItem = styled(MenuItem)`
+  color: red;
+`
 
 // interface
 interface Props {
@@ -51,11 +57,11 @@ export const PostActionModal = (props: Props) => {
         <p>修正</p>
       </MenuItem>
 
-      <MenuItem 
+      <SMenuItem 
         onClick={handleDelete}>
         <DeleteIcon/>
         <p>削除</p>
-      </MenuItem>
+      </SMenuItem>
     </Menu>
   )
 }
