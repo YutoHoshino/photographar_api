@@ -1,6 +1,7 @@
 import { useContext } from "react"
-import { Menu, MenuItem } from "@material-ui/core"
+import { MenuItem } from "@material-ui/core"
 
+import Menu from '@mui/material/Menu';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 
@@ -25,8 +26,6 @@ export const PostActionModal = (props: Props) => {
 
   // 投稿編集
   const handleEdit = (e: React.SyntheticEvent) => {
-    console.log("編集")
-    console.log(props.postId)
   }
 
   // 投稿削除
@@ -45,7 +44,6 @@ export const PostActionModal = (props: Props) => {
       anchorEl={props.anchorEl}
       open={props.isPostModal}
       onClose={props.onClose}
-      
     >
       <MenuItem
         onClick={handleEdit}>

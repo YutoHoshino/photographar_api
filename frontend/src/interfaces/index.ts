@@ -26,7 +26,9 @@ export interface User {
   id: number
   name: string
   email: string
-  image?: string
+  image?: {
+    url: string
+  }
 }
 
 // 新規投稿（送信系）

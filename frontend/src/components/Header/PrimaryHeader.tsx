@@ -2,7 +2,7 @@ import { useContext, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 
 // material
-import { AppBar, Toolbar, IconButton, makeStyles, Typography, Button } from "@material-ui/core"
+import { Avatar, AppBar, Toolbar, IconButton, makeStyles, Typography, Button } from "@material-ui/core"
 
 import Icon from '@mdi/react'
 import { mdiImagePlus, mdiAccountCircle } from '@mdi/js'
@@ -15,6 +15,9 @@ import { PostModal } from "components/Modal/PostModal";
 
 // containers
 import { SignOut } from "containers/SignOut";
+
+// compornent
+import { UserModal } from "components/Modal/UserModal";
 
 // material css
 const useStyles = makeStyles(
@@ -36,13 +39,20 @@ const useStyles = makeStyles(
 
 export const PrimaryHeader = () => {
 
-  const { setIsSignedIn, setCurrentUser } = useContext(AuthContext)
+  const { setIsSignedIn, setCurrentUser, currentUser } = useContext(AuthContext)
 
   const classes = useStyles();
 
   const history = useHistory();
 
   const [isOpen, setIsOpen] = useState<boolean>(false)
+
+  // PostMenuモーダル表示
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const isPostModal = Boolean(anchorEl);
+  const handleMobileMenuOpen = (event: any) => {
+    setAnchorEl(event.currentTarget);
+  }
 
 
   // ログアウト
@@ -64,58 +74,77 @@ export const PrimaryHeader = () => {
   
 
   return (
-    <AppBar 
-      color="primary"
-      className={classes.appBar}
-    >
-      <Toolbar
-        className={classes.toolbar}
-      >
-
-        <Typography
-            component={Link}
-            to="/"
-            variant="h6"
-            className={classes.title}
-          >
-            photographar
-        </Typography>
-
+    <>
+      {
+        currentUser ? 
         <>
-          {/* 投稿 */}
-          <Button
-            color="inherit"
-            onClick={handlePost}
+          <AppBar 
+          color="primary"
+          className={classes.appBar}
           >
-            <Icon path={mdiImagePlus} size={1.3}/>
-          </Button>
+            <Toolbar
+              className={classes.toolbar}
+            >
+      
+              <Typography
+                  component={Link}
+                  to="/"
+                  variant="h6"
+                  className={classes.title}
+                >
+                  photographar
+              </Typography>
+    
+              <>
+                {/* 投稿 */}
+                <Button
+                  color="inherit"
+                  onClick={handlePost}
+                >
+                  <Icon path={mdiImagePlus} size={1.3}/>
+                </Button>
+      
+      
+                {/* ユーザーアイコン */}
+                <IconButton
+                  onClick={handleMobileMenuOpen} 
+                >
+                  <Avatar
+                    alt={currentUser.name}
+                    src={currentUser.image?.url}
+                  />
+                </IconButton>
+      
+                {/* ログアウト */}
+                <Button
+                  color="inherit"
+                  onClick={handleSignOut}
+                >
+                  ログアウト
+                </Button>
+              </>
+    
+              {
+                <PostModal
+                  isOpen={isOpen}
+                  onClose={() => setIsOpen(false)}
+                />
+              }
+    
+            </Toolbar>
+          </AppBar>
 
-
-          {/* ユーザーアイコン */}
-          <Button
-            color="inherit"
-          >
-            <Icon path={mdiAccountCircle} size={1.3}/>
-          </Button>
-
-          {/* ログアウト */}
-          <Button
-            color="inherit"
-            onClick={handleSignOut}
-          >
-            ログアウト
-          </Button>
-        </>
-
-        {
-          <PostModal
-            isOpen={isOpen}
-            onClose={() => setIsOpen(false)}
+          <UserModal
+            isPostModal={isPostModal}
+            onClose={() => setAnchorEl(null)}
+            anchorEl={anchorEl}
+            setAnchorEl={setAnchorEl}
           />
-        }
 
-
-      </Toolbar>
-    </AppBar>
+        </>
+      :
+        <></>
+      }
+    </>
   )
 }

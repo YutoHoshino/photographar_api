@@ -14,13 +14,10 @@ import { postGetData } from "apis/post"
 
 // reductor
 import { postsReductor } from "reducers/postsReductor"
+
+// components
 import { PrimaryHeader } from "components/Header/PrimaryHeader";
 import { PostActionModal } from "components/Modal/PostActionModal";
-
-
-// swiper 
-import { Swiper, SwiperSlide } from 'swiper/react';
-// import 'swiper/css';
 import { PostSwiper } from "components/Swiper/PostSwiper";
 
 // style css
@@ -162,7 +159,6 @@ export const Post = () => {
                             action={
                               <>
                                 <IconButton
-                                  aria-label="settings" 
                                   onClick={handleMobileMenuOpen} 
                                 >
                                   <Sdiv>{postdata.post.id}</Sdiv>

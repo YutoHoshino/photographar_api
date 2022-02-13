@@ -35,7 +35,7 @@ const App = () => {
     const data = await getCurrentUser()
     if (data) {
       setIsSignedIn(true)
-      setCurrentUser(data?.user)
+      setCurrentUser(data.user)
     } else {
       console.log("No current user")
     }
