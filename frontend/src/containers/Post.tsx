@@ -17,6 +17,12 @@ import { postsReductor } from "reducers/postsReductor"
 import { PrimaryHeader } from "components/Header/PrimaryHeader";
 import { PostActionModal } from "components/Modal/PostActionModal";
 
+
+// swiper 
+import { Swiper, SwiperSlide } from 'swiper/react';
+// import 'swiper/css';
+import { PostSwiper } from "components/Swiper/PostSwiper";
+
 // style css
 const SCard = styled(Card)`
   max-width: 500px;
@@ -172,13 +178,7 @@ export const Post = () => {
                             }
                           />
                           
-                          {postdata.photos[0].image ?
-                            <CardMedia
-                              component="img"
-                              height="400"
-                              image={postdata.photos[0].image.url}
-                            /> : null
-                          }
+                          <PostSwiper postdata={postdata} />
 
                           <CardActions disableSpacing>
                             <IconButton>
