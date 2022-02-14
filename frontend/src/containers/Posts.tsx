@@ -1,9 +1,22 @@
 import { createContext, memo, useContext, useEffect, useReducer, useState } from "react"
+import styled from "styled-components";
 
 // material
-import { Avatar, Card, CardActions, CardContent, CardHeader, CardMedia, Container, Grid, IconButton, LinearProgress, makeStyles, Typography } from '@material-ui/core';
-import Skeleton from '@material-ui/lab/Skeleton';
-import styled from "styled-components";
+import {
+  Avatar, 
+  Card, 
+  CardActions, 
+  CardContent, 
+  CardHeader, 
+  Container, 
+  Grid, 
+  IconButton, 
+  LinearProgress, 
+  makeStyles, 
+  Typography 
+} from '@material-ui/core';
+
+// material icon
 import FavoriteIcon from "@material-ui/icons/Favorite"
 import ShareIcon from "@material-ui/icons/Share"
 import Comment from "@material-ui/icons/Comment"
@@ -20,6 +33,9 @@ import { PrimaryHeader } from "components/Header/PrimaryHeader";
 import { PostActionModal } from "components/Modal/PostActionModal";
 import { PostSwiper } from "components/Swiper/PostSwiper";
 
+// interface
+import { GetPostdata } from "interfaces"
+
 // style css
 const SCard = styled(Card)`
   max-width: 500px;
@@ -27,22 +43,20 @@ const SCard = styled(Card)`
   box-shadow: none;
   border: 1px solid #dbdbdb;
 `
-
 const STypography = styled(Typography)`
   width: 300px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 `
-
 const Sheader = styled.header`
   margin-bottom: 80px;
 `
-
 const Sdiv = styled.div`
   display: none;
 `
 
+// material css
 const useStyles = makeStyles(() => ({
   container: {
     paddingTop: "3rem"
@@ -55,36 +69,6 @@ const useStyles = makeStyles(() => ({
   }
 }))
 
-type Props = {
-  post: {
-    id: number,
-    caption: string,
-    user_id: number,
-    deleted: Date,
-    deleted_at: Date,
-    created_at: Date,
-    updated_at: Date
-  },
-  photos: Array<{
-      id: number,
-      image?: {
-        url: string
-      },
-      post_id: number,
-      created_at: Date,
-      updated_at: Date,
-  }>,
-  user: {
-    id: number,
-    name: string,
-    email: string,
-    image?: {
-      url: string
-    },
-    created_at: Date,
-    updated_at: Date,
-  }
-}
 
 export const PostContext = createContext({} as {
   isPost: boolean
@@ -140,7 +124,7 @@ export const Posts = () => {
                 {
                   state.fetchState == "OK" && state.postList.posts != undefined ? 
                   (
-                    state.postList.posts.map((postdata: Props) => {
+                    state.postList.posts.map((postdata: GetPostdata) => {
                       return (
                         <SCard 
                           key={postdata.post.id}>

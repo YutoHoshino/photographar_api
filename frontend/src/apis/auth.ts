@@ -2,11 +2,11 @@
 import { client } from './client';
 
 // interface
-import { SignUpData, SignInData } from 'interfaces';
+import { SendSignUpData, SendSignInData } from 'interfaces';
 
 
 // サインアップ
-export const signUp = async (params: SignUpData) => {
+export const signUp = async (params: SendSignUpData) => {
   return await client.post("signup", params)
   .then( res => {
     return res.data
@@ -15,7 +15,7 @@ export const signUp = async (params: SignUpData) => {
 }
 
 // サインイン
-export const signIn = async (params: SignInData) => {
+export const signIn = async (params: SendSignInData) => {
   return await client.post("signin", params)
   .then( res => {
     return res.data

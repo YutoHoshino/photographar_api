@@ -1,5 +1,5 @@
-// サインアップ（送信系）
-export interface SignUpData {
+// サインアップ（axios送信系）
+export interface SendSignUpData {
   user : {
     name: string
     email: string
@@ -8,21 +8,16 @@ export interface SignUpData {
   }
 }
 
-// サインイン（送信系）
-export interface SignInData {
+// サインイン（axios送信系）
+export interface SendSignInData {
   user : {
   email: string
   password: string
   }
 }
 
-// 新規投稿（送信系）
-export interface PostData {
-
-}
-
-// ユーザー（UseState系）
-export interface User {
+// カレントユーザー情報（UseState系）
+export interface GetCurrentUserData {
   id: number
   name: string
   email: string
@@ -31,8 +26,9 @@ export interface User {
   }
 }
 
-// 新規投稿（送信系）
-export interface Post {
+
+// 投稿データ（UseState系）
+export interface GetPostdata {
   post: {
     id: number,
     caption: string,
@@ -44,7 +40,9 @@ export interface Post {
   },
   photos: Array<{
       id: number,
-      image: any,
+      image?: {
+        url: string
+      },
       post_id: number,
       created_at: Date,
       updated_at: Date,
@@ -53,7 +51,9 @@ export interface Post {
     id: number,
     name: string,
     email: string,
-    image: any,
+    image?: {
+      url: string
+    },
     created_at: Date,
     updated_at: Date,
   }

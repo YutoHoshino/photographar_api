@@ -1,9 +1,6 @@
 //client
 import { client } from './client';
 
-// interface
-import { PostData } from 'interfaces';
-
 // 投稿作成
 export const postCreate = async (params: any) => {
   const config = {

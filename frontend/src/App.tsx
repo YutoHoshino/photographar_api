@@ -10,7 +10,7 @@ import { SignIn } from "containers/SignIn"
 import { Posts } from "containers/Posts"
 
 // interface
-import { User } from 'interfaces/index'
+import { GetCurrentUserData } from 'interfaces/index'
 
 // apis
 import { getCurrentUser } from "apis/auth"
@@ -20,15 +20,15 @@ import { Post } from "containers/Post"
 export const AuthContext = createContext({} as {
   isSignedIn: boolean
   setIsSignedIn: React.Dispatch<React.SetStateAction<boolean>>
-  currentUser: User | undefined
-  setCurrentUser: React.Dispatch<React.SetStateAction<User | undefined>>
+  currentUser: GetCurrentUserData | undefined
+  setCurrentUser: React.Dispatch<React.SetStateAction<GetCurrentUserData | undefined>>
 })
 
 const App = () => {
 
   // ログイン&ユーザー情報
   const [isSignedIn, setIsSignedIn] = useState<boolean>(false)
-  const [currentUser, setCurrentUser] = useState<User | undefined>()
+  const [currentUser, setCurrentUser] = useState<GetCurrentUserData | undefined>()
   const [loading, setLoading] = useState<boolean>(true)
 
   // ユーザー情報取得
@@ -63,32 +63,30 @@ const App = () => {
     <Router>
       <AuthContext.Provider value={{ isSignedIn, setIsSignedIn, currentUser, setCurrentUser }}>
           <Switch>
-            <Switch>
 
-              <Route 
-                exact 
-                path="/signup" 
-                component={ SignUp } 
-              />
+            <Route 
+              exact 
+              path="/signup" 
+              component={ SignUp } 
+            />
 
-              <Route 
-                exact 
-                path="/signin" 
-                component={ SignIn } 
-              />
+            <Route 
+              exact 
+              path="/signin" 
+              component={ SignIn } 
+            />
 
-              <Route 
-                exact path="/" 
-                component={ Posts } 
-              />
+            <Route 
+              exact path="/" 
+              component={ Posts } 
+            />
 
-              <Route           
-                exact
-                path="/post/:postId"
-                render={({ match }) => <Post match={match}/> } 
-              />
+            <Route           
+              exact
+              path="/post/:postId"
+              render={({ match }) => <Post match={match}/> } 
+            />
 
-            </Switch>
           </Switch>
       </AuthContext.Provider>
     </Router>

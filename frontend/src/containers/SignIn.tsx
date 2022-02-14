@@ -11,7 +11,7 @@ import { SubmitButton } from 'components/Button/SubmitButton';
 import { AuthLayout } from "components/Layout/AuthLayout";
 
 // interface
-import { SignInData } from "interfaces/index";
+import { SendSignInData } from "interfaces/index";
 
 // apis
 import { signIn } from "apis/auth";
@@ -58,7 +58,7 @@ export const SignIn = () => {
   // 送信イベント
   const handleSubmit = async (e: any) => {
     e.preventDefault()
-    const params: SignInData = {
+    const params: SendSignInData = {
       user: {
         email: email,
         password: password,
