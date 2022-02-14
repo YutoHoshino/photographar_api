@@ -14,11 +14,9 @@ import {
   CardActions, 
   CardContent, 
   CardHeader, 
-  Container, 
   Grid, 
   IconButton, 
   LinearProgress, 
-  makeStyles, 
   Typography 
 } from '@material-ui/core';
 
@@ -39,6 +37,7 @@ import { PostContext } from "App";
 
 // components
 import { CommonLayout } from "components/Layout/CommonLayout";
+import { LoadLayout } from "components/Layout/LoadLayout";
 import { PostActionModal } from "components/Modal/PostActionModal";
 import { PostSwiper } from "components/Swiper/PostSwiper";
 
@@ -65,22 +64,7 @@ const Sdiv = styled.div`
   display: none;
 `
 
-// material css
-const useStyles = makeStyles(() => ({
-  container: {
-    paddingTop: "3rem"
-  },
-  card: {
-    marginBottom: "3rem"
-  },
-  iconButton: {
-    display: "none"
-  }
-}))
-
 export const Posts = () => {
-
-  const classes = useStyles()
 
   const { isPosted, setIsPosted } = useContext(PostContext)
 
@@ -113,99 +97,89 @@ export const Posts = () => {
 
 
   return(
-    <CommonLayout>
-
-      <main>
-        <Container maxWidth="lg" className={classes.container}>
-          <Grid container justifyContent="center">
-            <Grid item>
-              {
-                state.fetchState == "OK" && state.postList.posts != undefined ? 
-                (
-                  state.postList.posts.map((postdata: GetPostdata) => {
-                    return (
-                      <SCard 
-                        key={postdata.post.id}>
-          
-                        <CardHeader
-                          avatar={
-                            postdata.user.image ? (
-                              <Avatar
-                                alt={postdata.user.name}
-                                src={postdata.user.image.url}
-                              />
-                            ) : (
-                              null
-                            )
-                          }
-                          action={
-                            <>
-                              <IconButton
-                                onClick={handleMobileMenuOpen} 
-                              >
-                                <Sdiv>{postdata.post.id}</Sdiv>
-                                <MoreVertIcon/>
-                              </IconButton>
-                            </>
-                          }
-                          title={
-                            postdata.user.name
-                          }
-                          subheader={
-                            postdata.post.created_at
-                          }
-                        />
-                        
-                        <PostSwiper postdata={postdata} />
-
-                        <CardActions disableSpacing>
-                          <IconButton>
-                            <FavoriteIcon />
-                          </IconButton>
-                          <IconButton>
-                            <Comment />
-                          </IconButton>
-                          <IconButton>
-                            <ShareIcon />
-                          </IconButton>
-                        </CardActions>
-
-                        <CardContent>
-                          
-                          <STypography variant="body2" >
-                            {postdata.post.caption}
-                          </STypography>
-                        </CardContent>
-                  
-                      </SCard>
-                    )
-                  })
-                )
-                :
-                (
-                  <>
-                    <div>ロード中・・・</div>
-                    <LinearProgress/>
-                  </>
-                )
-              }
-            </Grid>   
-          </Grid>
-        </Container>
-      </main>
-
-
-        {/* メニューモーダル */}
+    <>
       {
-        <PostActionModal
-          isPostModal={isPostModal}
-          onClose={() => setAnchorEl(null)}
-          anchorEl={anchorEl}
-          postId={postId}
-          setAnchorEl={setAnchorEl}
-        />
+        state.fetchState == "OK" && state.postList.posts != undefined ? 
+        (
+          <CommonLayout>
+            {state.postList.posts.map((postdata: GetPostdata) => {
+              return (
+                <SCard 
+                  key={postdata.post.id}>
+
+                  <CardHeader
+                    avatar={
+                      postdata.user.image ? (
+                        <Avatar
+                          alt={postdata.user.name}
+                          src={postdata.user.image.url}
+                        />
+                      ) : (
+                        null
+                      )
+                    }
+                    action={
+                      <>
+                        <IconButton
+                          onClick={handleMobileMenuOpen} 
+                        >
+                          <Sdiv>{postdata.post.id}</Sdiv>
+                          <MoreVertIcon/>
+                        </IconButton>
+                      </>
+                    }
+                    title={
+                      postdata.user.name
+                    }
+                    subheader={
+                      postdata.post.created_at
+                    }
+                  />
+                  
+                  <PostSwiper postdata={postdata} />
+
+                  <CardActions disableSpacing>
+                    <IconButton>
+                      <FavoriteIcon />
+                    </IconButton>
+                    <IconButton>
+                      <Comment />
+                    </IconButton>
+                    <IconButton>
+                      <ShareIcon />
+                    </IconButton>
+                  </CardActions>
+
+                  <CardContent>
+                    
+                    <STypography variant="body2" >
+                      {postdata.post.caption}
+                    </STypography>
+                  </CardContent>
+            
+                </SCard>
+              )
+            })}
+          </CommonLayout>
+          
+        )
+        :
+        (
+          <LoadLayout>
+            <div>ロード中・・・</div>
+            <LinearProgress/>
+          </LoadLayout>
+        )
       }
 
-    </CommonLayout>
+          
+    <PostActionModal
+      isPostModal={isPostModal}
+      onClose={() => setAnchorEl(null)}
+      anchorEl={anchorEl}
+      postId={postId}
+      setAnchorEl={setAnchorEl}
+    />
+    </>
   )
 }

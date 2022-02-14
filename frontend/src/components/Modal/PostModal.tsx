@@ -1,6 +1,6 @@
-import React, { useContext } from 'react';
-import { useState } from "react";
+import React, { useContext, useState } from 'react';
 import styled from 'styled-components';
+import { useHistory } from 'react-router-dom';
 
 import { 
   DialogContent, 
@@ -30,7 +30,6 @@ const DialogInner = styled(DialogContent)`
 `;
 
 const ButtonWrapper = styled.div`
-  padding-top: 20px;
   width: 100%;
   bottom: 10px;
 `
@@ -64,6 +63,8 @@ const Image = styled.img`
 
 export const PostModal = (props: Props) => {
 
+  const history = useHistory();
+
   const { setIsPosted } = useContext(PostContext)
 
   const [caption, setCaption] = useState<string>("")
@@ -93,6 +94,7 @@ export const PostModal = (props: Props) => {
       props.onClose();
       setImages([])
       setCaption("")
+      history.push("/")
       setIsPosted(true)
     })
   }

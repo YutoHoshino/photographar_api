@@ -64,69 +64,60 @@ export const PrimaryHeader = () => {
 
   return (
     <>
-      {
-        currentUser ? 
-        <>
-          <AppBar 
-          color="primary"
-          className={classes.appBar}
+
+      <AppBar color="primary" className={classes.appBar}>
+        <Toolbar className={classes.toolbar} >
+  
+          <Typography
+            component={Link}
+            to="/"
+            variant="h6"
+            className={classes.title}
           >
-            <Toolbar
-              className={classes.toolbar}
+            photographar
+          </Typography>
+
+          <>
+            {/* 投稿 */}
+            <Button
+              color="inherit"
+              onClick={handlePost}
             >
-      
-              <Typography
-                  component={Link}
-                  to="/"
-                  variant="h6"
-                  className={classes.title}
-                >
-                  photographar
-              </Typography>
-    
-              <>
-                {/* 投稿 */}
-                <Button
-                  color="inherit"
-                  onClick={handlePost}
-                >
-                  <Icon path={mdiImagePlus} size={1.3}/>
-                </Button>
-      
-      
-                {/* ユーザーアイコン */}
-                <IconButton
-                  onClick={handleMobileMenuOpen} 
-                >
-                  <Avatar
-                    alt={currentUser.name}
-                    src={currentUser.image?.url}
-                  />
-                </IconButton>
-    
-              </>
-    
-              {
-                <PostModal
-                  isOpen={isOpen}
-                  onClose={() => setIsOpen(false)}
-                />
-              }
-    
-            </Toolbar>
-          </AppBar>
+              <Icon path={mdiImagePlus} size={1.3}/>
+            </Button>
+  
+  
+            {/* ユーザーアイコン */}
+            <IconButton
+              onClick={handleMobileMenuOpen} 
+            >
+              <Avatar
+                alt={currentUser?.name}
+                src={currentUser?.image?.url}
+              />
+            </IconButton>
 
-          <UserModal
-            isPostModal={isPostModal}
-            onClose={() => setAnchorEl(null)}
-            anchorEl={anchorEl}
-            setAnchorEl={setAnchorEl}
-          />
+          </>
 
-        </>
-      :
-        <></>
-      }
+        </Toolbar>
+      </AppBar>
+
+      {/* ユーザーモーダル      */}
+      <UserModal
+        isPostModal={isPostModal}
+        onClose={() => setAnchorEl(null)}
+        anchorEl={anchorEl}
+        setAnchorEl={setAnchorEl}
+      />
+
+      {/* 投稿モーダル      */}
+      <PostModal
+        isOpen={isOpen}
+        onClose={() => setIsOpen(false)}
+      />
+          
     </>
+
+    
   )
 }

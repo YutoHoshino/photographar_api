@@ -1,7 +1,8 @@
 import { useContext } from "react"
-import { MenuItem } from "@material-ui/core"
-
+import { useHistory } from "react-router";
 import styled from "styled-components";
+
+import { MenuItem } from "@material-ui/core"
 import Menu from '@mui/material/Menu';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
@@ -28,10 +29,15 @@ interface Props {
 
 export const PostActionModal = (props: Props) => {
 
+  const history = useHistory();
+
   const { setIsPosted } = useContext(PostContext)
 
   // 投稿編集
   const handleEdit = (e: React.SyntheticEvent) => {
+    const id = props.postId
+    console.log(id)
+    history.push(`/post/${id}`)
   }
 
   // 投稿削除
