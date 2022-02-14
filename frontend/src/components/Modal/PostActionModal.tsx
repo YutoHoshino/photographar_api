@@ -10,7 +10,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import { postDelete } from "apis/post"
 
 // container
-import { PostContext } from "containers/Post"
+import { PostContext } from "containers/Posts"
 
 //style css
 const SMenuItem = styled(MenuItem)`

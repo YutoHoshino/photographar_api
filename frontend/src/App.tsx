@@ -7,13 +7,14 @@ import 'App.css'
 // containers
 import { SignUp } from 'containers/SignUp'
 import { SignIn } from "containers/SignIn"
-import { Post } from "containers/Post"
+import { Posts } from "containers/Posts"
 
 // interface
 import { User } from 'interfaces/index'
 
 // apis
 import { getCurrentUser } from "apis/auth"
+import { Post } from "containers/Post"
 
 // グローバルで扱う変数・関数
 export const AuthContext = createContext({} as {
@@ -63,9 +64,30 @@ const App = () => {
       <AuthContext.Provider value={{ isSignedIn, setIsSignedIn, currentUser, setCurrentUser }}>
           <Switch>
             <Switch>
-              <Route exact path="/signup" component={ SignUp } />
-              <Route exact path="/signin" component={ SignIn } />
-              <Route exact path="/" component={ Post } />
+
+              <Route 
+                exact 
+                path="/signup" 
+                component={ SignUp } 
+              />
+
+              <Route 
+                exact 
+                path="/signin" 
+                component={ SignIn } 
+              />
+
+              <Route 
+                exact path="/" 
+                component={ Posts } 
+              />
+
+              <Route           
+                exact
+                path="/post/:postId"
+                render={({ match }) => <Post match={match}/> } 
+              />
+
             </Switch>
           </Switch>
       </AuthContext.Provider>

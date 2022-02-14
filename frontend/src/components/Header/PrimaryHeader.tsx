@@ -24,7 +24,8 @@ const useStyles = makeStyles(
   {
     appBar: {
       boxShadow: 'none',
-      borderBottom: "solid 1px #dbdbdb"
+      borderBottom: "solid 1px #dbdbdb",
+      padding: "0 40px"
     },
     toolbar: {
         minHeight: `60px`,
@@ -39,7 +40,7 @@ const useStyles = makeStyles(
 
 export const PrimaryHeader = () => {
 
-  const { setIsSignedIn, setCurrentUser, currentUser } = useContext(AuthContext)
+  const { currentUser } = useContext(AuthContext)
 
   const classes = useStyles();
 
@@ -52,18 +53,6 @@ export const PrimaryHeader = () => {
   const isPostModal = Boolean(anchorEl);
   const handleMobileMenuOpen = (event: any) => {
     setAnchorEl(event.currentTarget);
-  }
-
-
-  // ログアウト
-  const handleSignOut = (e: any)  => {
-    e.preventDefault()
-    SignOut()
-    .then(res => {
-      setIsSignedIn(false)
-      setCurrentUser(undefined)
-      history.push("/signin")
-    })
   }
 
   // 投稿モーダル表示
@@ -114,14 +103,7 @@ export const PrimaryHeader = () => {
                     src={currentUser.image?.url}
                   />
                 </IconButton>
-      
-                {/* ログアウト */}
-                <Button
-                  color="inherit"
-                  onClick={handleSignOut}
-                >
-                  ログアウト
-                </Button>
+    
               </>
     
               {

@@ -1,13 +1,22 @@
 import { useContext } from "react"
-import { MenuItem, makeStyles } from "@material-ui/core"
+import { useHistory } from "react-router-dom";
 
-import Menu from '@mui/material/Menu';
 import styled from "styled-components";
+
+import { MenuItem, makeStyles } from "@material-ui/core"
+import Menu from '@mui/material/Menu';
 
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import SettingsIcon from '@material-ui/icons/Settings';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+
+//useContext
+import { AuthContext } from "App";
+
+// apis
+import { signOut } from "apis/auth";
+
 
 // interface
 interface Props {
@@ -22,6 +31,21 @@ const SMenuItem = styled(MenuItem)`
 `
 
 export const UserModal = (props: Props) => {
+
+  const { setIsSignedIn, setCurrentUser } = useContext(AuthContext)
+
+  const history = useHistory();
+
+  // ログアウト
+  const handleSignOut = (e: any)  => {
+    e.preventDefault()
+    signOut()
+    .then(res => {
+      setIsSignedIn(false)
+      setCurrentUser(undefined)
+      history.push("/signin")
+    })
+  }
 
   return (
     <Menu
@@ -55,18 +79,24 @@ export const UserModal = (props: Props) => {
         <AccountCircleIcon/>
         <p>プロフィール</p>
       </MenuItem>
+
       <MenuItem>
         <FavoriteIcon/>
         <p>いいね</p>
       </MenuItem>
+
       <MenuItem>
         <SettingsIcon/>
         <p>設定</p>
       </MenuItem>
-      <SMenuItem>
+
+      <SMenuItem 
+        onClick={handleSignOut}
+      >
         <ExitToAppIcon/>
         <p>ログアウト</p>
       </SMenuItem>
+
     </Menu>
   )
 }

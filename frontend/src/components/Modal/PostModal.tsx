@@ -9,7 +9,7 @@ import { SubmitButton } from 'components/Button/SubmitButton';
 
 // apis
 import { PostCreate } from 'containers/PostCreate';
-import { PostContext } from 'containers/Post';
+import { PostContext } from 'containers/Posts';
 
 interface Props {
   isOpen: boolean,
