@@ -23,6 +23,10 @@ export const AuthContext = createContext({} as {
   currentUser: GetCurrentUserData | undefined
   setCurrentUser: React.Dispatch<React.SetStateAction<GetCurrentUserData | undefined>>
 })
+export const PostContext = createContext({} as {
+  isPosted: boolean
+  setIsPosted: React.Dispatch<React.SetStateAction<boolean>>
+})
 
 const App = () => {
 
@@ -30,6 +34,9 @@ const App = () => {
   const [isSignedIn, setIsSignedIn] = useState<boolean>(false)
   const [currentUser, setCurrentUser] = useState<GetCurrentUserData | undefined>()
   const [loading, setLoading] = useState<boolean>(true)
+
+  // 投稿されたかどうかのuseStatue
+  const [isPosted, setIsPosted] = useState<boolean>(false);
 
   // ユーザー情報取得
   const handleGetCurrentUser = async () => {
@@ -47,18 +54,6 @@ const App = () => {
   }, [setCurrentUser])
 
 
-  const Private = ({ children }: { children: React.ReactElement }) => {
-    if (!loading) {
-      if (isSignedIn) {
-        return children
-      } else {
-        return <Redirect to="/signin" />
-      }
-    } else {
-      return <></>
-    }
-  }
-  
   return (
     <Router>
       <AuthContext.Provider value={{ isSignedIn, setIsSignedIn, currentUser, setCurrentUser }}>
@@ -76,16 +71,22 @@ const App = () => {
               component={ SignIn } 
             />
 
-            <Route 
-              exact path="/" 
-              component={ Posts } 
-            />
+            <PostContext.Provider value={{ isPosted, setIsPosted }}>
+              <Switch>
 
-            <Route           
-              exact
-              path="/post/:postId"
-              render={({ match }) => <Post match={match}/> } 
-            />
+                <Route 
+                  exact path="/" 
+                  component={ Posts } 
+                />
+
+                <Route           
+                  exact
+                  path="/post/:postId"
+                  render={({ match }) => <Post match={match}/> } 
+                />
+
+              </Switch>
+            </PostContext.Provider>
 
           </Switch>
       </AuthContext.Provider>

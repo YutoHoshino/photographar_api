@@ -9,8 +9,8 @@ import DeleteIcon from '@material-ui/icons/Delete';
 //apis
 import { postDelete } from "apis/post"
 
-// container
-import { PostContext } from "containers/Posts"
+// useContext
+import { PostContext } from "App";
 
 //style css
 const SMenuItem = styled(MenuItem)`
@@ -28,7 +28,7 @@ interface Props {
 
 export const PostActionModal = (props: Props) => {
 
-  const { setIsPost } = useContext(PostContext)
+  const { setIsPosted } = useContext(PostContext)
 
   // 投稿編集
   const handleEdit = (e: React.SyntheticEvent) => {
@@ -40,7 +40,7 @@ export const PostActionModal = (props: Props) => {
     postDelete(params)
     .then((res) => {
       props.setAnchorEl(null)
-      setIsPost(true)
+      setIsPosted(true)
     })
   }
 

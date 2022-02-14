@@ -1,4 +1,10 @@
-import { createContext, memo, useContext, useEffect, useReducer, useState } from "react"
+import { 
+  useContext, 
+  useEffect, 
+  useReducer, 
+  useState 
+} from "react"
+
 import styled from "styled-components";
 
 // material
@@ -28,8 +34,11 @@ import { postGetData } from "apis/post"
 // reductor
 import { postsReductor } from "reducers/postsReductor"
 
+// useContext
+import { PostContext } from "App";
+
 // components
-import { PrimaryHeader } from "components/Header/PrimaryHeader";
+import { CommonLayout } from "components/Layout/CommonLayout";
 import { PostActionModal } from "components/Modal/PostActionModal";
 import { PostSwiper } from "components/Swiper/PostSwiper";
 
@@ -69,18 +78,11 @@ const useStyles = makeStyles(() => ({
   }
 }))
 
-
-export const PostContext = createContext({} as {
-  isPost: boolean
-  setIsPost: React.Dispatch<React.SetStateAction<boolean>>
-})
-
 export const Posts = () => {
 
   const classes = useStyles()
 
-  // 投稿されたかどうかのuseStatue
-  const [isPost, setIsPost] = useState(false);
+  const { isPosted, setIsPosted } = useContext(PostContext)
 
   // 投稿内容取得
   const initialState = {
@@ -97,8 +99,8 @@ export const Posts = () => {
         payload: data,
       });
     })
-    setIsPost(false)
-  }, [isPost])
+    setIsPosted(false)
+  }, [isPosted])
 
   // PostMenuモーダル表示
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -111,104 +113,99 @@ export const Posts = () => {
 
 
   return(
-    <>
-      <PostContext.Provider value={{ isPost, setIsPost }}>
-        <Sheader>
-          <PrimaryHeader />
-        </Sheader>
+    <CommonLayout>
 
-        <main>
-          <Container maxWidth="lg" className={classes.container}>
-            <Grid container justifyContent="center">
-              <Grid item>
-                {
-                  state.fetchState == "OK" && state.postList.posts != undefined ? 
-                  (
-                    state.postList.posts.map((postdata: GetPostdata) => {
-                      return (
-                        <SCard 
-                          key={postdata.post.id}>
-            
-                          <CardHeader
-                            avatar={
-                              postdata.user.image ? (
-                                <Avatar
-                                  alt={postdata.user.name}
-                                  src={postdata.user.image.url}
-                                />
-                              ) : (
-                                null
-                              )
-                            }
-                            action={
-                              <>
-                                <IconButton
-                                  onClick={handleMobileMenuOpen} 
-                                >
-                                  <Sdiv>{postdata.post.id}</Sdiv>
-                                  <MoreVertIcon/>
-                                </IconButton>
-                              </>
-                            }
-                            title={
-                              postdata.user.name
-                            }
-                            subheader={
-                              postdata.post.created_at
-                            }
-                          />
+      <main>
+        <Container maxWidth="lg" className={classes.container}>
+          <Grid container justifyContent="center">
+            <Grid item>
+              {
+                state.fetchState == "OK" && state.postList.posts != undefined ? 
+                (
+                  state.postList.posts.map((postdata: GetPostdata) => {
+                    return (
+                      <SCard 
+                        key={postdata.post.id}>
+          
+                        <CardHeader
+                          avatar={
+                            postdata.user.image ? (
+                              <Avatar
+                                alt={postdata.user.name}
+                                src={postdata.user.image.url}
+                              />
+                            ) : (
+                              null
+                            )
+                          }
+                          action={
+                            <>
+                              <IconButton
+                                onClick={handleMobileMenuOpen} 
+                              >
+                                <Sdiv>{postdata.post.id}</Sdiv>
+                                <MoreVertIcon/>
+                              </IconButton>
+                            </>
+                          }
+                          title={
+                            postdata.user.name
+                          }
+                          subheader={
+                            postdata.post.created_at
+                          }
+                        />
+                        
+                        <PostSwiper postdata={postdata} />
+
+                        <CardActions disableSpacing>
+                          <IconButton>
+                            <FavoriteIcon />
+                          </IconButton>
+                          <IconButton>
+                            <Comment />
+                          </IconButton>
+                          <IconButton>
+                            <ShareIcon />
+                          </IconButton>
+                        </CardActions>
+
+                        <CardContent>
                           
-                          <PostSwiper postdata={postdata} />
-
-                          <CardActions disableSpacing>
-                            <IconButton>
-                              <FavoriteIcon />
-                            </IconButton>
-                            <IconButton>
-                              <Comment />
-                            </IconButton>
-                            <IconButton>
-                              <ShareIcon />
-                            </IconButton>
-                          </CardActions>
-
-                          <CardContent>
-                            
-                            <STypography variant="body2" >
-                              {postdata.post.caption}
-                            </STypography>
-                          </CardContent>
-                    
-                        </SCard>
-                      )
-                    })
-                  )
-                  :
-                  (
-                    <>
-                      <div>ロード中・・・</div>
-                      <LinearProgress/>
-                    </>
-                  )
-                }
-              </Grid>   
-            </Grid>
-          </Container>
-        </main>
+                          <STypography variant="body2" >
+                            {postdata.post.caption}
+                          </STypography>
+                        </CardContent>
+                  
+                      </SCard>
+                    )
+                  })
+                )
+                :
+                (
+                  <>
+                    <div>ロード中・・・</div>
+                    <LinearProgress/>
+                  </>
+                )
+              }
+            </Grid>   
+          </Grid>
+        </Container>
+      </main>
 
 
-          {/* メニューモーダル */}
-        {
-          <PostActionModal
-            isPostModal={isPostModal}
-            onClose={() => setAnchorEl(null)}
-            anchorEl={anchorEl}
-            postId={postId}
-            setAnchorEl={setAnchorEl}
-          />
-        }
+        {/* メニューモーダル */}
+      {
+        <PostActionModal
+          isPostModal={isPostModal}
+          onClose={() => setAnchorEl(null)}
+          anchorEl={anchorEl}
+          postId={postId}
+          setAnchorEl={setAnchorEl}
+        />
+      }
 
-      </PostContext.Provider>
-    </>
+    </CommonLayout>
   )
 }

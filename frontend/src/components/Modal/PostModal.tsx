@@ -2,14 +2,23 @@ import React, { useContext } from 'react';
 import { useState } from "react";
 import styled from 'styled-components';
 
-import { DialogContent, Dialog, DialogTitle, TextField, Button, makeStyles, Theme, IconButton, LinearProgress } from '@material-ui/core';
+import { 
+  DialogContent, 
+  Dialog, 
+  DialogTitle, 
+  TextField, 
+  Button, 
+  IconButton, 
+} from '@material-ui/core';
+
+// useContext
+import { PostContext } from "App";
 
 //components
 import { SubmitButton } from 'components/Button/SubmitButton';
 
 // apis
 import { PostCreate } from 'containers/PostCreate';
-import { PostContext } from 'containers/Posts';
 
 interface Props {
   isOpen: boolean,
@@ -55,7 +64,7 @@ const Image = styled.img`
 
 export const PostModal = (props: Props) => {
 
-  const { setIsPost } = useContext(PostContext)
+  const { setIsPosted } = useContext(PostContext)
 
   const [caption, setCaption] = useState<string>("")
   const [images, setImages] = useState<File[]>([]);
@@ -84,7 +93,7 @@ export const PostModal = (props: Props) => {
       props.onClose();
       setImages([])
       setCaption("")
-      setIsPost(true)
+      setIsPosted(true)
     })
   }
 
