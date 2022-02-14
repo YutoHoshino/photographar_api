@@ -32,3 +32,13 @@ export const postDelete = async (params: any) => {
   })
   .catch ((e) => console.error(e))
 }
+
+// 詳細投稿取得
+export const postShowData = async (params: any) => {
+  return await client.get(`posts/${params.id}`)
+  .then(res => {
+    return res.data
+  })
+  .catch ((e) => console.error(e))
+}
+

@@ -136,7 +136,7 @@ export const Posts = () => {
                     }
                   />
                   
-                  <PostSwiper postdata={postdata} />
+                  <PostSwiper photos={postdata.photos} height="400"/>
 
                   <CardActions disableSpacing>
                     <IconButton>
