@@ -9,6 +9,8 @@ import styled from "styled-components";
 
 // material
 import {
+  makeStyles,
+  Theme,
   Avatar, 
   Card, 
   CardActions, 
@@ -43,6 +45,7 @@ import { PostSwiper } from "components/Swiper/PostSwiper";
 
 // interface
 import { GetPostdata } from "interfaces"
+import { useHistory } from "react-router-dom";
 
 // style css
 const SCard = styled(Card)`
@@ -64,7 +67,17 @@ const Sdiv = styled.div`
   display: none;
 `
 
+const useStyles = makeStyles((theme: Theme) => ({
+  Avatar: {
+    cursor: "pointer"
+  }
+}))
+
 export const Posts = () => {
+
+  const classes = useStyles();
+
+  const history = useHistory();
 
   const { isPosted, setIsPosted } = useContext(PostContext)
 
@@ -111,6 +124,8 @@ export const Posts = () => {
                     avatar={
                       postdata.user.image ? (
                         <Avatar
+                          className={classes.Avatar}
+                          onClick={() => {history.push(`/user/${postdata.user.name}`)}}
                           alt={postdata.user.name}
                           src={postdata.user.image.url}
                         />
@@ -129,7 +144,12 @@ export const Posts = () => {
                       </>
                     }
                     title={
-                      postdata.user.name
+                      <div
+                        className={classes.Avatar}
+                        onClick={() => {history.push(`/user/${postdata.user.name}`)}}
+                      >
+                        {postdata.user.name}
+                      </div>
                     }
                     subheader={
                       postdata.post.created_at
