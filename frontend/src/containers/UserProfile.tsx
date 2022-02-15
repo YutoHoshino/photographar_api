@@ -93,8 +93,15 @@ export const UserProfile = ({match}:any) => {
               <Grid >
                 <CardContent className={classes.CardContent}>
                   <Typography variant="h5">{user.user.name}</Typography>
-                  <Button variant="outlined" className={classes.EditButton}>プロフィール修正</Button>
-                  <Button><SettingsIcon/></Button>
+                  {
+                    user.user?.id == currentUser?.id ?
+                    <>
+                      <Button variant="outlined" className={classes.EditButton}>プロフィール修正</Button>
+                      <Button><SettingsIcon/></Button>
+                    </>
+                    :
+                    <></>
+                  }
                 </CardContent>
                 <CardActions>
                   <div>
