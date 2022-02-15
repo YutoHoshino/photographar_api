@@ -72,3 +72,32 @@ export interface PhotosSwipper {
     updated_at: Date,
   }>,
 }
+
+// カレントユーザー情報（UseState系）
+export interface GetUserShowData {
+  user: {
+    id: number
+    name: string
+    email: string
+    image?: {
+      url: string
+    }
+  },
+  posts: Array<{
+    post: {
+      id: number
+      caption: string
+      user_id: number
+      deleted: string
+      deleted_at: Date,
+      created_at: Date,
+      updated_at: Date,
+    },
+    photos: Array<{
+      id: number
+      image: {
+        url: string
+      }
+    }>
+  }>
+}

@@ -1,6 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import styled from "styled-components";
 
+// material
+import Card from '@mui/material/Card';
+import { 
+  Avatar, 
+  Box, 
+  Button, 
+  CardActions, 
+  CardHeader, 
+  IconButton, 
+  LinearProgress, 
+  TextField, 
+  Typography
+ } from '@material-ui/core';
+
 // material icon
 import FavoriteIcon from "@material-ui/icons/Favorite"
 import ShareIcon from "@material-ui/icons/Share"
@@ -13,8 +27,6 @@ import { LoadLayout } from "components/Layout/LoadLayout";
 
 // apis
 import { postShowData } from 'apis/post';
-import Card from '@mui/material/Card';
-import { Avatar, Box, Button, CardActions, CardHeader, IconButton, LinearProgress, TextField, Typography } from '@material-ui/core';
 
 // compornent
 import { PostSwiper } from 'components/Swiper/PostSwiper';

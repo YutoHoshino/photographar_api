@@ -32,7 +32,7 @@ const SMenuItem = styled(MenuItem)`
 
 export const UserModal = (props: Props) => {
 
-  const { setIsSignedIn, setCurrentUser } = useContext(AuthContext)
+  const { setIsSignedIn, setCurrentUser, currentUser } = useContext(AuthContext)
 
   const history = useHistory();
 
@@ -45,6 +45,10 @@ export const UserModal = (props: Props) => {
       setCurrentUser(undefined)
       history.push("/signin")
     })
+  }
+
+  const handleProfile = () => {
+    history.push(`/user/${currentUser?.name}`)
   }
 
   return (
@@ -75,7 +79,9 @@ export const UserModal = (props: Props) => {
       transformOrigin={{ horizontal: 'right', vertical: 'top' }}
       anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
     >
-      <MenuItem>
+      <MenuItem
+        onClick={handleProfile}
+      >
         <AccountCircleIcon/>
         <p>プロフィール</p>
       </MenuItem>

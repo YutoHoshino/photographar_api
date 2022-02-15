@@ -8,13 +8,14 @@ import 'App.css'
 import { SignUp } from 'containers/SignUp'
 import { SignIn } from "containers/SignIn"
 import { Posts } from "containers/Posts"
+import { Post } from "containers/Post"
+import { UserProfile } from "containers/UserProfile"
 
 // interface
 import { GetCurrentUserData } from 'interfaces/index'
 
 // apis
 import { getCurrentUser } from "apis/auth"
-import { Post } from "containers/Post"
 
 // グローバルで扱う変数・関数
 export const AuthContext = createContext({} as {
@@ -83,6 +84,12 @@ const App = () => {
                   exact
                   path="/post/:postId"
                   render={({ match }) => <Post match={match}/> } 
+                />
+
+                <Route           
+                  exact
+                  path="/user/:userName"
+                  render={({ match }) => <UserProfile match={match}/> } 
                 />
 
               </Switch>
