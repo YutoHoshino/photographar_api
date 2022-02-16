@@ -13,9 +13,6 @@ import { AuthContext } from "App";
 // apis
 import { PostModal } from "components/Modal/PostModal";
 
-// containers
-import { SignOut } from "containers/SignOut";
-
 // compornent
 import { UserModal } from "components/Modal/UserModal";
 
@@ -64,43 +61,47 @@ export const PrimaryHeader = () => {
 
   return (
     <>
-
-      <AppBar color="primary" className={classes.appBar}>
-        <Toolbar className={classes.toolbar} >
-  
-          <Typography
-            component={Link}
-            to="/"
-            variant="h6"
-            className={classes.title}
-          >
-            photographar
-          </Typography>
-
-          <>
-            {/* 投稿 */}
-            <Button
-              color="inherit"
-              onClick={handlePost}
+      {
+        currentUser ? 
+        <AppBar color="primary" className={classes.appBar}>
+          <Toolbar className={classes.toolbar} >
+    
+            <Typography
+              component={Link}
+              to="/"
+              variant="h6"
+              className={classes.title}
             >
-              <Icon path={mdiImagePlus} size={1.3}/>
-            </Button>
-  
-  
-            {/* ユーザーアイコン */}
-            <IconButton
-              onClick={handleMobileMenuOpen} 
-            >
-              <Avatar
-                alt={currentUser?.name}
-                src={currentUser?.image?.url}
-              />
-            </IconButton>
+              photographar
+            </Typography>
 
-          </>
+            <>
+              {/* 投稿 */}
+              <Button
+                color="inherit"
+                onClick={handlePost}
+              >
+                <Icon path={mdiImagePlus} size={1.3}/>
+              </Button>
+    
+    
+              {/* ユーザーアイコン */}
+              <IconButton
+                onClick={handleMobileMenuOpen} 
+              >
+                <Avatar
+                  alt={currentUser?.name}
+                  src={currentUser?.image?.url}
+                />
+              </IconButton>
 
-        </Toolbar>
-      </AppBar>
+            </>
+
+          </Toolbar>
+        </AppBar>
+        :
+        <></>
+      }
 
       {/* ユーザーモーダル      */}
       <UserModal

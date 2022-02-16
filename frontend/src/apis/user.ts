@@ -9,3 +9,12 @@ export const userShowData = async (params: any) => {
   })
   .catch ((e) => console.error(e))
 }
+
+// ユーザー修正
+export const  userEdit = async (params: any) => {
+  return await client.put(`/users/${params.name}`, params.data)
+  .then( res => {
+    return res.data
+  })
+  .catch ((e) => console.error(e))
+}

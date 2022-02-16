@@ -10,6 +10,7 @@ import { SignIn } from "containers/SignIn"
 import { Posts } from "containers/Posts"
 import { Post } from "containers/Post"
 import { UserProfile } from "containers/UserProfile"
+import { UserEdit } from "containers/UserEdit"
 
 // interface
 import { GetCurrentUserData } from 'interfaces/index'
@@ -90,6 +91,12 @@ const App = () => {
                   exact
                   path="/user/:userName"
                   render={({ match }) => <UserProfile match={match}/> } 
+                />
+
+                <Route           
+                  exact
+                  path={`/user/${currentUser?.name}/edit`}
+                  component={ UserEdit } 
                 />
 
               </Switch>

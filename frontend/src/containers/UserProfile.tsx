@@ -57,7 +57,7 @@ export const UserProfile = ({match}:any) => {
 
   const classes = useStyles();
 
-  const { setIsSignedIn, setCurrentUser, currentUser } = useContext(AuthContext)
+  const { currentUser } = useContext(AuthContext)
   
   const [user, setUser] = useState<GetUserShowData>()
 
@@ -96,7 +96,13 @@ export const UserProfile = ({match}:any) => {
                   {
                     user.user?.id == currentUser?.id ?
                     <>
-                      <Button variant="outlined" className={classes.EditButton}>プロフィール修正</Button>
+                      <Button
+                        onClick={()=> {history.push(`/user/${user.user?.name}/edit`)}}
+                        variant="outlined" 
+                        className={classes.EditButton}
+                      >
+                        プロフィール修正
+                      </Button>
                       <Button><SettingsIcon/></Button>
                     </>
                     :

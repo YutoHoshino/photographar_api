@@ -19,7 +19,7 @@ class Api::V1::UsersController < ApplicationController
 
   def update
     if @user.update(user_params)
-      render json: {}, status: :ok
+      render json: { user: @user }, status: :ok
     else
       render json: {}, status: :internal_server_error
     end
