@@ -9,7 +9,11 @@ Rails.application.routes.draw do
       delete  '/signout',     to: 'sessions#signout'
       get     '/logged',      to: 'sessions#sign_in?'
 
-      resources :posts
+      resources :posts do
+        
+        resources :likes, only: [:create, :destroy]
+      end
+
     end
   end
 end

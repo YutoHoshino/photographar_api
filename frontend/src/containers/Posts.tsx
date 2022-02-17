@@ -4,8 +4,9 @@ import {
   useReducer, 
   useState 
 } from "react"
-
+import { useHistory } from "react-router-dom";
 import styled from "styled-components";
+
 
 // material
 import {
@@ -30,12 +31,13 @@ import MoreVertIcon from "@material-ui/icons/MoreVert";
 
 // apis
 import { postGetData } from "apis/post"
+import { likeCreate, likeDelete } from "apis/like";
 
 // reductor
 import { postsReductor } from "reducers/postsReductor"
 
 // useContext
-import { PostContext } from "App";
+import { AuthContext, PostContext } from "App";
 
 // components
 import { CommonLayout } from "components/Layout/CommonLayout";
@@ -44,8 +46,7 @@ import { PostActionModal } from "components/Modal/PostActionModal";
 import { PostSwiper } from "components/Swiper/PostSwiper";
 
 // interface
-import { GetPostdata } from "interfaces"
-import { useHistory } from "react-router-dom";
+import { GetPostdata, LikeProps } from "interfaces"
 
 // style css
 const SCard = styled(Card)`
@@ -79,6 +80,7 @@ export const Posts = () => {
 
   const history = useHistory();
 
+  const { currentUser } = useContext(AuthContext)
   const { isPosted, setIsPosted } = useContext(PostContext)
 
   // 投稿内容取得
@@ -106,6 +108,31 @@ export const Posts = () => {
   const handleMobileMenuOpen = (event: any) => {
     setPostId(event.target.previousElementSibling.textContent)
     setAnchorEl(event.currentTarget);
+  }
+
+
+
+  const handleLikes = (params: LikeProps) => {
+    const {postId , e } = params
+    
+    const targetElement = e.target.parentNode
+    const liked = targetElement.id == "liked"
+
+    const data = { post_id: postId}
+    
+    
+    if (liked) {
+      likeDelete(data)
+      .then(() => {
+        targetElement.id = ""
+      })
+    } else {
+      likeCreate(data)
+      .then(() => {
+        targetElement.id = "liked"
+      })
+    }
+    
   }
 
 
@@ -155,13 +182,27 @@ export const Posts = () => {
                       postdata.post.created_at
                     }
                   />
+
                   
                   <PostSwiper photos={postdata.photos} height="400"/>
 
                   <CardActions disableSpacing>
-                    <IconButton>
-                      <FavoriteIcon />
+
+                    <IconButton 
+                      onClick={(e) => {
+                        handleLikes(
+                          {
+                            postId: postdata.post.id, 
+                            e:e
+                          }
+                        )
+                      }}
+                    >
+
+                      <FavoriteIcon id={postdata.likes.some((like)=>like.user_id == currentUser?.id) ? "liked" : ""}/>
+
                     </IconButton>
+
                     <IconButton>
                       <Comment />
                     </IconButton>

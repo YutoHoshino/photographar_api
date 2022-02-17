@@ -40,3 +40,7 @@
 body {
   background: fafafa;
 }
+
+#liked {
+  color: red;
+}

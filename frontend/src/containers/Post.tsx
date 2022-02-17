@@ -101,9 +101,11 @@ export const Post = ({ match }: any) => {
               </TextWapper>
 
               <CardActions>
+                
                 <IconButton>
                   <FavoriteIcon />
                 </IconButton>
+
                 <IconButton>
                   <Comment />
                 </IconButton>

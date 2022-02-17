@@ -28,7 +28,14 @@ type State =  {
       },
       created_at: Date,
       updated_at: Date,
-    }
+    },
+    likes: Array<{
+      id:number,
+      user_id: number,
+      post_id: number,
+      created_at: Date,
+      updated_at: Date
+    }>,
   }>
 }
 

@@ -2,8 +2,8 @@ class Api::V1::PostsController < ApplicationController
   before_action :set_post, only: [:show, :destroy]
 
   def index
-    posts = Post.alive_records.includes(:photos, :user).order('created_at DESC')
-    post_datas = posts.map {|post| { post: post, photos: post.photos, user: post.user} }
+    posts = Post.alive_records.includes(:photos, :user, :likes).order('created_at DESC')
+    post_datas = posts.map {|post| { post: post, photos: post.photos, user: post.user, likes: post.likes } }
     render json: { posts: post_datas }, status: :ok
   end
 
