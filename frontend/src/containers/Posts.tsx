@@ -48,6 +48,9 @@ import { PostSwiper } from "components/Swiper/PostSwiper";
 // interface
 import { GetPostdata, LikeProps } from "interfaces"
 
+// containers
+import { handleLikes } from "containers/Like";
+
 // style css
 const SCard = styled(Card)`
   max-width: 500px;
@@ -109,32 +112,6 @@ export const Posts = () => {
     setPostId(event.target.previousElementSibling.textContent)
     setAnchorEl(event.currentTarget);
   }
-
-
-
-  const handleLikes = (params: LikeProps) => {
-    const {postId , e } = params
-    
-    const targetElement = e.target.parentNode
-    const liked = targetElement.id == "liked"
-
-    const data = { post_id: postId}
-    
-    
-    if (liked) {
-      likeDelete(data)
-      .then(() => {
-        targetElement.id = ""
-      })
-    } else {
-      likeCreate(data)
-      .then(() => {
-        targetElement.id = "liked"
-      })
-    }
-    
-  }
-
 
   return(
     <>
@@ -200,7 +177,6 @@ export const Posts = () => {
                     >
 
                       <FavoriteIcon id={postdata.likes.some((like)=>like.user_id == currentUser?.id) ? "liked" : ""}/>
-
                     </IconButton>
 
                     <IconButton>
@@ -212,7 +188,6 @@ export const Posts = () => {
                   </CardActions>
 
                   <CardContent>
-                    
                     <STypography variant="body2" >
                       {postdata.post.caption}
                     </STypography>

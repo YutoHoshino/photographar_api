@@ -17,7 +17,7 @@ class Api::V1::PostsController < ApplicationController
   end
 
   def show
-    post = { post: @post, photos: @post.photos, user: @post.user }
+    post = { post: @post, photos: @post.photos, user: @post.user, likes: @post.likes }
     render json: { post: post }, status: :ok
   end
 

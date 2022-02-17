@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import styled from "styled-components";
 
 // material
@@ -19,19 +19,23 @@ import {
 import FavoriteIcon from "@material-ui/icons/Favorite"
 import ShareIcon from "@material-ui/icons/Share"
 import Comment from "@material-ui/icons/Comment"
-import MoreVertIcon from "@material-ui/icons/MoreVert";
 
 // component
 import { CommonLayout } from "components/Layout/CommonLayout";
 import { LoadLayout } from "components/Layout/LoadLayout";
+import { PostSwiper } from 'components/Swiper/PostSwiper';
 
 // apis
 import { postShowData } from 'apis/post';
 
-// compornent
-import { PostSwiper } from 'components/Swiper/PostSwiper';
+// containers
+import { handleLikes } from "containers/Like";
+
+// interface
 import { GetPostdata } from 'interfaces';
-import { PrimaryTextField } from 'components/TextField/PrimaryTextField';
+
+// useContext
+import { AuthContext } from 'App';
 
 // style css
 const SCard = styled(Card)`
@@ -59,6 +63,8 @@ const Sform = styled.form`
 `
 
 export const Post = ({ match }: any) => {
+
+  const { currentUser } = useContext(AuthContext)
 
   // 対象のPostID
   const params = {id: match.params.postId}
@@ -102,8 +108,17 @@ export const Post = ({ match }: any) => {
 
               <CardActions>
                 
-                <IconButton>
-                  <FavoriteIcon />
+                <IconButton
+                  onClick={(e) => {
+                    handleLikes(
+                      {
+                        postId: post.post.id, 
+                        e:e
+                      }
+                    )
+                  }}
+                >
+                  <FavoriteIcon id={post.likes.some((like)=>like.user_id == currentUser?.id) ? "liked" : ""}/>
                 </IconButton>
 
                 <IconButton>
