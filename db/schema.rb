@@ -10,16 +10,28 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_02_16_065912) do
+ActiveRecord::Schema.define(version: 2022_02_17_073744) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "likes", force: :cascade do |t|
-    t.integer "user_id", null: false, comment: "ユーザーID"
-    t.integer "post_id", null: false, comment: "投稿ID"
+  create_table "comments", force: :cascade do |t|
+    t.text "text", null: false, comment: "コメント"
+    t.bigint "post_id", null: false, comment: "投稿ID"
+    t.bigint "user_id", null: false, comment: "ユーザーID"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["post_id"], name: "index_comments_on_post_id"
+    t.index ["user_id"], name: "index_comments_on_user_id"
+  end
+
+  create_table "likes", force: :cascade do |t|
+    t.bigint "post_id", null: false, comment: "投稿ID"
+    t.bigint "user_id", null: false, comment: "ユーザーID"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["post_id"], name: "index_likes_on_post_id"
+    t.index ["user_id"], name: "index_likes_on_user_id"
   end
 
   create_table "photos", force: :cascade do |t|
@@ -50,5 +62,9 @@ ActiveRecord::Schema.define(version: 2022_02_16_065912) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  add_foreign_key "comments", "posts"
+  add_foreign_key "comments", "users"
+  add_foreign_key "likes", "posts"
+  add_foreign_key "likes", "users"
   add_foreign_key "photos", "posts"
 end

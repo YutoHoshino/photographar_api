@@ -70,12 +70,17 @@ const Sheader = styled.header`
 const Sdiv = styled.div`
   display: none;
 `
+const LikeWapper = styled.div`
+  padding: 0 16px;
+`
 
 const useStyles = makeStyles((theme: Theme) => ({
   Avatar: {
     cursor: "pointer"
   }
 }))
+
+
 
 export const Posts = () => {
 
@@ -120,6 +125,10 @@ export const Posts = () => {
         (
           <CommonLayout>
             {state.postList.posts.map((postdata: GetPostdata) => {
+
+              // likeカウント
+              let likeCount = postdata.likes.length
+
               return (
                 <SCard 
                   key={postdata.post.id}>
@@ -164,19 +173,20 @@ export const Posts = () => {
                   <PostSwiper photos={postdata.photos} height="400"/>
 
                   <CardActions disableSpacing>
-
+                    
                     <IconButton 
                       onClick={(e) => {
-                        handleLikes(
+                        likeCount = handleLikes(
                           {
                             postId: postdata.post.id, 
-                            e:e
+                            likesCount: likeCount,
+                            e:e,
                           }
                         )
                       }}
                     >
 
-                      <FavoriteIcon id={postdata.likes.some((like)=>like.user_id == currentUser?.id) ? "liked" : ""}/>
+                      <FavoriteIcon id={postdata.likes.some((like)=>like.user.name == currentUser?.name) ? "liked" : ""}/>
                     </IconButton>
 
                     <IconButton>
@@ -186,6 +196,24 @@ export const Posts = () => {
                       <ShareIcon />
                     </IconButton>
                   </CardActions>
+
+                  
+                  <LikeWapper>
+                    <STypography 
+                      style={{ fontWeight: "bold" }}
+                      variant="body2"
+                      id={`like-count-${postdata.post.id}`} 
+                      >
+
+                        {
+                          postdata.likes.length == 0 ?
+                          null
+                          :
+                          `${postdata.likes.length}件のいいね`
+                        }
+
+                    </STypography>
+                  </LikeWapper>
 
                   <CardContent>
                     <STypography variant="body2" >

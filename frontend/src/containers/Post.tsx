@@ -112,7 +112,8 @@ export const Post = ({ match }: any) => {
                   onClick={(e) => {
                     handleLikes(
                       {
-                        postId: post.post.id, 
+                        postId: post.post.id,
+                        likesCount: post.likes.length,
                         e:e
                       }
                     )

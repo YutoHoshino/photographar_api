@@ -60,10 +60,11 @@ export interface GetPostdata {
   likes: Array<{
     id:number,
     user_id: number,
-    post_id: number,
-    created_at: Date,
-    updated_at: Date
-  }>,
+    user: {
+      name: string,
+      image?: { url: string }
+    }
+  }>
 }
 
 // 投稿Swipper（Swipperデータ）
@@ -111,6 +112,7 @@ export interface GetUserShowData {
 
 export interface LikeProps {
   postId: number,
+  likesCount :number, 
   e: any,
 }
 
