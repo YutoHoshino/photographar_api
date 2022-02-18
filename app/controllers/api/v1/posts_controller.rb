@@ -7,7 +7,7 @@ class Api::V1::PostsController < ApplicationController
       post: post, 
       photos: post.photos, 
       user: post.user, 
-      likes: post.likes.map{|like|{ id: like.id, user_id: like.user_id, user: User.find_by(id: like.user_id)}}, 
+      likes: post.likes.map{|like|{ id: like.id, user_id: like.user_id}}, 
       }
     }
 

@@ -186,7 +186,7 @@ export const Posts = () => {
                       }}
                     >
 
-                      <FavoriteIcon id={postdata.likes.some((like)=>like.user.name == currentUser?.name) ? "liked" : ""}/>
+                      <FavoriteIcon id={postdata.likes.some((like)=>like.user_id == currentUser?.id) ? "liked" : ""}/>
                     </IconButton>
 
                     <IconButton>

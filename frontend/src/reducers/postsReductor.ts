@@ -32,10 +32,6 @@ type State =  {
     likes: Array<{
       id:number,
       user_id: number,
-      user: {
-        name: string,
-        image?: { url: string }
-      }
     }>,
   }>
 }
