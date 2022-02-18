@@ -61,6 +61,15 @@ const CommentWapper = styled(Box)`
 const Sform = styled.form`
   display:flex
 `
+const LikeWapper = styled.div`
+  padding: 0 16px;
+`
+const STypography = styled(Typography)`
+  width: 300px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+`
 
 export const Post = ({ match }: any) => {
 
@@ -69,7 +78,7 @@ export const Post = ({ match }: any) => {
   // 対象のPostID
   const params = {id: match.params.postId}
 
-  const [post, setPost] = useState<GetPostdata | undefined>()
+  const [post, setPost] = useState<GetPostdata>()
 
   useEffect(() => {
     postShowData(params)
@@ -77,11 +86,13 @@ export const Post = ({ match }: any) => {
       setPost(data.post)
     })
   },[])
+  
+  let likeCount = post?.likes.length
 
   return (
 
     <>
-      { post? 
+      { post?
         <CommonLayout>
           <SCard sx={{ display: 'flex' }}>
 
@@ -106,14 +117,31 @@ export const Post = ({ match }: any) => {
                 </Typography>
               </TextWapper>
 
+              <LikeWapper>
+                <STypography 
+                  style={{ fontWeight: "bold" }}
+                  variant="body2"
+                  id={`like-count-${post.post.id}`} 
+                  >
+
+                    {
+                      post.likes.length == 0 ?
+                      null
+                      :
+                      `${post.likes.length}件のいいね`
+                    }
+
+                </STypography>
+              </LikeWapper>
+
               <CardActions>
                 
                 <IconButton
                   onClick={(e) => {
-                    handleLikes(
+                    likeCount = handleLikes(
                       {
                         postId: post.post.id,
-                        likesCount: post.likes.length,
+                        likesCount: likeCount || post?.likes.length,
                         e:e
                       }
                     )
