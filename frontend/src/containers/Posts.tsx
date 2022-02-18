@@ -114,7 +114,7 @@ export const Posts = () => {
   const [postId, setPostId] = useState<null | Number>(null);
   const isPostModal = Boolean(anchorEl);
   const handleMobileMenuOpen = (event: any) => {
-    setPostId(event.target.previousElementSibling.textContent)
+    setPostId(event.currentTarget.querySelector('svg').previousElementSibling.textContent)
     setAnchorEl(event.currentTarget);
   }
 
