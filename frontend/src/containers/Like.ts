@@ -8,7 +8,8 @@ export const handleLikes = (params: LikeProps) => {
 
   const { postId, likesCount, e } = params
     
-  const likeElement = e.target.parentNode
+  const likeElement = e.currentTarget.querySelector('svg')
+
   const liked = likeElement.id == "liked"
 
   const data = { post_id: postId }
