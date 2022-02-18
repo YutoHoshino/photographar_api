@@ -96,7 +96,7 @@ export const Post = ({ match }: any) => {
         <CommonLayout>
           <SCard sx={{ display: 'flex' }}>
 
-            <SPostSwiper photos={post.photos} height="550"/>
+            <SPostSwiper photos={post.photos} height="600"/>
             <ContextWapper>
 
               <CardHeader
@@ -116,23 +116,6 @@ export const Post = ({ match }: any) => {
                   {post.post?.caption}
                 </Typography>
               </TextWapper>
-
-              <LikeWapper>
-                <STypography 
-                  style={{ fontWeight: "bold" }}
-                  variant="body2"
-                  id={`like-count-${post.post.id}`} 
-                  >
-
-                    {
-                      post.likes.length == 0 ?
-                      null
-                      :
-                      `${post.likes.length}件のいいね`
-                    }
-
-                </STypography>
-              </LikeWapper>
 
               <CardActions>
                 
@@ -157,6 +140,23 @@ export const Post = ({ match }: any) => {
                   <ShareIcon />
                 </IconButton>
               </CardActions>
+              
+              <LikeWapper>
+                <STypography 
+                  style={{ fontWeight: "bold" }}
+                  variant="body2"
+                  id={`like-count-${post.post.id}`} 
+                  >
+
+                    {
+                      post.likes.length == 0 ?
+                      null
+                      :
+                      `${post.likes.length}件のいいね`
+                    }
+
+                </STypography>
+              </LikeWapper>
               
               <CommentWapper>
                 <Sform>
