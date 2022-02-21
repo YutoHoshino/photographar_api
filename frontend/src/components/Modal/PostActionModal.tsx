@@ -37,7 +37,6 @@ export const PostActionModal = (props: Props) => {
   // 投稿編集
   const handleEdit = (e: React.SyntheticEvent) => {
     const id = props.postId
-    console.log(id)
     history.push(`/post/${id}`)
   }
 

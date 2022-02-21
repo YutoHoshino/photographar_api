@@ -33,6 +33,17 @@ type State =  {
       id:number,
       user_id: number,
     }>,
+    comments: Array<{
+      id:number,
+      text: string,
+      user: {
+        id: number,
+        name: string,
+        image?: {
+          url: string
+        },
+      }
+    }>,
   }>
 }
 

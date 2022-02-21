@@ -20,7 +20,10 @@ import {
   Grid, 
   IconButton, 
   LinearProgress, 
-  Typography 
+  Typography,
+  TextField,
+  Button,
+  Box
 } from '@material-ui/core';
 
 // material icon
@@ -31,7 +34,6 @@ import MoreVertIcon from "@material-ui/icons/MoreVert";
 
 // apis
 import { postGetData } from "apis/post"
-import { likeCreate, likeDelete } from "apis/like";
 
 // reductor
 import { postsReductor } from "reducers/postsReductor"
@@ -46,10 +48,11 @@ import { PostActionModal } from "components/Modal/PostActionModal";
 import { PostSwiper } from "components/Swiper/PostSwiper";
 
 // interface
-import { GetPostdata, LikeProps } from "interfaces"
+import { GetPostdata } from "interfaces"
 
 // containers
 import { handleLikes } from "containers/Like";
+import { handleComments } from "containers/Comment";
 
 // style css
 const SCard = styled(Card)`
@@ -73,9 +76,25 @@ const Sdiv = styled.div`
 const LikeWapper = styled.div`
   padding: 0 16px;
 `
+const CommentWapper = styled(Box)`
+  padding: 10px 16px;
+  border-top: solid 1px #efefef;
+`
+const Sform = styled.form`
+  display:flex
+`
 
 const useStyles = makeStyles((theme: Theme) => ({
   Avatar: {
+    cursor: "pointer"
+  },
+  CommentField: {
+    fontSize: "13px",
+    whiteSpace: "pre-line",
+  },
+  AllComent: {
+    color: "#8e8e8e",
+    fontWeight: 500,
     cursor: "pointer"
   }
 }))
@@ -117,6 +136,9 @@ export const Posts = () => {
     setPostId(event.currentTarget.querySelector('svg').previousElementSibling.textContent)
     setAnchorEl(event.currentTarget);
   }
+
+  // コメント
+  const [comment, setComment] = useState<String>("")
 
   return(
     <>
@@ -216,10 +238,74 @@ export const Posts = () => {
                   </LikeWapper>
 
                   <CardContent>
-                    <STypography variant="body2" >
+                    <Typography variant="body2" >
+                      <strong>{postdata.user.name}&nbsp;</strong>
                       {postdata.post.caption}
-                    </STypography>
+                    </Typography>
+
+                    <Grid id={`comment-${postdata.post.id}`} >
+                      {
+                        postdata.comments.length < 5 ? 
+                        postdata.comments.map((comment) => {
+                          return (
+                          <Typography variant="body2">
+                            <strong>{comment.user.name}&nbsp;</strong>
+                            {comment.text}
+                          </Typography>
+                          )
+                        })
+                        :
+                        <Typography 
+                          variant="body2"
+                          className={classes.AllComent}
+                          onClick={() => {history.push(`/post/${postdata.post.id}`)}}
+                        >
+                          コメント{postdata.comments.length}件をすべて見る
+                        </Typography>
+                      }
+                    </Grid>
+
                   </CardContent>
+
+                  <CommentWapper>
+                    <Sform >
+                      <TextField
+                        margin="dense"
+                        required
+                        fullWidth
+                        placeholder='コメントを追加...'
+                        multiline
+                        value={comment}
+                        onChange={e => setComment(e.target.value)}
+                        InputProps={{
+                          disableUnderline: true,
+                          classes: {
+                            input: classes.CommentField,
+                          },
+                        }}
+                      />
+         
+                      <Button 
+                        type="submit"
+                        variant="text"
+                        color="primary"
+                        style={{fontWeight: 'bold'}}
+                        onClick={(e) => {
+                          e.preventDefault()
+                          handleComments(
+                            {
+                              comment: comment,
+                              postId: postdata.post.id,
+                            }
+                          )
+                          setComment("")
+                        }}
+                      >
+                        送信
+                      </Button>
+                      
+                    </Sform>
+                  </CommentWapper>
             
                 </SCard>
               )

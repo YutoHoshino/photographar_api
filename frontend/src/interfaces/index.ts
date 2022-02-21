@@ -60,7 +60,18 @@ export interface GetPostdata {
   likes: Array<{
     id:number,
     user_id: number,
-  }>
+  }>,
+  comments: Array<{
+    id:number,
+    text: string,
+    user: {
+      id: number,
+      name: string,
+      image?: {
+        url: string
+      },
+    }
+  }>,
 }
 
 // 投稿Swipper（Swipperデータ）
@@ -106,12 +117,15 @@ export interface GetUserShowData {
   }>
 }
 
+// いいね（containersに渡すprops）
 export interface LikeProps {
   postId: number,
   likesCount :number, 
   e: any,
 }
 
+// いいね（送信系）
 export interface LikeIdProps {
   post_id: number
 }
+

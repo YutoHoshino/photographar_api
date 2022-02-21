@@ -4,9 +4,9 @@ import { likeCreate, likeDelete } from "apis/like";
 // interface
 import { LikeProps } from "interfaces";
 
-export const handleLikes = (params: LikeProps) => {
+export const handleLikes = (props: LikeProps) => {
 
-  const { postId, likesCount, e } = params
+  const { postId, likesCount, e } = props
     
   const likeElement = e.currentTarget.querySelector('svg')
 
