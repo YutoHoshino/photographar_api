@@ -3,12 +3,13 @@ class Api::V1::PostsController < ApplicationController
 
   def index
     posts = Post.alive_records.includes(:photos, :user, :likes, :comments).order('created_at DESC')
+  
     post_datas = posts.map {|post| { 
       post: post, 
       photos: post.photos, 
       user: post.user, 
       likes: post.likes.map{|like|{ id: like.id, user_id: like.user_id}},
-      comments: post.comments.map{|comment| {id: comment.id, text: comment.text, user: User.find_by(id: comment.user_id)}}
+      comments: post.comments.map{|comment| {id: comment.id, text: comment.text, user: comment.user}}
     }}
 
     render json: { posts: post_datas }, status: :ok
@@ -29,7 +30,7 @@ class Api::V1::PostsController < ApplicationController
       photos: @post.photos, 
       user: @post.user, 
       likes: @post.likes.map{|like|{ id: like.id, user_id: like.user_id}},
-      comments: @post.comments.map{|comment| {id: comment.id, text: comment.text, user: User.find_by(id: comment.user_id)}}
+      comments: @post.comments.map{|comment| {id: comment.id, text: comment.text, user: comment.user}}
     }
     render json: { post: post }, status: :ok
   end

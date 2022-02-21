@@ -248,7 +248,7 @@ export const Posts = () => {
                         postdata.comments.length < 5 ? 
                         postdata.comments.map((comment) => {
                           return (
-                          <Typography variant="body2">
+                          <Typography variant="body2" key={comment.id}>
                             <strong>{comment.user.name}&nbsp;</strong>
                             {comment.text}
                           </Typography>

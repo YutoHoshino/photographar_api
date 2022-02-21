@@ -184,9 +184,9 @@ export const Post = ({ match }: any) => {
                   post.comments.length == 0 ?
                     <></>
                   :
-                  post.comments.map((comment, key) => 
+                  post.comments.map((comment) => 
 
-                    <ListItem alignItems="flex-start" key={key}>
+                    <ListItem alignItems="flex-start" key={comment.id}>
                       <ListItemAvatar>
                         <Avatar
                           alt={comment.user.name}
