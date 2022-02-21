@@ -7,6 +7,7 @@ import { PhotosSwipper } from 'interfaces';
 
 // swipper
 import 'swiper/css';
+import "swiper/css/pagination";
 import { Swiper, SwiperSlide } from 'swiper/react';
 import SwiperCore, { Navigation, Pagination } from 'swiper';
 
@@ -23,9 +24,8 @@ export const PostSwiper: React.FC<PhotosSwipper> = ({ photos, height }) => {
   return (
     <>
       <Swiper
-        spaceBetween={50}
-        navigation
-        pagination={{ clickable: true }}
+        modules={[Pagination]}
+        pagination={true}
         onSwiper={(swiper) => setSwiperInstance(swiper)}
       >
         {photos.map((photo, index) => {
