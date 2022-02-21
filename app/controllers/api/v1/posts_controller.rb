@@ -24,7 +24,13 @@ class Api::V1::PostsController < ApplicationController
   end
 
   def show
-    post = { post: @post, photos: @post.photos, user: @post.user, likes: @post.likes, comments: @post.comments }
+    post = { 
+      post: @post, 
+      photos: @post.photos, 
+      user: @post.user, 
+      likes: @post.likes.map{|like|{ id: like.id, user_id: like.user_id}},
+      comments: @post.comments.map{|comment| {id: comment.id, text: comment.text, user: User.find_by(id: comment.user_id)}}
+    }
     render json: { post: post }, status: :ok
   end
 

@@ -5,13 +5,17 @@ import styled from "styled-components";
 import Card from '@mui/material/Card';
 import { 
   Avatar, 
-  Box, 
   Button, 
-  CardActions, 
   CardHeader, 
+  Grid, 
   IconButton, 
   LinearProgress, 
+  ListItem, 
+  ListItemAvatar, 
+  ListItemText, 
+  makeStyles, 
   TextField, 
+  Theme, 
   Typography
  } from '@material-ui/core';
 
@@ -30,6 +34,7 @@ import { postShowData } from 'apis/post';
 
 // containers
 import { handleLikes } from "containers/Like";
+import { handleComment } from "containers/Comment";
 
 // interface
 import { GetPostdata } from 'interfaces';
@@ -37,41 +42,50 @@ import { GetPostdata } from 'interfaces';
 // useContext
 import { AuthContext } from 'App';
 
-// style css
-const SCard = styled(Card)`
-  max-width: 850px;
-  min-height: 550px;
-  margin-bottom: 50px;
-  box-shadow: none;
-  border: 1px solid #dbdbdb;
-`
-const SPostSwiper = styled(PostSwiper)`
-  height: 100%;
-`
-const ContextWapper = styled(Box)`
-  min-width: 250px;
-`
-const TextWapper = styled(Box)`
-  padding: 16px;
-  height: 300px;
-`
-const CommentWapper = styled(Box)`
-  padding: 16px;
-`
-const Sform = styled.form`
-  display:flex
-`
-const LikeWapper = styled.div`
-  padding: 0 16px;
-`
-const STypography = styled(Typography)`
-  width: 300px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-`
+
+const useStyles = makeStyles((theme: Theme) => ({
+  RootCard: {
+    maxWidth: "800px",
+    minHeight: "550px",
+    boxShadow: "none",
+    border: "1px solid #dbdbdb"
+  },
+  ContextWapper: {
+    minWidth: "250px"
+  },
+  CardHeader: {
+    height: "56px",
+    borderBottom: "solid 1px #efefef",
+  },
+  CommentList: {
+    padding: "16px",
+    minHeight: "280px",
+    height: "280px",
+    overflow: "scroll",
+  },
+  ActionsField: {
+    height: "170px",
+    padding: "10px 0"
+  },
+  CardActions: {
+    borderTop: "solid 1px #efefef",
+    height: "40%",
+    padding: "0 16px"
+  },
+  CardComment: {
+    padding: "0 16px",
+    height: "30%",
+    borderTop: "solid 1px #efefef",
+  },
+  CardLikeCount: {
+    padding: "0 16px",
+    height: "30%"
+  },
+}))
 
 export const Post = ({ match }: any) => {
+
+  const classes = useStyles();
 
   const { currentUser } = useContext(AuthContext)
 
@@ -87,19 +101,36 @@ export const Post = ({ match }: any) => {
     })
   },[])
   
+  // ライクの初期化
   let likeCount = post?.likes.length
+
+  // コメント
+  const [comment, setComment] = useState<String>("")
 
   return (
 
     <>
       { post?
+        
         <CommonLayout>
-          <SCard sx={{ display: 'flex' }}>
 
-            <SPostSwiper photos={post.photos} height="600"/>
-            <ContextWapper>
+          {/* カードメイン枠 */}
+          <Card 
+            sx={{ display: 'flex' }}
+            className={classes.RootCard}
+          >
 
+            {/* 写真（右側） */}
+            <PostSwiper photos={post.photos} height="600"/>
+
+            {/* アクション（左側） */}
+            <Grid
+              className={classes.ContextWapper}
+            >
+
+              {/* アイコン&名前 */}
               <CardHeader
+                className={classes.CardHeader}
                 avatar={
                   <Avatar
                     alt={post.user.name}
@@ -111,71 +142,185 @@ export const Post = ({ match }: any) => {
                 }
               />
 
-              <TextWapper>
-                <Typography variant="body2" >
-                  {post.post?.caption}
-                </Typography>
-              </TextWapper>
+              {/* コメント一覧 */}
+              <Grid className={classes.CommentList}>
 
-              <CardActions>
-                
-                <IconButton
-                  onClick={(e) => {
-                    likeCount = handleLikes(
-                      {
-                        postId: post.post.id,
-                        likesCount: likeCount || post?.likes.length,
-                        e:e
-                      }
-                    )
-                  }}
-                >
-                  <FavoriteIcon id={post.likes.some((like)=>like.user_id == currentUser?.id) ? "liked" : ""}/>
-                </IconButton>
+                <ListItem alignItems="flex-start">
 
-                <IconButton>
-                  <Comment />
-                </IconButton>
-                <IconButton>
-                  <ShareIcon />
-                </IconButton>
-              </CardActions>
-              
-              <LikeWapper>
-                <STypography 
-                  style={{ fontWeight: "bold" }}
-                  variant="body2"
-                  id={`like-count-${post.post.id}`} 
-                  >
+                  <ListItemAvatar>
+                    <Avatar
+                      alt={post.user.name}
+                      src={post.user.image?.url}
+                    />
+                  </ListItemAvatar>
 
-                    {
-                      post.likes.length == 0 ?
-                      null
-                      :
-                      `${post.likes.length}件のいいね`
+                  <ListItemText
+                    primary={
+                      <>
+                        <Typography
+                          component="span"
+                          variant="body2"
+                          color="textPrimary"
+                        >
+                          {post.user.name}
+                        </Typography>
+                      </>
                     }
-
-                </STypography>
-              </LikeWapper>
-              
-              <CommentWapper>
-                <Sform>
-
-                  <TextField 
-                    margin="dense"
-                    placeholder='コメント...'
+                    secondary={
+                      <>
+                        <Typography
+                          component="span"
+                          variant="body2"
+                          color="textPrimary"
+                        >
+                          {post.post.caption}
+                        </Typography>
+                      </>
+                    }
                   />
-                  <Button
-                    type="submit"
+                </ListItem>
+
+                {
+                  post.comments.length == 0 ?
+                    <></>
+                  :
+                  post.comments.map((comment, key) => 
+
+                    <ListItem alignItems="flex-start" key={key}>
+                      <ListItemAvatar>
+                        <Avatar
+                          alt={comment.user.name}
+                          src={comment.user.image?.url}
+                        />
+                      </ListItemAvatar>
+
+                      <ListItemText
+                        style={{ overflowWrap: "break-word", width: "200px"}}
+                        primary={
+                          <>
+                            <Typography
+                              component="span"
+                              variant="body2"
+                              color="textPrimary"
+                            >
+                              {comment.user.name}
+                            </Typography>
+                          </>
+                        }
+                        secondary={
+                          <>
+                            <Typography
+                              component="span"
+                              variant="body2"
+                              color="textPrimary"
+                            >
+                              {comment.text}
+                            </Typography>
+                          </>
+                        }
+                      />
+                    </ListItem>
+                  )
+                }
+                
+              </Grid>
+
+
+              <Grid className={classes.ActionsField}>
+
+                {/* アイコン一覧 */}
+                <Grid className={classes.CardActions}>
+                  <IconButton
+                    onClick={(e) => {
+                      likeCount = handleLikes(
+                        {
+                          postId: post.post.id,
+                          likesCount: likeCount || 0,
+                          e:e
+                        }
+                      )
+                    }}
                   >
-                    送信
-                  </Button>     
-                </Sform>
-              </CommentWapper>
+                    <FavoriteIcon id={post.likes.some((like)=>like.user_id == currentUser?.id) ? "liked" : ""}/>
+                  </IconButton>
+
+                  <IconButton
+                    onClick={(() => {})}
+                  >
+                    <Comment />
+                  </IconButton>
+
+                  <IconButton
+                    onClick={(() => {})}
+                  >
+                    <ShareIcon />
+                  </IconButton>
+                </Grid>
+                
+                {/* いいね数 */}
+                <Grid className={classes.CardLikeCount}>
+                  <Typography 
+                    style={{ fontWeight: "bold" }}
+                    variant="body2"
+                    id={`like-count-${post.post.id}`} 
+                    >
+                      {
+                        post.likes.length == 0 ?
+                        null
+                        :
+                        `${post.likes.length}件のいいね`
+                      }
+                  </Typography>
+                </Grid>
+                
+                {/* コメント入力欄 */}
+                <Grid className={classes.CardComment}>
+                  <form
+                    style={{display: 'flex'}}
+                  >
+                    <TextField
+                      margin="dense"
+                      required
+                      fullWidth
+                      placeholder='コメントを追加...'
+                      multiline
+                      rows={2}
+                      value={comment}
+                      onChange={e => setComment(e.target.value)}
+                      InputProps={{
+                        disableUnderline: true,
+                      }}
+                    />
+        
+                    <Button 
+                      type="submit"
+                      variant="text"
+                      color="primary"
+                      style={{fontWeight: 'bold'}}
+                      onClick={(e) => {
+                        e.preventDefault()
+                        setComment("")
+                        handleComment(
+                          {
+                            comment: comment,
+                            postId: post.post.id,
+                            setPost: setPost
+                          }
+                        )
+                      }}
+                    > 
+                      送信
+                    </Button>
 
 
-            </ContextWapper>
-          </SCard>
+                  </form>
+                </Grid>
+
+              </Grid>
+
+            </Grid>
+            
+          </Card>
         </CommonLayout>
         :
         <LoadLayout>
