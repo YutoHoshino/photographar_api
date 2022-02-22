@@ -25,7 +25,9 @@ export const PostSwiper: React.FC<PhotosSwipper> = ({ photos, height }) => {
     <>
       <Swiper
         modules={[Pagination]}
-        pagination={true}
+        pagination={{
+          clickable: true,
+        }}
         onSwiper={(swiper) => setSwiperInstance(swiper)}
       >
         {photos.map((photo, index) => {

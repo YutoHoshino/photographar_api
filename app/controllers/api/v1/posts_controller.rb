@@ -9,7 +9,7 @@ class Api::V1::PostsController < ApplicationController
       photos: post.photos, 
       user: post.user, 
       likes: post.likes.map{|like|{ id: like.id, user_id: like.user_id}},
-      comments: post.comments.map{|comment| {id: comment.id, text: comment.text, user: comment.user}}
+      comments: post.comments.includes(:user).map{|comment| {id: comment.id, text: comment.text, user: comment.user}}
     }}
 
     render json: { posts: post_datas }, status: :ok
@@ -30,7 +30,7 @@ class Api::V1::PostsController < ApplicationController
       photos: @post.photos, 
       user: @post.user, 
       likes: @post.likes.map{|like|{ id: like.id, user_id: like.user_id}},
-      comments: @post.comments.map{|comment| {id: comment.id, text: comment.text, user: comment.user}}
+      comments: @post.comments.includes(:user).map{|comment| {id: comment.id, text: comment.text, user: comment.user}}
     }
     render json: { post: post }, status: :ok
   end
