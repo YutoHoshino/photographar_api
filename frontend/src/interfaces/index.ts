@@ -76,7 +76,6 @@ export interface GetPostdata {
 
 // 投稿Swipper（Swipperデータ）
 export interface PhotosSwipper {
-  height: string,
   photos: Array<{
     id: number,
     image?: {

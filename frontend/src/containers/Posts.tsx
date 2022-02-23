@@ -45,7 +45,7 @@ import { AuthContext, PostContext } from "App";
 import { CommonLayout } from "components/Layout/CommonLayout";
 import { LoadLayout } from "components/Layout/LoadLayout";
 import { PostActionModal } from "components/Modal/PostActionModal";
-import { PostSwiper } from "components/Swiper/PostSwiper";
+import { PostsSwiper } from "components/Swiper/PostsSwiper";
 
 // interface
 import { GetPostdata } from "interfaces"
@@ -192,7 +192,7 @@ export const Posts = () => {
                   />
 
                   
-                  <PostSwiper photos={postdata.photos} height="400"/>
+                  <PostsSwiper photos={postdata.photos}/>
 
                   <CardActions disableSpacing>
                     

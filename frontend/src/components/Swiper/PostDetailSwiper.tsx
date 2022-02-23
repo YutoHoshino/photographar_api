@@ -5,6 +5,8 @@ import { CardMedia } from '@material-ui/core';
 // interface 
 import { PhotosSwipper } from 'interfaces';
 
+import Box from '@mui/material/Box';
+
 // swipper
 import 'swiper/css';
 import "swiper/css/pagination";
@@ -13,7 +15,7 @@ import SwiperCore, { Navigation, Pagination } from 'swiper';
 
 SwiperCore.use([Navigation, Pagination]);
 
-export const PostSwiper: React.FC<PhotosSwipper> = ({ photos, height }) => {
+export const PostDetailSwiper: React.FC<PhotosSwipper> = ({ photos }) => {
   
   const [swiperInstance, setSwiperInstance] = useState<SwiperCore | null>(null);
 
@@ -23,6 +25,7 @@ export const PostSwiper: React.FC<PhotosSwipper> = ({ photos, height }) => {
   };
   return (
     <>
+
       <Swiper
         modules={[Pagination]}
         pagination={{
@@ -37,12 +40,13 @@ export const PostSwiper: React.FC<PhotosSwipper> = ({ photos, height }) => {
                 onClick={() => slideTo(index)}
                 component="img"
                 image={photo.image?.url}
-                height={height}
+                height="600"
               />
             </SwiperSlide>
           );
         })}
       </Swiper>
+
     </>
   );
 };

@@ -27,7 +27,7 @@ import Comment from "@material-ui/icons/Comment"
 // component
 import { CommonLayout } from "components/Layout/CommonLayout";
 import { LoadLayout } from "components/Layout/LoadLayout";
-import { PostSwiper } from 'components/Swiper/PostSwiper';
+import { PostDetailSwiper } from 'components/Swiper/PostDetailSwiper';
 
 // apis
 import { postShowData } from 'apis/post';
@@ -121,7 +121,7 @@ export const Post = ({ match }: any) => {
           >
 
             {/* 写真（右側） */}
-            <PostSwiper photos={post.photos} height="600"/>
+            <PostDetailSwiper photos={post.photos}/>
 
             {/* アクション（左側） */}
             <Grid
