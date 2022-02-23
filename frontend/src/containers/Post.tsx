@@ -1,12 +1,11 @@
-import React, { useContext, useEffect, useState } from 'react';
-import styled from "styled-components";
+import { useContext, useEffect, useState } from 'react';
 
 // material
 import Card from '@mui/material/Card';
+import CardHeader from '@mui/material/CardHeader';
 import { 
   Avatar, 
   Button, 
-  CardHeader, 
   Grid, 
   IconButton, 
   LinearProgress, 
@@ -115,10 +114,20 @@ export const Post = ({ match }: any) => {
         <CommonLayout>
 
           {/* カードメイン枠 */}
-          <Card 
-            sx={{ display: 'flex' }}
+          <Card
             className={classes.RootCard}
+            sx={{ 
+              display: { xs: 'block', md: 'flex'},
+              width: { xs: '375px', md: '100%'} 
+            }}
           >
+            {/* アイコン&名前 */}
+            <CardHeader
+              style={{borderBottom: "solid 1px #efefef"}}
+              avatar={<Avatar alt={post.user.name} src={post.user.image?.url}/> }
+              title={post.user.name}
+              sx={{ display: { xs: 'flex', md: 'none'}}}
+            />
 
             {/* 写真（右側） */}
             <PostDetailSwiper photos={post.photos}/>
@@ -131,15 +140,9 @@ export const Post = ({ match }: any) => {
               {/* アイコン&名前 */}
               <CardHeader
                 className={classes.CardHeader}
-                avatar={
-                  <Avatar
-                    alt={post.user.name}
-                    src={post.user.image?.url}
-                  />
-                }
-                title={
-                  post.user.name
-                }
+                avatar={<Avatar alt={post.user.name} src={post.user.image?.url}/>}
+                title={post.user.name}
+                sx={{display: { xs: 'none', md: 'flex'}}}
               />
 
               {/* コメント一覧 */}

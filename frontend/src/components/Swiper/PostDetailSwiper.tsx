@@ -1,11 +1,11 @@
 import { useState } from 'react';
 
-import { CardMedia } from '@material-ui/core';
+import CardMedia from '@mui/material/CardMedia';
 
 // interface 
 import { PhotosSwipper } from 'interfaces';
 
-import Box from '@mui/material/Box';
+import Grid from '@mui/material/Grid';
 
 // swipper
 import 'swiper/css';
@@ -24,29 +24,26 @@ export const PostDetailSwiper: React.FC<PhotosSwipper> = ({ photos }) => {
     swiperInstance.slideTo(index);
   };
   return (
-    <>
 
-      <Swiper
-        modules={[Pagination]}
-        pagination={{
-          clickable: true,
-        }}
-        onSwiper={(swiper) => setSwiperInstance(swiper)}
-      >
-        {photos.map((photo, index) => {
-          return (
-            <SwiperSlide key={photo.id}>
-              <CardMedia
-                onClick={() => slideTo(index)}
-                component="img"
-                image={photo.image?.url}
-                height="600"
+    <Swiper
+      modules={[Pagination]}
+      pagination={{
+        clickable: true,
+      }}
+      onSwiper={(swiper) => setSwiperInstance(swiper)}
+    >
+      {photos.map((photo, index) => {
+        return (
+          <SwiperSlide key={photo.id}>
+            <CardMedia
+              onClick={() => slideTo(index)}
+              component="img"
+              image={photo.image?.url}
+              sx={{ height: { xs: '300px', md: '600px'}}}
               />
-            </SwiperSlide>
-          );
-        })}
-      </Swiper>
-
-    </>
+          </SwiperSlide>
+        );
+      })}
+    </Swiper>
   );
 };
