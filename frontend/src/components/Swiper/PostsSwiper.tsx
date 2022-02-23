@@ -26,7 +26,7 @@ export const PostsSwiper: React.FC<PhotosSwipper> = ({ photos }) => {
   return (
     <>
       <Box 
-        sx={{ width: { xs: '390px', md: '100%'} }}
+        sx={{ width: { xs: '375px', md: '100%'} }}
       >
         <Swiper
           modules={[Pagination]}
