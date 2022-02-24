@@ -2,10 +2,17 @@ import { useContext, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 
 // material
-import { Avatar, AppBar, Toolbar, IconButton, makeStyles, Typography, Button } from "@material-ui/core"
+import Box from '@mui/material/Box';
+import { styled, alpha } from '@mui/material/styles';
+import InputBase from '@mui/material/InputBase';
+import SearchIcon from '@mui/icons-material/Search';
+import Typography from '@mui/material/Typography';
+import { Avatar, AppBar, Toolbar, IconButton, makeStyles, Button } from "@material-ui/core"
 
-import Icon from '@mdi/react'
-import { mdiImagePlus, mdiAccountCircle } from '@mdi/js'
+// material icon
+import CreateIcon from '@mui/icons-material/Create';
+import MailOutlineIcon from '@mui/icons-material/MailOutline';
+import NotificationsIcon from '@mui/icons-material/Notifications';
 
 // useContext
 import { AuthContext } from "App";
@@ -22,10 +29,7 @@ const useStyles = makeStyles(
     appBar: {
       boxShadow: 'none',
       borderBottom: "solid 1px #dbdbdb",
-      padding: "0 40px"
-    },
-    toolbar: {
-        minHeight: `60px`,
+
     },
     title: {
       flexGrow: 1,
@@ -34,6 +38,45 @@ const useStyles = makeStyles(
     }
   }
 );
+
+const Search = styled('div')(({ theme }) => ({
+  position: 'relative',
+  borderRadius: theme.shape.borderRadius,
+  backgroundColor: alpha(theme.palette.common.white, 0.25),
+  '&:hover': {
+    backgroundColor: alpha(theme.palette.common.white, 0.35),
+  },
+  marginRight: theme.spacing(2),
+  marginLeft: 0,
+  width: '100%',
+  [theme.breakpoints.up('sm')]: {
+    marginLeft: theme.spacing(3),
+    width: 'auto',
+  },
+}));
+
+const SearchIconWrapper = styled('div')(({ theme }) => ({
+  padding: theme.spacing(0, 2),
+  height: '100%',
+  position: 'absolute',
+  pointerEvents: 'none',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+}));
+
+const StyledInputBase = styled(InputBase)(({ theme }) => ({
+  color: 'inherit',
+  '& .MuiInputBase-input': {
+    fontSize: '16px', 
+    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
+    transition: theme.transitions.create('width'),
+    width: '100%',
+    [theme.breakpoints.up('md')]: {
+      width: '30ch',
+    },
+  },
+}));
 
 export const PrimaryHeader = () => {
 
@@ -63,42 +106,82 @@ export const PrimaryHeader = () => {
     <>
       {
         currentUser ? 
-        <AppBar color="primary" className={classes.appBar}>
-          <Toolbar className={classes.toolbar} >
-    
-            <Typography
-              component={Link}
-              to="/"
-              variant="h6"
-              className={classes.title}
+
+
+          <AppBar
+            className={classes.appBar}
+          >
+            <Box
+              sx={{ padding: {xs: '0', md: '0 200px'} }}
             >
-              photographar
-            </Typography>
+              <Toolbar>
+                <Typography
+                  component={Link}
+                  to="/"
+                  variant="h6"
+                  className={classes.title}
+                >
+                  photographar
+                </Typography>
 
-            <>
-              {/* 投稿 */}
-              <Button
-                color="inherit"
-                onClick={handlePost}
-              >
-                <Icon path={mdiImagePlus} size={1.3}/>
-              </Button>
-    
-    
-              {/* ユーザーアイコン */}
-              <IconButton
-                onClick={handleMobileMenuOpen} 
-              >
-                <Avatar
-                  alt={currentUser?.name}
-                  src={currentUser?.image?.url}
-                />
-              </IconButton>
+                <Search
+                  sx={{ 
+                    display: {xs: 'none', md: 'block' },
+                    fontSize: "16px"
+                  }}
+                >
+                  <SearchIconWrapper>
+                    <SearchIcon />
+                  </SearchIconWrapper>
+                  <StyledInputBase
+                    placeholder="検索"
+                    inputProps={{ 'aria-label': 'search' }}
+                  />  
+                </Search>
 
-            </>
+                <Box sx={{ flexGrow: 1 }} />
 
-          </Toolbar>
-        </AppBar>
+
+                {/* アイコン */}
+                <Box
+                  sx={{display: "flex"}}
+                >
+                  <IconButton
+                    color="inherit"
+                    onClick={handlePost}
+                  >
+                    <CreateIcon/>
+                  </IconButton>
+
+                  <IconButton
+                    color="inherit"
+                  >
+                    <MailOutlineIcon/>
+                  </IconButton>
+
+                  <IconButton
+                    color="inherit"
+                  >
+                    <NotificationsIcon/>
+                  </IconButton>
+
+
+                  {/* ユーザーアイコン */}
+                  <IconButton
+                    onClick={handleMobileMenuOpen} 
+                  >
+                    <Avatar
+                      alt={currentUser?.name}
+                      src={currentUser?.image?.url}
+                    />
+                  </IconButton>
+                  
+                </Box>
+
+              </Toolbar>
+            </Box>
+          </AppBar>
+
         :
         <></>
       }
@@ -116,6 +199,7 @@ export const PrimaryHeader = () => {
         isOpen={isOpen}
         onClose={() => setIsOpen(false)}
       />
+
           
     </>
 
