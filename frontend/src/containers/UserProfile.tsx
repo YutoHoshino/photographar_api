@@ -1,5 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
+import styled from "styled-components";
 
 //material
 import { 
@@ -40,13 +41,14 @@ const useStyles = makeStyles((theme: Theme) => ({
     padding: "10px"
   },
   CardContent: {
-    display: "flex", justifyContent: "space-between"
+    display: "flex"
   },
   EditButton: {
     marginLeft: "15px"
   },
   ImageListItem: {
-    cursor: "pointer"
+    cursor: "pointer",
+    border: "1px solid #e4e4e4",
   }
 }))
 
@@ -81,18 +83,27 @@ export const UserProfile = ({match}:any) => {
     <>
       {
         user  ?
+
           <CommonLayout>
+            
             <Box className={classes.root}>
+
               <Grid className={classes.ImageGrid}>
+
                 <Avatar
                   alt={user.user.name}
                   src={user.user.image?.url}
-                  sx={{ width: 100, height: 100 }}
+                  sx={{ width: 120, height: 120 }}
                 />
+
               </Grid>
+
               <Grid >
+
                 <CardContent className={classes.CardContent}>
-                  <Typography variant="h5">{user.user.name}</Typography>
+                  <Typography variant="h4">
+                    {user.user.name}
+                  </Typography>
                   {
                     user.user?.id == currentUser?.id ?
                     <>
@@ -101,7 +112,7 @@ export const UserProfile = ({match}:any) => {
                         variant="outlined" 
                         className={classes.EditButton}
                       >
-                        プロフィール修正
+                        修正
                       </Button>
                       <Button><SettingsIcon/></Button>
                     </>
@@ -109,36 +120,46 @@ export const UserProfile = ({match}:any) => {
                     <></>
                   }
                 </CardContent>
+
                 <CardActions>
-                  <div>
+                  <Box>
                     投稿{user.posts.length}件
-                  </div>
+                  </Box>
+
                   <Button>
                     フォロワー0人
                   </Button>
+
                   <Button>
                     フォロー0人
                   </Button>
                 </CardActions>
+
               </Grid>
+
             </Box>
 
-            <Box></Box>
+            <Box>
+
+            </Box>
 
             <Box>
               <ImageList
-                sx={{ height: 450 }}
                 variant="quilted"
                 cols={3}
-                rowHeight={120}
               >
                 {user.posts.map((post) => (
-                  <ImageListItem 
+                  <ImageListItem
                     key={post.post.id}
                     className={classes.ImageListItem}
                     onClick={() => {history.push(`/post/${post.post.id}`)}}
+
+                    sx={{
+                      maxWidth: {xs: "120px", md: "300px"},
+                      maxHeight: {xs: "120px", md: "300px"},
+                    }}
                   >
-                    <img src={post.photos[0].image?.url} />
+                    <img src={post.photos[0].image?.url}/>
                   </ImageListItem>
                 ))}
               </ImageList>
