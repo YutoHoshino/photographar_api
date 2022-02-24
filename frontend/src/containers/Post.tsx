@@ -1,5 +1,8 @@
 import { useContext, useEffect, useState } from 'react';
 
+// 時間フォーマット
+import moment from 'moment'
+
 // material
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
@@ -126,6 +129,7 @@ export const Post = ({ match }: any) => {
               style={{borderBottom: "solid 1px #efefef"}}
               avatar={<Avatar alt={post.user.name} src={post.user.image?.url}/> }
               title={post.user.name}
+              subheader={moment(post.post.created_at).format('YYYY年MM月DD日')}
               sx={{ display: { xs: 'flex', md: 'none'}}}
             />
 
@@ -142,6 +146,7 @@ export const Post = ({ match }: any) => {
                 className={classes.CardHeader}
                 avatar={<Avatar alt={post.user.name} src={post.user.image?.url}/>}
                 title={post.user.name}
+                subheader={moment(post.post.created_at).format('YYYY年MM月DD日')}
                 sx={{display: { xs: 'none', md: 'flex'}}}
               />
 

@@ -7,6 +7,8 @@ import {
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 
+// 時間フォーマット
+import moment from 'moment'
 
 // material
 import {
@@ -187,7 +189,7 @@ export const Posts = () => {
                       </div>
                     }
                     subheader={
-                      postdata.post.created_at
+                      moment(postdata.post.created_at).format('YYYY年MM月DD日')
                     }
                   />
 
