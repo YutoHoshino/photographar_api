@@ -44,3 +44,7 @@ body {
 #liked {
   color: red;
 }
+
+#switch_active {
+  color: black;
+}

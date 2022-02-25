@@ -49,11 +49,17 @@ const useStyles = makeStyles((theme: Theme) => ({
   ImageListItem: {
     cursor: "pointer",
     border: "1px solid #e4e4e4",
+  },
+  ActionButton: {
+    fontWeight: "bold",
+    color: "#9e9e9e",
   }
 }))
 
 
 export const UserProfile = ({match}:any) => {
+
+  const params = {name: match.params.userName}
 
   const history = useHistory();
 
@@ -65,7 +71,6 @@ export const UserProfile = ({match}:any) => {
 
   useEffect(() => {
     if (currentUser) {
-      const params = {name: match.params.userName}
       userShowData(params)
       .then((data) => {
         setUser(data.user)
@@ -75,9 +80,25 @@ export const UserProfile = ({match}:any) => {
       })
     }
   },[currentUser])
-  
-  console.log(user)
 
+
+  const [action, setAction] = useState<"ALL" | "LIKE">("ALL")
+
+  const handleAllPosts = (e: any) => {
+    if (action == "ALL") return
+    const TargetButton = e.currentTarget
+    TargetButton.id = "switch_active"
+    TargetButton.nextElementSibling.id = ""
+    setAction("ALL")
+  }
+
+  const handleLikePosts = (e: any) => {
+    if (action == "LIKE") return
+    const TargetButton = e.currentTarget
+    TargetButton.id = "switch_active"
+    TargetButton.previousElementSibling.id = ""
+    setAction("LIKE")
+  }
 
   return (
     <>
@@ -126,14 +147,41 @@ export const UserProfile = ({match}:any) => {
                     投稿{user.posts.length}件
                   </Box>
 
-                  <Button>
+                  <Box>
                     フォロワー0人
-                  </Button>
+                  </Box>
 
-                  <Button>
+                  <Box>
                     フォロー0人
-                  </Button>
+                  </Box>
                 </CardActions>
+
+              </Grid>
+
+            </Box>
+
+            <Box
+              style={{
+                borderTop: "1px solid rgba(var(--b38,219,219,219),1)",
+                paddingTop: "10px",
+              }}
+            >
+              <Grid container justifyContent="center">
+              
+                <Button
+                  id="switch_active"
+                  className={classes.ActionButton}
+                  onClick={(e) => {handleAllPosts(e)}}
+                >
+                  投稿
+                </Button>
+
+                <Button
+                  className={classes.ActionButton}
+                  onClick={(e) => {handleLikePosts(e)}}
+                >
+                  お気に入り
+                </Button>
 
               </Grid>
 
@@ -141,28 +189,37 @@ export const UserProfile = ({match}:any) => {
 
             <Box>
 
-            </Box>
-
-            <Box>
               <ImageList
                 variant="quilted"
                 cols={3}
               >
-                {user.posts.map((post) => (
-                  <ImageListItem
-                    key={post.post.id}
-                    className={classes.ImageListItem}
-                    onClick={() => {history.push(`/post/${post.post.id}`)}}
+                {
+                  action == "ALL" ?
+                  user.posts.map((post) => (
+                    <ImageListItem
+                      key={post.post.id}
+                      className={classes.ImageListItem}
+                      onClick={() => {history.push(`/post/${post.post.id}`)}}
+                      sx={{maxWidth: {xs: "120px", md: "300px"},maxHeight: {xs: "120px", md: "300px"}}}
+                    >
+                      <img src={post.photos[0].image?.url}/>
+                    </ImageListItem>
+                  ))
+                  :
+                  user.like_posts.map((post) => (
+                    <ImageListItem
+                      key={post.post.id}
+                      className={classes.ImageListItem}
+                      onClick={() => {history.push(`/post/${post.post.id}`)}}
+                      sx={{maxWidth: {xs: "120px", md: "300px"},maxHeight: {xs: "120px", md: "300px"}}}
+                    >
+                      <img src={post.photos[0].image?.url}/>
+                    </ImageListItem>
+                  ))
+                }
 
-                    sx={{
-                      maxWidth: {xs: "120px", md: "300px"},
-                      maxHeight: {xs: "120px", md: "300px"},
-                    }}
-                  >
-                    <img src={post.photos[0].image?.url}/>
-                  </ImageListItem>
-                ))}
               </ImageList>
+
             </Box>
 
           </CommonLayout>

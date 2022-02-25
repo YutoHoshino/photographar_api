@@ -113,7 +113,18 @@ export interface GetUserShowData {
         url: string
       }
     }>
-  }>
+  }>,
+  like_posts: Array<{
+    post: {
+      id: number,
+    },
+    photos: Array<{
+      id: number
+      image: {
+        url: string
+      }
+    }>
+  }>,
 }
 
 // いいね（containersに渡すprops）

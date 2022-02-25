@@ -13,7 +13,12 @@ class Api::V1::UsersController < ApplicationController
   end
 
   def show
-    user = {user: @user, posts: @user.posts.alive_records.map{|post|{post: post, photos:post.photos}}}
+    like_posts = Post.includes(:photos).find(Like.where(user_id: @user.id).pluck(:post_id))
+    user = {
+      user: @user, 
+      posts: @user.posts.includes(:photos).alive_records.map{|post|{post: post, photos:post.photos}},
+      like_posts: like_posts.map{|like_post|{post: like_post, photos: like_post.photos}}
+    }
     render json: { user: user }, status: :ok
   end
 
