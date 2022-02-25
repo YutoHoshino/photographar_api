@@ -10,9 +10,9 @@ import Typography from '@mui/material/Typography';
 import { Avatar, AppBar, Toolbar, IconButton, makeStyles, Button } from "@material-ui/core"
 
 // material icon
-import CreateIcon from '@mui/icons-material/Create';
+import CreateOutlinedIcon from '@mui/icons-material/CreateOutlined';
 import MailOutlineIcon from '@mui/icons-material/MailOutline';
-import NotificationsIcon from '@mui/icons-material/Notifications';
+import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
 
 // useContext
 import { AuthContext } from "App";
@@ -27,6 +27,7 @@ import { UserModal } from "components/Modal/UserModal";
 const useStyles = makeStyles(
   {
     appBar: {
+      background: "white",
       boxShadow: 'none',
       borderBottom: "solid 1px #dbdbdb",
 
@@ -34,7 +35,7 @@ const useStyles = makeStyles(
     title: {
       flexGrow: 1,
       textDecoration: "none",
-      color: "inherit"
+      color: "inherit",
     }
   }
 );
@@ -66,6 +67,8 @@ const SearchIconWrapper = styled('div')(({ theme }) => ({
 }));
 
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
+  background: "#efefef",
+  borderRadius: "10px",
   color: 'inherit',
   '& .MuiInputBase-input': {
     fontSize: '16px', 
@@ -109,6 +112,7 @@ export const PrimaryHeader = () => {
 
 
           <AppBar
+            color="default"
             className={classes.appBar}
           >
             <Box
@@ -120,6 +124,7 @@ export const PrimaryHeader = () => {
                   to="/"
                   variant="h6"
                   className={classes.title}
+                  style={{fontWeight: "bold", }}
                 >
                   photographar
                 </Typography>
@@ -131,7 +136,7 @@ export const PrimaryHeader = () => {
                   }}
                 >
                   <SearchIconWrapper>
-                    <SearchIcon />
+                    <SearchIcon style={{zIndex:"2", color:"#9c9c9c"}}/>
                   </SearchIconWrapper>
                   <StyledInputBase
                     placeholder="検索"
@@ -147,22 +152,20 @@ export const PrimaryHeader = () => {
                   sx={{display: "flex"}}
                 >
                   <IconButton
-                    color="inherit"
+
                     onClick={handlePost}
                   >
-                    <CreateIcon/>
+                    <CreateOutlinedIcon/>
                   </IconButton>
 
                   <IconButton
-                    color="inherit"
                   >
                     <MailOutlineIcon/>
                   </IconButton>
 
                   <IconButton
-                    color="inherit"
                   >
-                    <NotificationsIcon/>
+                    <NotificationsNoneIcon/>
                   </IconButton>
 
 
