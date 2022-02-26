@@ -11,6 +11,11 @@ class Api::V1::UsersController < ApplicationController
       render json: {}, status: :internal_server_error
     end
   end
+  
+  def index
+    users = User.other_target_users(current_user.id).sample(5)
+    render json: {users: users}, status: :ok
+  end
 
   def show
     like_posts = Post.includes(:photos).find(Like.where(user_id: @user.id).pluck(:post_id))

@@ -18,3 +18,12 @@ export const  userEdit = async (params: any) => {
   })
   .catch ((e) => console.error(e))
 }
+
+// ユーザー一覧取得
+export const UserAll = async () => {
+  return await client.get("/users")
+  .then( res => {
+    return res.data
+  })
+  .catch ((e) => console.error(e))
+}

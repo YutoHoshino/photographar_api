@@ -8,12 +8,16 @@ class User < ApplicationRecord
   has_many :likes
   has_many :comments
 
+  has_many :relationships
+  has_many :followings, through: :relationships, source: :follow
+  has_many :reverse_of_relationships, class_name: 'Relationship', foreign_key: 'follow_id'
+  has_many :followers, through: :reverse_of_relationships, source: :user
+
   # メールアドレスのフォーマット
   EMAIL_FORMAT= /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
 
   validates :name,  presence: true, uniqueness: true
   validates :email, presence: true, uniqueness: true, format: { with: EMAIL_FORMAT }
-
 
   class << self
 
@@ -25,6 +29,11 @@ class User < ApplicationRecord
     # 暗号化するメソット
     def encrypt(token)
       Digest::SHA256.hexdigest(token.to_s)
+    end
+
+    # カレントユーザー以外のユーザー
+    def other_target_users(user_id)
+      where.not(id: user_id)
     end
 
   end
