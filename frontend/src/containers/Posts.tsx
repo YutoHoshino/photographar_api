@@ -346,23 +346,38 @@ export const Posts = () => {
                         <Avatar
                           alt={currentUser?.name}
                           src={currentUser?.image?.url}
-                          sx={{ width: 45, height: 45 }}
+                          sx={{ width: 50, height: 50 }}
                           style={{border: '0.1px solid lightgray'}}
                         />
                       </ListItemAvatar>
-                      <ListItemText>
+                      <ListItemText
+                        style={{paddingLeft: "15px"}}
+                      >
+                        <Typography
+                          variant="body2"
+                          color="textPrimary"
+                          >
                         {currentUser?.name}
+                        </Typography>
                       </ListItemText>
                     </ListItem>
-                  </List>
 
-                  <List>
                     <ListItem>
-                      <Typography
+                      <ListItemText>
+                        <Typography
+                          style={{ fontWeight: "700", color: "#8e8e8e"}}
+                          >
+                          おすすめ
+                        </Typography>
+                      </ListItemText>
+
+                      <Button
+                        size="small" 
                         style={{ fontWeight: "700"}}
                       >
-                        おすすめ
-                      </Typography>
+                        すべて見る
+                      </Button>
+
                     </ListItem>
                   {
                     users.users.map((user) => (
@@ -375,12 +390,18 @@ export const Posts = () => {
                             style={{border: '0.1px solid lightgray'}}
                           />
                         </ListItemAvatar>
-                        <ListItemText
-                        >
-                          {user.name}
+                        <ListItemText>
+                          <Typography
+                            variant="body2"
+                            color="textPrimary"
+                          >
+                            {user.name}
+                          </Typography>
                         </ListItemText>
-                        <Button size="small" style={{color: "#0095f6", fontWeight: "700"}}>
-                          フォロー
+                        <Button 
+                          size="small" 
+                          style={{color: "#0095f6", fontWeight: "700", fontSize: "11px"}}>
+                            フォローする
                         </Button>
 
                       </ListItem>
