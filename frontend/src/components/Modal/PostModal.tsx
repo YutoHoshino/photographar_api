@@ -15,7 +15,7 @@ import {
 import { PostContext } from "App";
 
 //components
-import { SubmitButton } from 'components/Button/SubmitButton';
+import { SubmitButton } from 'components/atoms/Button/SubmitButton';
 
 // apis
 import { PostCreate } from 'containers/PostCreate';

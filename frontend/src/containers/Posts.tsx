@@ -7,36 +7,27 @@ import {
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 
-// 時間フォーマット
-import moment from 'moment'
-
 // material
 import {
   makeStyles,
   Theme,
   Card, 
   CardActions, 
-  CardContent, 
-  CardHeader, 
   IconButton, 
   LinearProgress, 
   Typography,
   TextField,
   Button,
   Box,
-  ListItem,
   List,
-  ListItemAvatar,
-  ListItemText
 } from '@material-ui/core';
-import Avatar from '@mui/material/Avatar';
+
 import Grid from '@mui/material/Grid';
 
 // material icon
 import FavoriteIcon from "@material-ui/icons/Favorite"
 import ShareIcon from "@material-ui/icons/Share"
 import Comment from "@material-ui/icons/Comment"
-import MoreVertIcon from "@material-ui/icons/MoreVert";
 
 // apis
 import { postGetData } from "apis/post"
@@ -52,9 +43,18 @@ import { AuthContext, PostContext } from "App";
 import { CommonLayout } from "components/Layout/CommonLayout";
 import { LoadLayout } from "components/Layout/LoadLayout";
 import { PostActionModal } from "components/Modal/PostActionModal";
-import { PostsSwiper } from "components/Swiper/PostsSwiper";
-import { FollowButton } from "components/Button/FollowButton";
-import { UserAveter } from "components/Avater/UserAvater";
+
+// atoms
+import { FollowButton } from "components/atoms/Button/FollowButton";
+
+// molecures
+import { AvaterItem } from "components/molecules/AvaterItem";
+
+// organisms
+import { PostCardHeader } from "components/organisms/PostsCard/PostCardHeader";
+import { PostSwiper } from "components/organisms/PostsCard/PostSwiper";
+import { PostLikeWapper } from "components/organisms/PostsCard/PostLikeWapper";
+import { PostCommentContent } from "components/organisms/PostsCard/PostCommentContent";
 
 // interface
 import { GetPostdata } from "interfaces"
@@ -66,26 +66,11 @@ import { handleComments } from "containers/Comment";
 
 
 // style css
-const SCard = styled(Card)`
+const PostCard = styled(Card)`
   max-width: 500px;
   margin-bottom: 50px;
   box-shadow: none;
   border: 1px solid #dbdbdb;
-`
-const STypography = styled(Typography)`
-  width: 300px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-`
-const Sheader = styled.header`
-  margin-bottom: 80px;
-`
-const Sdiv = styled.div`
-  display: none;
-`
-const LikeWapper = styled.div`
-  padding: 0 16px;
 `
 const CommentWapper = styled(Box)`
   padding: 10px 16px;
@@ -94,20 +79,36 @@ const CommentWapper = styled(Box)`
 const Sform = styled.form`
   display:flex
 `
+const FlexBox = styled(Grid)`
+  display:flex;
+`
+
+const FollowList = styled(Grid)`
+  padding-left: 50px;
+  width: 300px; 
+`
+const FixedBox = styled(Box)`
+  position: fixed;
+`
+const GrayText = styled(Typography)`
+  font-weight: 700;
+  color: #8e8e8e;
+`
+const AllSeeButton = styled(Button)`
+  font-weight: 700;
+  font-size: 12px;
+`
+const ListTextItem = styled.div`
+  padding: 5px 10px;
+  display: flex;
+  justify-content: space-between;
+`
 
 const useStyles = makeStyles((theme: Theme) => ({
-  Avatar: {
-    cursor: "pointer"
-  },
   CommentField: {
     fontSize: "13px",
     whiteSpace: "pre-line",
   },
-  AllComent: {
-    color: "#8e8e8e",
-    fontWeight: 500,
-    cursor: "pointer"
-  }
 }))
 
 
@@ -115,8 +116,6 @@ const useStyles = makeStyles((theme: Theme) => ({
 export const Posts = () => {
 
   const classes = useStyles();
-
-  const history = useHistory();
 
   const { currentUser } = useContext(AuthContext)
 
@@ -167,7 +166,7 @@ export const Posts = () => {
         (
           <CommonLayout>
 
-            <Grid style={{display: "flex"}}>
+            <FlexBox>
 
               <Grid>
                 {state.postList.posts.map((postdata: GetPostdata) => {
@@ -176,47 +175,14 @@ export const Posts = () => {
                   let likeCount = postdata.likes.length
 
                   return (
-                    <SCard 
-                      key={postdata.post.id}>
+                    <PostCard key={postdata.post.id}>
 
-                      <CardHeader
-                        avatar={
-                          postdata.user.image ? (
-                            <Avatar
-                              className={classes.Avatar}
-                              onClick={() => {history.push(`/user/${postdata.user.name}`)}}
-                              alt={postdata.user.name}
-                              src={postdata.user.image.url}
-                            />
-                          ) : (
-                            null
-                          )
-                        }
-                        action={
-                          <>
-                            <IconButton
-                              onClick={handleMobileMenuOpen} 
-                            >
-                              <Sdiv>{postdata.post.id}</Sdiv>
-                              <MoreVertIcon/>
-                            </IconButton>
-                          </>
-                        }
-                        title={
-                          <div
-                            className={classes.Avatar}
-                            onClick={() => {history.push(`/user/${postdata.user.name}`)}}
-                          >
-                            {postdata.user.name}
-                          </div>
-                        }
-                        subheader={
-                          moment(postdata.post.created_at).format('YYYY年MM月DD日')
-                        }
+                      <PostCardHeader
+                        postdata={postdata}
+                        MenuOpen={handleMobileMenuOpen}
                       />
 
-                      
-                      <PostsSwiper photos={postdata.photos}/>
+                      <PostSwiper photos={postdata.photos}/>
 
                       <CardActions disableSpacing>
                         
@@ -231,65 +197,31 @@ export const Posts = () => {
                             )
                           }}
                         >
-
                           <FavoriteIcon id={postdata.likes.some((like)=>like.user_id == currentUser?.id) ? "liked" : ""}/>
                         </IconButton>
 
-                        <IconButton>
+                        <IconButton
+                          onClick={() => {}}
+                        >
                           <Comment />
                         </IconButton>
-                        <IconButton>
+
+                        <IconButton
+                          onClick={() => {}}
+                        >
                           <ShareIcon />
                         </IconButton>
+
                       </CardActions>
 
                       
-                      <LikeWapper>
-                        <STypography 
-                          style={{ fontWeight: "bold" }}
-                          variant="body2"
-                          id={`like-count-${postdata.post.id}`} 
-                          >
+                      <PostLikeWapper
+                        postdata={postdata}
+                      />
 
-                            {
-                              postdata.likes.length == 0 ?
-                              null
-                              :
-                              `${postdata.likes.length}件のいいね`
-                            }
-
-                        </STypography>
-                      </LikeWapper>
-
-                      <CardContent>
-                        <Typography variant="body2" >
-                          <strong>{postdata.user.name}&nbsp;</strong>
-                          {postdata.post.caption}
-                        </Typography>
-
-                        <Grid id={`comment-${postdata.post.id}`} >
-                          {
-                            postdata.comments.length < 5 ? 
-                            postdata.comments.map((comment) => {
-                              return (
-                              <Typography variant="body2" key={comment.id}>
-                                <strong>{comment.user.name}&nbsp;</strong>
-                                {comment.text}
-                              </Typography>
-                              )
-                            })
-                            :
-                            <Typography 
-                              variant="body2"
-                              className={classes.AllComent}
-                              onClick={() => {history.push(`/post/${postdata.post.id}`)}}
-                            >
-                              コメント{postdata.comments.length}件をすべて見る
-                            </Typography>
-                          }
-                        </Grid>
-
-                      </CardContent>
+                      <PostCommentContent
+                        postdata={postdata}
+                      />
 
                       <CommentWapper>
                         <Sform >
@@ -331,85 +263,43 @@ export const Posts = () => {
                         </Sform>
                       </CommentWapper>
                 
-                    </SCard>
+                    </PostCard>
                   )
                 })}
               </Grid>
 
-              <Grid
-                sx={{display: { xs: 'none', md: 'block'}}}
-                style={{paddingLeft: "50px", width: "300px" }}
-              >
-                <Box style={{ position: "fixed"}}>
+              <FollowList sx={{display: { xs: 'none', md: 'block'}}}>
+                <FixedBox>
 
                   <List>
-                    <ListItem>
-                      <ListItemAvatar>
-                        
-                        <UserAveter
-                          alt={currentUser?.name}
-                          src={currentUser?.image?.url}
-                          size={50}
-                        />
-                      </ListItemAvatar>
-                      <ListItemText
-                        style={{paddingLeft: "15px"}}
-                      >
-                        <Typography
-                          variant="body2"
-                          color="textPrimary"
-                          >
-                        {currentUser?.name}
-                        </Typography>
-                      </ListItemText>
-                    </ListItem>
+                    <AvaterItem
+                      userName={currentUser?.name}
+                      ImageSrc={currentUser?.image?.url}
+                      AvaterSize={50}
+                      ItemGap={15}
+                    />
 
-                    <ListItem>
-                      <ListItemText>
-                        <Typography
-                          style={{ fontWeight: "700", color: "#8e8e8e"}}
-                          >
-                          おすすめ
-                        </Typography>
-                      </ListItemText>
-
-                      <Button
-                        size="small" 
-                        style={{ fontWeight: "700"}}
-                      >
-                        すべて見る
-                      </Button>
-
-                    </ListItem>
-                  {
-                    users.users.map((user) => (
-                      <ListItem key={user.id}>
-                        <ListItemAvatar>
-                          <UserAveter
-                            alt={user?.name}
-                            src={user?.image?.url}
-                            size={30}
-                          />
-                        </ListItemAvatar>
-                        <ListItemText>
-                          <Typography
-                            variant="body2"
-                            color="textPrimary"
-                          >
-                            {user.name}
-                          </Typography>
-                        </ListItemText>
-                        <FollowButton/>
-
-                      </ListItem>
-                    ))
-                  }
+                    <ListTextItem>
+                      <GrayText>おすすめ</GrayText>
+                      <AllSeeButton >すべて見る</AllSeeButton>
+                    </ListTextItem>
+                    {
+                      users.users.map((user) => (
+                        <AvaterItem
+                          userName={user?.name}
+                          ImageSrc={user?.image?.url}
+                          AvaterSize={30}
+                        >
+                          <FollowButton/>
+                        </AvaterItem>
+                      ))
+                    }
                   </List>
-                </Box>
-              </Grid>
 
+                </FixedBox>
+              </FollowList>
 
-            </Grid>
+            </FlexBox>
           </CommonLayout>          
         )
         :

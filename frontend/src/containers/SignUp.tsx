@@ -6,8 +6,8 @@ import styled from "styled-components";
 import { Box, CardContent, CardHeader, makeStyles, Theme, Typography } from "@material-ui/core";
 
 //components
-import { PrimaryTextField } from 'components/TextField/PrimaryTextField';
-import { SubmitButton } from 'components/Button/SubmitButton';
+import { PrimaryTextField } from 'components/atoms/TextField/PrimaryTextField';
+import { SubmitButton } from 'components/atoms/Button/SubmitButton';
 import { AuthLayout } from "components/Layout/AuthLayout";
 
 // interface

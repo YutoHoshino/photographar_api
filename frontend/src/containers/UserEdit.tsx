@@ -20,8 +20,8 @@ import { AuthContext } from "App"
 
 // components
 import { CommonLayout } from "components/Layout/CommonLayout";
-import { PrimaryTextField } from "components/TextField/PrimaryTextField";
-import { SubmitButton } from "components/Button/SubmitButton";
+import { PrimaryTextField } from "components/atoms/TextField/PrimaryTextField";
+import { SubmitButton } from "components/atoms/Button/SubmitButton";
 
 // apis
 import { userEdit } from "apis/user";

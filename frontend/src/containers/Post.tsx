@@ -29,7 +29,7 @@ import Comment from "@material-ui/icons/Comment"
 // component
 import { CommonLayout } from "components/Layout/CommonLayout";
 import { LoadLayout } from "components/Layout/LoadLayout";
-import { PostDetailSwiper } from 'components/Swiper/PostDetailSwiper';
+import { PostDetailSwiper } from 'components/molecules/Swiper/PostDetailSwiper';
 
 // apis
 import { postShowData } from 'apis/post';
