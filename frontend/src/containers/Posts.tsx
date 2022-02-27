@@ -53,6 +53,8 @@ import { CommonLayout } from "components/Layout/CommonLayout";
 import { LoadLayout } from "components/Layout/LoadLayout";
 import { PostActionModal } from "components/Modal/PostActionModal";
 import { PostsSwiper } from "components/Swiper/PostsSwiper";
+import { FollowButton } from "components/Button/FollowButton";
+import { UserAveter } from "components/Avater/UserAvater";
 
 // interface
 import { GetPostdata } from "interfaces"
@@ -61,7 +63,7 @@ import { UsersProps } from "interfaces/users";
 // containers
 import { handleLikes } from "containers/Like";
 import { handleComments } from "containers/Comment";
-import { Stack } from "@mui/material";
+
 
 // style css
 const SCard = styled(Card)`
@@ -343,11 +345,11 @@ export const Posts = () => {
                   <List>
                     <ListItem>
                       <ListItemAvatar>
-                        <Avatar
+                        
+                        <UserAveter
                           alt={currentUser?.name}
                           src={currentUser?.image?.url}
-                          sx={{ width: 50, height: 50 }}
-                          style={{border: '0.1px solid lightgray'}}
+                          size={50}
                         />
                       </ListItemAvatar>
                       <ListItemText
@@ -381,13 +383,12 @@ export const Posts = () => {
                     </ListItem>
                   {
                     users.users.map((user) => (
-                      <ListItem>
+                      <ListItem key={user.id}>
                         <ListItemAvatar>
-                          <Avatar
+                          <UserAveter
                             alt={user?.name}
                             src={user?.image?.url}
-                            sx={{ width: 30, height: 30 }}
-                            style={{border: '0.1px solid lightgray'}}
+                            size={30}
                           />
                         </ListItemAvatar>
                         <ListItemText>
@@ -398,11 +399,7 @@ export const Posts = () => {
                             {user.name}
                           </Typography>
                         </ListItemText>
-                        <Button 
-                          size="small" 
-                          style={{color: "#0095f6", fontWeight: "700", fontSize: "11px"}}>
-                            フォローする
-                        </Button>
+                        <FollowButton/>
 
                       </ListItem>
                     ))
