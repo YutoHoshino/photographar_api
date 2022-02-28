@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { Typography } from "@material-ui/core";
 
 // interface
-import { GetPostdata } from 'interfaces';
+import { PostData } from "interfaces/Posts";
 
 const LikeWapper = styled.div`
   padding: 0 16px;
@@ -13,7 +13,7 @@ const LikeCountText = styled(Typography)`
 `
 
 interface Props {
-  postdata: GetPostdata
+  postdata: PostData
 }
 
 export const PostLikeWapper = (props: Props) => {

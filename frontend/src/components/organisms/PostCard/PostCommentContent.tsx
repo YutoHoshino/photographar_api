@@ -4,7 +4,7 @@ import styled from "styled-components";
 import {CardContent, Grid, Typography } from '@material-ui/core';
 
 // interface
-import { GetPostdata } from 'interfaces';
+import { PostData } from "interfaces/Posts";
 
 const CommentAllButton = styled(Typography)`
   color: #8e8e8e;
@@ -13,7 +13,7 @@ const CommentAllButton = styled(Typography)`
 `
 
 interface Props {
-  postdata: GetPostdata
+  postdata: PostData
 }
 
 export const PostCommentContent = (props: Props) => {
@@ -32,7 +32,7 @@ export const PostCommentContent = (props: Props) => {
       <Grid id={`comment-${postdata.post.id}`} >
       {
         postdata.comments.length < 5 ? 
-        postdata.comments.map((comment) => {
+        postdata.comments.map((comment:any) => {
           return (
           <Typography variant="body2" key={comment.id}>
             <strong>{comment.user.name}&nbsp;</strong>

@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
 import styled from "styled-components";
@@ -9,11 +10,12 @@ import { UserAveter } from "components/atoms/Avater/UserAvater"
 // 時間フォーマット
 import moment from 'moment'
 
-// interface
-import { GetPostdata } from "interfaces"
-import { useState } from 'react';
-
+// components
 import { PostActionModal } from "components/Modal/PostActionModal";
+
+// interface
+import { PostData } from "interfaces/Posts";
+
 
 const NoneDiv = styled.div`
   display: none;
@@ -23,7 +25,7 @@ const UserName = styled.div`
 `
 
 interface Props {
-  postdata: GetPostdata
+  postdata: PostData
 }
 
 export const PostCardHeader = (props: Props) => {

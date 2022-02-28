@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { Box, Button, makeStyles, TextField, Theme } from "@material-ui/core";
 
 // interface
-import { GetPostdata } from "interfaces";
+import { PostData } from "interfaces/Posts";
 
 // containers
 import { handleComments } from "containers/Comment";
@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 
 interface Props {
-  postdata: GetPostdata
+  postdata: PostData
 }
 
 export const PostCommentField = (props :Props) => {

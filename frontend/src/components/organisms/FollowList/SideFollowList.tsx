@@ -7,7 +7,7 @@ import { Box, Button, List, Typography } from "@material-ui/core";
 import { AuthContext } from "App";
 
 // interface
-import { UsersProps } from "interfaces/users"
+import { User } from "interfaces/apis/User";
 
 // atom
 import { FollowButton } from "components/atoms/Button/FollowButton";
@@ -35,19 +35,19 @@ const AllSeeButton = styled(Button)`
 `
 
 interface Props {
-  users: UsersProps
+  FollowUsers: Array<User>
 }
 
 export const SideFollowList = (props: Props) => {
 
   const { currentUser } = useContext(AuthContext)
 
-  const { users } = props
+  const { FollowUsers } = props
 
   return (
     <>
       {
-        currentUser && users ?
+        currentUser && FollowUsers ?
         <FixedBox>
           <List>
             <AvaterItem
@@ -63,8 +63,9 @@ export const SideFollowList = (props: Props) => {
             </ListTextItem>
 
             {
-              users.users.map((user) => (
+              FollowUsers.map((user) => (
                 <AvaterItem
+                  key={user.id}
                   userName={user.name}
                   ImageSrc={user.image?.url}
                   AvaterSize={30}

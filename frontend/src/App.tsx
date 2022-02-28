@@ -4,10 +4,13 @@ import { BrowserRouter as Router, Switch, Route, Redirect, RouteProps } from "re
 // CSSシート
 import 'App.css'
 
+// pages
+import { Posts } from "components/pages/Posts"
+
 // containers
 import { SignUp } from 'containers/SignUp'
 import { SignIn } from "containers/SignIn"
-import { Posts } from "containers/Posts"
+
 import { Post } from "containers/Post"
 import { UserProfile } from "containers/UserProfile"
 import { UserEdit } from "containers/UserEdit"

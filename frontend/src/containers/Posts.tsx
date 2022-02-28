@@ -1,123 +1,89 @@
-import { 
-  useContext, 
-  useEffect, 
-  useReducer, 
-  useState 
-} from "react"
+// import { useContext, useEffect, useReducer, useState } from "react"
 
-import styled from "styled-components";
+// import styled from "styled-components";
 
-// material
-import {
-  Card, 
-  LinearProgress, 
-  Typography,
-  Button,
-  Box,
-  List,
-} from '@material-ui/core';
-import Grid from '@mui/material/Grid';
+// // material
+// import { Card, LinearProgress } from '@material-ui/core';
+// import Grid from '@mui/material/Grid';
 
-// apis
-import { postGetData } from "apis/post"
-import { UserAll } from "apis/user";
+// // apis
+// import { postGetData } from "apis/post"
+// import { UserAll } from "apis/user";
 
-// reductor
-import { postsReductor } from "reducers/postsReductor"
+// // reductor
+// import { postsReductor } from "reducers/postsReductor"
 
-// useContext
-import { AuthContext, PostContext } from "App";
+// // useContext
+// import { AuthContext, PostContext } from "App";
 
-// components
-import { CommonLayout } from "components/Layout/CommonLayout";
-import { LoadLayout } from "components/Layout/LoadLayout";
+// // components
+// import { CommonLayout } from "components/Layout/CommonLayout";
+// import { LoadLayout } from "components/Layout/LoadLayout";
 
-// atoms
-import { FollowButton } from "components/atoms/Button/FollowButton";
+// // organisms
+// import { PostCardHeader } from "components/organisms/PostCard/PostCardHeader";
+// import { PostSwiper } from "components/organisms/PostCard/PostSwiper";
+// import { PostLikeWapper } from "components/organisms/PostCard/PostLikeWapper";
+// import { PostCommentContent } from "components/organisms/PostCard/PostCommentContent";
+// import { PostCardAction } from "components/organisms/PostCard/PostCardAction";
+// import { PostCommentField } from "components/organisms/PostCard/PostCommentField";
 
-// molecures
-import { AvaterItem } from "components/molecules/AvaterItem";
-
-// organisms
-import { PostCardHeader } from "components/organisms/PostCard/PostCardHeader";
-import { PostSwiper } from "components/organisms/PostCard/PostSwiper";
-import { PostLikeWapper } from "components/organisms/PostCard/PostLikeWapper";
-import { PostCommentContent } from "components/organisms/PostCard/PostCommentContent";
-import { PostCardAction } from "components/organisms/PostCard/PostCardAction";
-import { PostCommentField } from "components/organisms/PostCard/PostCommentField";
-
-// interface
-import { GetPostdata } from "interfaces"
-import { UsersProps } from "interfaces/users";
-import { SideFollowList } from "components/organisms/FollowList/SideFollowList";
+// // interface
+// import { GetPostdata } from "interfaces"
+// import { UsersProps } from "interfaces/users";
+// import { SideFollowList } from "components/organisms/FollowList/SideFollowList";
 
 
-// style css
-const PostCard = styled(Card)`
-  max-width: 500px;
-  margin-bottom: 50px;
-  box-shadow: none;
-  border: 1px solid #dbdbdb;
-`
-const FlexBox = styled(Grid)`
-  display:flex;
-`
-const FollowList = styled(Grid)`
-  padding-left: 50px;
-  width: 300px; 
-`
-const FixedBox = styled(Box)`
-  position: fixed;
-`
-const GrayText = styled(Typography)`
-  font-weight: 700;
-  color: #8e8e8e;
-`
-const AllSeeButton = styled(Button)`
-  font-weight: 700;
-  font-size: 12px;
-`
-const ListTextItem = styled.div`
-  padding: 5px 10px;
-  display: flex;
-  justify-content: space-between;
-`
+// // style css
+// const PostCard = styled(Card)`
+//   max-width: 500px;
+//   margin-bottom: 50px;
+//   box-shadow: none;
+//   border: 1px solid #dbdbdb;
+// `
+// const FlexBox = styled(Grid)`
+//   display:flex;
+// `
+// const FollowList = styled(Grid)`
+//   padding-left: 50px;
+//   width: 300px; 
+// `
 
 export const Posts = () => {
 
-  const { currentUser } = useContext(AuthContext)
+  // const { currentUser } = useContext(AuthContext)
 
-  const [users, setUsers] = useState<UsersProps>();
-  useEffect(() => {
-    UserAll()
-    .then((data) => {
-      setUsers(data)
-    })
-  },[])
+  // const [users, setUsers] = useState<UsersProps>();
+  // useEffect(() => {
+  //   UserAll()
+  //   .then((data) => {
+  //     setUsers(data)
+  //   })
+  // },[])
 
-  const { isPosted, setIsPosted } = useContext(PostContext)
+  // const { isPosted, setIsPosted } = useContext(PostContext)
 
-  // 投稿内容取得
-  const initialState = {
-    fetchState: "INITIAL",
-    postList: []
-  }
-  const [state, dispatch] = useReducer(postsReductor, initialState);
-  useEffect(() => {
-    dispatch({ type: 'FETCHING' });
-    postGetData()
-    .then((data) => {
-      dispatch({ 
-        type: 'FETCH_SUCCESS',
-        payload: data,
-      });
-    })
-    setIsPosted(false)
-  }, [isPosted])
+  // // 投稿内容取得
+  // const initialState = {
+  //   fetchState: "INITIAL",
+  //   postList: []
+  // }
+  // const [state, dispatch] = useReducer(postsReductor, initialState);
+  // useEffect(() => {
+  //   dispatch({ type: 'FETCHING' });
+  //   postGetData()
+  //   .then((data) => {
+  //     dispatch({ 
+  //       type: 'FETCH_SUCCESS',
+  //       payload: data,
+  //     });
+  //   })
+  //   setIsPosted(false)
+  // }, [isPosted])
 
   return(
     <>
-      {
+      {/* {
         state.fetchState == "OK" && state.postList.posts != undefined && users && currentUser ? 
         (
           <CommonLayout>
@@ -166,7 +132,7 @@ export const Posts = () => {
             <LinearProgress/>
           </LoadLayout>
         )
-      }
+      } */}
 
     </>
   )
