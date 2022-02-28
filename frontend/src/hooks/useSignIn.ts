@@ -6,13 +6,14 @@ import { AuthContext } from "App"
 
 // apis
 import { signIn } from "apis/auth"
+import { client } from "apis/client"
 
 interface Props {
   email: string
   password: string
 }
 
-export const UseSignIn = (props: Props) => {
+export const UseSignIn = async (props: Props) => {
 
   const {email, password} = props
 
@@ -27,12 +28,12 @@ export const UseSignIn = (props: Props) => {
     } 
   }
 
-  signIn(params)
-  .then(data => {
+  await client.post("signin", params)
+  .then(res => {
     setIsSignedIn(true)
-    setCurrentUser(data.user)
+    setCurrentUser(res.data.user)
     history.push("/")
+    return 
   })
-  
-  return 
+  .catch ((e) => console.error(e))
 }

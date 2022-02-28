@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 // material
-import { Box, CardContent } from "@material-ui/core";
+import { Box, CardContent, CardHeader } from "@material-ui/core";
 
 // useContext
 import { AuthContext } from "App";
@@ -48,7 +48,12 @@ export const SignInForm = memo(() => {
   // 送信イベント
   const handleSubmit = (e: any) => {
     e.preventDefault()
-    const params = { user: { email: email, password: password } }
+    const params = { 
+      user: { 
+        email: email, 
+        password: password 
+      } 
+    }
     signIn(params)
     .then(data => {
       setIsSignedIn(true)
@@ -61,6 +66,8 @@ export const SignInForm = memo(() => {
 
     <Form onSubmit={handleSubmit}>
       <CardContent>
+
+        <CardHeader title="ログイン" />
 
         <AuthTextField
           label="メールアドレス"

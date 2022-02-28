@@ -5,12 +5,10 @@ import { BrowserRouter as Router, Switch, Route, Redirect, RouteProps } from "re
 import 'App.css'
 
 // pages
-import { Home } from "components/pages/Home"
+import { HomePage } from "components/pages/HomePage"
+import { SignInPage } from "components/pages/SignInPage"
+import { SignUpPage } from "components/pages/SignUpPage"
 
-// containers
-import { SignUp } from 'containers/SignUp'
-// import { SignIn } from "containers/SignIn"
-import { SignIn } from "components/pages/Signin"
 
 import { Post } from "containers/Post"
 import { UserProfile } from "containers/UserProfile"
@@ -29,6 +27,7 @@ export const AuthContext = createContext({} as {
   currentUser: GetCurrentUserData | undefined
   setCurrentUser: React.Dispatch<React.SetStateAction<GetCurrentUserData | undefined>>
 })
+
 export const PostContext = createContext({} as {
   isPosted: boolean
   setIsPosted: React.Dispatch<React.SetStateAction<boolean>>
@@ -68,13 +67,13 @@ const App = () => {
             <Route 
               exact 
               path="/signup" 
-              component={ SignUp } 
+              component={ SignUpPage } 
             />
 
             <Route 
               exact 
               path="/signin" 
-              component={ SignIn } 
+              component={ SignInPage } 
             />
 
             <PostContext.Provider value={{ isPosted, setIsPosted }}>
@@ -82,7 +81,7 @@ const App = () => {
 
                 <Route 
                   exact path="/" 
-                  component={ Home } 
+                  component={ HomePage } 
                 />
 
                 <Route           
