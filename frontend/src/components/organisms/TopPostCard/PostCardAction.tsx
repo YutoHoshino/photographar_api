@@ -4,8 +4,8 @@ import { CardActions, IconButton } from "@material-ui/core"
 import FavoriteIcon from "@material-ui/icons/Favorite"
 import ShareIcon from "@material-ui/icons/Share"
 
-// containers
-import { handleLikes } from "containers/Like";
+// hooks
+import { UseLike } from "hooks/useLike"
 
 // interface
 import { PostData } from "interfaces/Posts";
@@ -26,7 +26,7 @@ export const PostCardAction = (props: Props) => {
 
       <IconButton
         onClick={(e) => {
-          likeCount = handleLikes(
+          likeCount = UseLike(
             {
               postId: postdata.post.id, 
               likesCount: likeCount,

@@ -8,14 +8,15 @@ import 'App.css'
 import { HomePage } from "components/pages/HomePage"
 import { SignInPage } from "components/pages/SignInPage"
 import { SignUpPage } from "components/pages/SignUpPage"
+import { DetailPostPage } from "components/pages/DetailPostPage"
 
 
-import { Post } from "containers/Post"
 import { UserProfile } from "containers/UserProfile"
 import { UserEdit } from "containers/UserEdit"
 
 // interface
 import { GetCurrentUserData } from 'interfaces/index'
+import { User } from "interfaces/get/User";
 
 // apis
 import { getCurrentUser } from "apis/auth"
@@ -24,8 +25,8 @@ import { getCurrentUser } from "apis/auth"
 export const AuthContext = createContext({} as {
   isSignedIn: boolean
   setIsSignedIn: React.Dispatch<React.SetStateAction<boolean>>
-  currentUser: GetCurrentUserData | undefined
-  setCurrentUser: React.Dispatch<React.SetStateAction<GetCurrentUserData | undefined>>
+  currentUser: User | undefined
+  setCurrentUser: React.Dispatch<React.SetStateAction<User | undefined>>
 })
 
 export const PostContext = createContext({} as {
@@ -37,7 +38,7 @@ const App = () => {
 
   // ログイン&ユーザー情報
   const [isSignedIn, setIsSignedIn] = useState<boolean>(false)
-  const [currentUser, setCurrentUser] = useState<GetCurrentUserData | undefined>()
+  const [currentUser, setCurrentUser] = useState<User | undefined>()
   const [loading, setLoading] = useState<boolean>(true)
 
   // 投稿されたかどうかのuseStatue
@@ -87,7 +88,7 @@ const App = () => {
                 <Route           
                   exact
                   path="/post/:postId"
-                  render={({ match }) => <Post match={match}/> } 
+                  render={({ match }) => <DetailPostPage match={match}/> } 
                 />
 
                 <Route           
