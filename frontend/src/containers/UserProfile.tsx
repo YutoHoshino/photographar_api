@@ -24,8 +24,8 @@ import ImageListItem from '@mui/material/ImageListItem';
 import { AuthContext } from "App";
 
 // components
-import { CommonLayout } from "components/Layout/CommonLayout";
-import { LoadLayout } from "components/Layout/LoadLayout";
+import { CommonLayout } from "components/templates/CommonLayout";
+import { LoadLayout } from "components/templates/LoadLayout";
 
 // api
 import { userShowData } from "apis/user";

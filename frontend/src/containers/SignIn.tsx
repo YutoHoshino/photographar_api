@@ -10,7 +10,7 @@ import { Box, CardContent, CardHeader, makeStyles, Theme, Typography } from "@ma
 import { SubmitButton } from 'components/atoms/Button/SubmitButton';
 import { PrimaryTextField } from 'components/atoms/TextField/PrimaryTextField';
 
-import { AuthLayout } from "components/Layout/AuthLayout";
+import { AuthLayout } from "components/templates/AuthLayout";
 
 // interface
 import { SendSignInData } from "interfaces/index";

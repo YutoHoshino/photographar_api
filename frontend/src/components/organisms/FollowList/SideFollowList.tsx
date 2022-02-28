@@ -7,7 +7,7 @@ import { Box, Button, List, Typography } from "@material-ui/core";
 import { AuthContext } from "App";
 
 // interface
-import { User } from "interfaces/apis/User";
+import { User } from "interfaces/get/User";
 
 // atom
 import { FollowButton } from "components/atoms/Button/FollowButton";

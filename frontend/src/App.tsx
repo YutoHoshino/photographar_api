@@ -5,11 +5,12 @@ import { BrowserRouter as Router, Switch, Route, Redirect, RouteProps } from "re
 import 'App.css'
 
 // pages
-import { Posts } from "components/pages/Posts"
+import { Home } from "components/pages/Home"
 
 // containers
 import { SignUp } from 'containers/SignUp'
-import { SignIn } from "containers/SignIn"
+// import { SignIn } from "containers/SignIn"
+import { SignIn } from "components/pages/Signin"
 
 import { Post } from "containers/Post"
 import { UserProfile } from "containers/UserProfile"
@@ -81,7 +82,7 @@ const App = () => {
 
                 <Route 
                   exact path="/" 
-                  component={ Posts } 
+                  component={ Home } 
                 />
 
                 <Route           

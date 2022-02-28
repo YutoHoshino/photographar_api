@@ -4,7 +4,7 @@ import { useEffect, useState } from "react"
 import { UserAll } from "apis/user";
 
 // interface
-import { User } from "interfaces/apis/User";
+import { User } from "interfaces/get/User";
 
 export const useFollowUser = () => {
 

@@ -19,7 +19,7 @@ import PhotoCameraIcon from '@mui/icons-material/PhotoCamera';
 import { AuthContext } from "App"
 
 // components
-import { CommonLayout } from "components/Layout/CommonLayout";
+import { CommonLayout } from "components/templates/CommonLayout";
 import { PrimaryTextField } from "components/atoms/TextField/PrimaryTextField";
 import { SubmitButton } from "components/atoms/Button/SubmitButton";
 

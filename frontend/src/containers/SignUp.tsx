@@ -8,7 +8,7 @@ import { Box, CardContent, CardHeader, makeStyles, Theme, Typography } from "@ma
 //components
 import { PrimaryTextField } from 'components/atoms/TextField/PrimaryTextField';
 import { SubmitButton } from 'components/atoms/Button/SubmitButton';
-import { AuthLayout } from "components/Layout/AuthLayout";
+import { AuthLayout } from "components/templates/AuthLayout";
 
 // interface
 import { SendSignUpData } from "interfaces/index";

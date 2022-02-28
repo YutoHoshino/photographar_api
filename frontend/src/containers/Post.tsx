@@ -27,8 +27,8 @@ import ShareIcon from "@material-ui/icons/Share"
 import Comment from "@material-ui/icons/Comment"
 
 // component
-import { CommonLayout } from "components/Layout/CommonLayout";
-import { LoadLayout } from "components/Layout/LoadLayout";
+import { CommonLayout } from "components/templates/CommonLayout";
+import { LoadLayout } from "components/templates/LoadLayout";
 import { PostDetailSwiper } from 'components/molecules/Swiper/PostDetailSwiper';
 
 // apis
