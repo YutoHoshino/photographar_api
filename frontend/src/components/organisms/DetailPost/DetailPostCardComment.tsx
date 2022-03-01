@@ -11,7 +11,7 @@ import {
 import { PrimarySpan } from "components/atoms/Span/PrimarySpan";
 
 // interface
-import { PostData } from 'interfaces/Posts';
+import { PostData } from 'interfaces/data/PostData';
 
 // style css
 const CommentList = styled(Grid)`

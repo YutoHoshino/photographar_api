@@ -26,7 +26,7 @@ import { useFollowUser } from "hooks/useFollowUser";
 import { useAllPosts } from "hooks/useAllPosts";
 
 // interface
-import { PostData } from "interfaces/Posts";
+import { PostData } from "interfaces/data/PostData";
 
 
 // style css

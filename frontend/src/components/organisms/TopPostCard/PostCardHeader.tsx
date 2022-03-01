@@ -14,7 +14,7 @@ import moment from 'moment'
 import { PostActionModal } from "components/organisms/Modal/PostActionModal";
 
 // interface
-import { PostData } from "interfaces/Posts";
+import { PostData } from "interfaces/data/PostData";
 
 
 const NoneDiv = styled.div`

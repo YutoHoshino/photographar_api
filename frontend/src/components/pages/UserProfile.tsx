@@ -31,7 +31,7 @@ import { LoadLayout } from "components/templates/LoadLayout";
 import { userShowData } from "apis/user";
 
 // intarface
-import { GetUserShowData } from "interfaces";
+import { UserData } from "interfaces/data/UserData";
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
@@ -67,7 +67,7 @@ export const UserProfile = ({match}:any) => {
 
   const { currentUser } = useContext(AuthContext)
   
-  const [user, setUser] = useState<GetUserShowData>()
+  const [user, setUser] = useState<UserData>()
 
   useEffect(() => {
     if (currentUser) {

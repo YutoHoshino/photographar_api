@@ -11,7 +11,7 @@ import ShareIcon from "@material-ui/icons/Share"
 import { UseLike } from "hooks/useLike";
 
 // interface
-import { PostData } from "interfaces/Posts";
+import { PostData } from "interfaces/data/PostData";
 import { User } from "interfaces/get/User";
 
 const CardAction = styled(Grid)`

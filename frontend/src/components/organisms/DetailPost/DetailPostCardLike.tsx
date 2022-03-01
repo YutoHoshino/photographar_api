@@ -4,7 +4,7 @@ import { Typography } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
 
 // interface
-import { PostData } from "interfaces/Posts";
+import { PostData } from "interfaces/data/PostData";
 
 const LikeCountWapper = styled(Grid)`
   padding: 0 16px;

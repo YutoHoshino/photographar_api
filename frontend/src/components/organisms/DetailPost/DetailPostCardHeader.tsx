@@ -9,7 +9,7 @@ import { UserAveter } from "components/atoms/Avater/UserAvater";
 import moment from 'moment'
 
 // interface
-import { PostData } from "interfaces/Posts"
+import { PostData } from "interfaces/data/PostData"
 
 const Header = styled(CardHeader)`
   border-bottom: solid 1px #efefef;

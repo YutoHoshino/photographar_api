@@ -5,7 +5,7 @@ import Grid from '@material-ui/core/Grid';
 import { Button, TextField } from '@material-ui/core';
 
 // interface
-import { PostData } from 'interfaces/Posts';
+import { PostData } from 'interfaces/data/PostData';
 
 // hooks
 import { UseComment } from "hooks/useComment";

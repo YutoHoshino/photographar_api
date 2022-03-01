@@ -7,7 +7,7 @@ import { PostContext } from "App";
 import { postGetData } from "apis/post";
 
 // interface
-import { PostData } from "interfaces/Posts";
+import { PostData } from "interfaces/data/PostData";
 
 export const useAllPosts = () => {
 

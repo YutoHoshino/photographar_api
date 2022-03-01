@@ -4,7 +4,7 @@ import styled from "styled-components";
 import {CardContent, Grid, Typography } from '@material-ui/core';
 
 // interface
-import { PostData } from "interfaces/Posts";
+import { PostData } from "interfaces/data/PostData";
 
 const CommentAllButton = styled(Typography)`
   color: #8e8e8e;

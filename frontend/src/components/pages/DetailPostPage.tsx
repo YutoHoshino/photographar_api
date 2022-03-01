@@ -25,7 +25,7 @@ import { LoadLayout } from "components/templates/LoadLayout";
 import { postShowData } from 'apis/post';
 
 // interface
-import { PostData } from 'interfaces/Posts';
+import { PostData } from 'interfaces/data/PostData';
 
 // style css
 const PostCard = styled(Card)`

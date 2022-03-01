@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { Typography } from "@material-ui/core";
 
 // interface
-import { PostData } from "interfaces/Posts";
+import { PostData } from "interfaces/data/PostData";
 
 const LikeWapper = styled.div`
   padding: 0 16px;

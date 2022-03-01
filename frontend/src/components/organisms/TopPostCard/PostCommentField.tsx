@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { Box, Button, makeStyles, TextField, Theme } from "@material-ui/core";
 
 // interface
-import { PostData } from "interfaces/Posts";
+import { PostData } from "interfaces/data/PostData";
 
 // hooks
 import { UseComments } from "hooks/useComment";
