@@ -42,7 +42,7 @@ export const DetaiPostCardlSwiper: React.FC<Props> = ({ photos }) => {
               component="img"
               image={photo.image?.url}
               sx={{ 
-                height: { xs: '300px', md: '600px'},
+                height: { xs: '350px', md: '600px'},
               }}
               />
           </SwiperSlide>
