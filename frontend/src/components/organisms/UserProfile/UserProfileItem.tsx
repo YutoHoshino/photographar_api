@@ -6,8 +6,6 @@ import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
 import { Typography, CardContent, Button, CardActions } from "@material-ui/core";
 
-import SettingsIcon from '@material-ui/icons/Settings';
-
 // atom
 import { UserAveter } from "components/atoms/Avater/UserAvater";
 

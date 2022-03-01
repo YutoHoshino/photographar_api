@@ -1,15 +1,9 @@
-import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 
 //material
 import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
 import { Button } from "@material-ui/core";
-
-// interface
-import { UserData } from "interfaces/data/UserData";
-import { User } from "interfaces/get/User";
-import { useState } from "react";
 
 const ActionBox = styled(Box)`
   border-top: 1px solid rgba(var(--b38,219,219,219),1);
