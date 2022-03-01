@@ -4,7 +4,7 @@ import styled from "styled-components";
 // material
 import Card from '@mui/material/Card';
 import Grid from '@mui/material/Grid';
-import { LinearProgress } from '@material-ui/core';
+import { Box, LinearProgress } from '@material-ui/core';
 
  // useContext
 import { AuthContext } from 'App';
@@ -69,13 +69,17 @@ export const DetailPostPage = ({ match }: any) => {
           <PostCard 
             sx={{ 
               display: { xs: 'block', md: 'flex'},
-              width:   { xs: "350px", md: "100%"}
+              width:   { xs: "350px", md: "100%"},
             }}
           >
 
             <DetaiPostCardlSwiper photos={PostData.photos}/>
 
-            <CardLeft  sx={{width: {xs: "350px", md: "300px"}}}>
+            <CardLeft  
+              sx={{
+                width: {xs: "350px", md: "300px"},
+                borderLeft: {md: "1px solid #dbdbdb;"},
+              }}>
 
               <DetailPostCardHeader 
                 PostData={PostData}

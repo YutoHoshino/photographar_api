@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import Grid from '@material-ui/core/Grid';
+import Grid from '@mui/material/Grid';
 import {  
   Avatar, 
   ListItem, 
@@ -16,8 +16,7 @@ import { PostData } from 'interfaces/data/PostData';
 // style css
 const CommentList = styled(Grid)`
   padding: 16px;
-  minHeight: 280px;
-  height: 280px;
+  maxHeight: 280px;
   overflow: scroll;
   overflow-wrap: break-word;
 `
@@ -32,8 +31,9 @@ export const DetailPostCardComment = (props: Props) => {
 
   return (
     <CommentList
-      
-    >
+    sx={{
+      height: { md: "280px;"},
+    }}>
 
       <ListItem>
         <ListItemAvatar>

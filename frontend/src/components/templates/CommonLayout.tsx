@@ -21,8 +21,11 @@ const useStyles = makeStyles(() => ({
 }))
 
 // style css
-const Sheader = styled.header`
+const Headerwapper = styled.header`
   margin-bottom: 80px;
+`
+const ItemWapper = styled(Container)`
+  padding: 30px 0;
 `
 
 export const CommonLayout = ({children}:any) => {
@@ -35,17 +38,18 @@ export const CommonLayout = ({children}:any) => {
     <>
       { currentUser ? 
         <>
-          <Sheader>
+          <Headerwapper>
             <PrimaryHeader />
-          </Sheader>
+          </Headerwapper>
+
           <main>
-            <Container maxWidth="lg" className={classes.container}>
+            <ItemWapper maxWidth="lg">
               <Grid container justifyContent="center">
                 <Grid item>
                   {children}
                 </Grid>
               </Grid>
-            </Container>
+            </ItemWapper>
           </main>
         </>
         :
