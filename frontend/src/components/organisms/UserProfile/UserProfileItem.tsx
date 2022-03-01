@@ -38,7 +38,9 @@ export const UserProfileItem = (props: Props) => {
   const { UserData, currentUser } = props
   
   return (
-    <FlexBox>
+    <FlexBox
+      sx={{ width: { md: "950px"}}}
+    >
 
       <ImageWapper>
         <UserAveter
