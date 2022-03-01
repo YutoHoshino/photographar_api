@@ -1,7 +1,8 @@
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 
-import {CardContent, Grid, Typography } from '@material-ui/core';
+import { Grid, Typography } from '@material-ui/core';
+import CardContent from '@mui/material/CardContent';
 
 // interface
 import { PostData } from "interfaces/data/PostData";
@@ -10,6 +11,10 @@ const CommentAllButton = styled(Typography)`
   color: #8e8e8e;
   font-weight: 500;
   cursor: pointer;
+`
+const CommentWapper = styled(CardContent)`
+  overflow-wrap: break-word;
+  width: 300px;
 `
 
 interface Props {
@@ -23,7 +28,9 @@ export const PostCommentContent = (props: Props) => {
   const {postdata} = props
 
   return (
-    <CardContent>
+    <CommentWapper
+      sx={{width: {sx:"330px", md: "470px"}}}
+    >
       <Typography variant="body2">
         <strong>{postdata.user.name}&nbsp;</strong>
         {postdata.post.caption}
@@ -49,6 +56,7 @@ export const PostCommentContent = (props: Props) => {
         </CommentAllButton>
       }
       </Grid>
-    </CardContent>
+    </CommentWapper>
   )
 }
+
