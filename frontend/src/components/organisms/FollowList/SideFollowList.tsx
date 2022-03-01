@@ -63,15 +63,18 @@ export const SideFollowList = (props: Props) => {
             </ListTextItem>
 
             {
-              FollowUsers.map((user) => (
-                <AvaterItem
-                  key={user.id}
-                  userName={user.name}
-                  ImageSrc={user.image?.url}
-                  AvaterSize={30}
-                >
-                  <FollowButton/>
-                </AvaterItem>
+              FollowUsers.map((user, i) => (
+                <div key={user.id}>
+                  <AvaterItem
+                    userName={user.name}
+                    ImageSrc={user.image?.url}
+                    AvaterSize={30}
+                  >
+                    <FollowButton/>
+                  </AvaterItem>
+                </div>
+
+
               ))
             }
 

@@ -14,7 +14,6 @@ interface Props {
   ImageSrc: string | undefined
   AvaterSize: number
   ItemGap?: number | undefined
-  key?: number | undefined
   children?: React.ReactElement | undefined
 }
 
@@ -25,12 +24,11 @@ export const AvaterItem = (props: Props) => {
     ImageSrc, 
     AvaterSize, 
     ItemGap,
-    key,
     children,
   } = props
 
   return (
-    <ListItem key={key}>
+    <ListItem>
       <ListItemAvatar>
           <UserAveter
             userName={userName}
