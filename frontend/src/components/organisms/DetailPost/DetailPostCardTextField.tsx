@@ -26,7 +26,7 @@ interface Props {
 
 export const DetailPostCardTextField = (props: Props) => {
 
-  const [comment, setComment] = useState<String>("")
+  const [comment, setComment] = useState<string>("")
 
   const { PostData, setPostData } = props 
 

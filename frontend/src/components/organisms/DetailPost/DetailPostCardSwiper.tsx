@@ -2,18 +2,22 @@ import { useState } from 'react';
 
 import CardMedia from '@mui/material/CardMedia';
 
-// interface 
-import { PhotosSwipper } from 'interfaces';
-
 // swipper
 import 'swiper/css';
 import "swiper/css/pagination";
 import { Swiper, SwiperSlide } from 'swiper/react';
 import SwiperCore, { Navigation, Pagination } from 'swiper';
 
+// interface
+import { Photo } from 'interfaces/get/Photo';
+
 SwiperCore.use([Navigation, Pagination]);
 
-export const DetaiPostCardlSwiper: React.FC<PhotosSwipper> = ({ photos }) => {
+interface Props {
+  photos: Array<Photo>,
+}
+
+export const DetaiPostCardlSwiper: React.FC<Props> = ({ photos }) => {
   
   const [swiperInstance, setSwiperInstance] = useState<SwiperCore | null>(null);
 

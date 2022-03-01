@@ -2,12 +2,9 @@
 import { postCreate } from "apis/post";
 
 // interface
-interface Props {
-  caption: string,
-  images: File[]
-}
+import { PostCreateHook } from "interfaces/hooks/PostCreateHook";
 
-export const UseCreatePost = async (props: Props) => {
+export const UseCreatePost = async (props: PostCreateHook) => {
 
   const {caption, images} = props
 

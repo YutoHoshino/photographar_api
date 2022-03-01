@@ -36,7 +36,7 @@ export const PostCommentField = (props :Props) => {
 
   const classes = useStyles();
 
-  const [comment, setComment] = useState<String>("")
+  const [comment, setComment] = useState<string>("")
 
   return (
     <CommentWapper>

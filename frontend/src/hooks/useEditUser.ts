@@ -1,11 +1,6 @@
+import { UserEditImageChangeHok } from "interfaces/hooks/UserEditImageChangeHook";
 
-
-interface Props {
-  setImage: any
-  e: React.ChangeEvent<HTMLInputElement>
-}
-
-export const UseEditUserImageChange = (props: Props) => {
+export const UseEditUserImageChange = (props: UserEditImageChangeHok) => {
   const { setImage, e } = props
 
   if (!e.target.files) return;

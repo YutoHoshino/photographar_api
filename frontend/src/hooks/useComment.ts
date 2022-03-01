@@ -2,14 +2,11 @@
 import { commentCreate } from "apis/comment";
 import { postShowData } from "apis/post";
 
-interface Props {
-  comment: String,
-  postId: number,
-  setPost?: any,
-}
+// interface
+import { CommentHook } from "interfaces/hooks/CommentHook";
 
 // 一覧画面用
-export const UseComments = (props: Props) => {
+export const UseComments = (props: CommentHook) => {
 
   const { comment, postId } = props
 
@@ -26,11 +23,10 @@ export const UseComments = (props: Props) => {
   .catch((error) => {
     console.log(error)
   })
-  
 }
 
 // 詳細画面用
-export const UseComment = (props: Props) => {
+export const UseComment = (props: CommentHook) => {
 
   const { comment, postId, setPost } = props
 

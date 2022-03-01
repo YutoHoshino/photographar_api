@@ -2,9 +2,9 @@
 import { likeCreate, likeDelete } from "apis/like";
 
 // interface
-import { LikeProps } from "interfaces";
+import { LikeHook } from "interfaces/hooks/LikeHook";
 
-export const UseLike = (props: LikeProps) => {
+export const UseLike = (props: LikeHook) => {
 
   const { postId, likesCount, e } = props
     

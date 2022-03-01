@@ -34,7 +34,7 @@ export const PostActionModal = (props: Props) => {
 
   const { setIsPosted } = useContext(PostContext)
 
-  // 投稿編集
+  // 投稿詳細
   const handleEdit = (e: React.SyntheticEvent) => {
     const id = props.postId
     history.push(`/post/${id}`)
