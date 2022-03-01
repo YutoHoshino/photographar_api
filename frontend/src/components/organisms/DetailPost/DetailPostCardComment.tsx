@@ -16,7 +16,7 @@ import { PostData } from 'interfaces/data/PostData';
 // style css
 const CommentList = styled(Grid)`
   padding: 16px;
-  maxHeight: 280px;
+  maxHeight: 300px;
   overflow: scroll;
   overflow-wrap: break-word;
 `
@@ -32,7 +32,8 @@ export const DetailPostCardComment = (props: Props) => {
   return (
     <CommentList
     sx={{
-      height: { md: "280px;"},
+      minHeight: { md: "300px" },
+      maxHeight: "300px"
     }}>
 
       <ListItem>
