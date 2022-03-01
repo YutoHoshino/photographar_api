@@ -63,13 +63,36 @@ export const HomePage = memo(() => {
               {Posts.map((postdata: PostData) => {
                 let likeCount = postdata.likes.length // likeカウント
                 return (
-                  <PostCard key={postdata.post.id}>
-                    <PostCardHeader postdata={postdata}/>
-                    <PostSwiper photos={postdata.photos}/>
-                    <PostCardAction postdata={postdata} likeCount={likeCount}/>
-                    <PostLikeWapper postdata={postdata}/>
-                    <PostCommentContent postdata={postdata}/>
-                    <PostCommentField postdata={postdata}/>
+                  <PostCard 
+                    key={postdata.post.id}
+                  >
+
+                    <PostCardHeader 
+                      postdata={postdata}
+                    />
+
+                    <PostSwiper 
+                      photos={postdata.photos}
+                    />
+
+                    <PostCardAction 
+                      postdata={postdata}
+                      likeCount={likeCount}
+                      currentUser={currentUser}
+                    />
+
+                    <PostLikeWapper 
+                      postdata={postdata}
+                    />
+
+                    <PostCommentContent 
+                      postdata={postdata}
+                    />
+
+                    <PostCommentField 
+                      postdata={postdata}
+                    />
+
                   </PostCard>
                 )
               })}

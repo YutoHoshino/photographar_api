@@ -9,17 +9,19 @@ import { UseLike } from "hooks/useLike"
 
 // interface
 import { PostData } from "interfaces/data/PostData";
+import { User } from "interfaces/get/User";
 
 interface Props {
   likeCount: number
   postdata: PostData
+  currentUser: User
 }
 
 export const PostCardAction = (props: Props) => {
 
   let { likeCount } = props
 
-  const { postdata } = props 
+  const { postdata, currentUser } = props 
 
   return (
     <CardActions disableSpacing>
@@ -35,7 +37,7 @@ export const PostCardAction = (props: Props) => {
           )
         }}
       >
-        <FavoriteIcon/>
+        <FavoriteIcon id={postdata.likes.some((like)=>like.user_id == currentUser?.id) ? "liked" : ""}/>
       </IconButton>
       
       <IconButton
