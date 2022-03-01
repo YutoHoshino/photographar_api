@@ -17,8 +17,8 @@ import { PostContext } from "App";
 //components
 import { SubmitButton } from 'components/atoms/Button/SubmitButton';
 
-// apis
-import { PostCreate } from 'containers/PostCreate';
+// hooks
+import { UseCreatePost } from 'hooks/useCreatePost';
 
 interface Props {
   isOpen: boolean,
@@ -89,7 +89,7 @@ export const PostModal = (props: Props) => {
   // 投稿
   const handleSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault();
-    PostCreate({caption, images})
+    UseCreatePost({caption, images})
     .then((res) => {
       props.onClose();
       setImages([])

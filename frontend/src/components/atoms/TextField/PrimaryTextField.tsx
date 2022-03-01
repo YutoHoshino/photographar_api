@@ -6,7 +6,7 @@ type Props = {
   label:         string,
   type?:         string,
   placeholder?:  string,
-  value?:        string, 
+  defaultValue?: string, 
   setState:      Dispatch<SetStateAction<string>>,
 }
 
@@ -15,11 +15,10 @@ export const PrimaryTextField = memo((props: Props) => {
     <TextField 
       variant="outlined"
       margin="dense"
-      required
       fullWidth
       label={props.label}
       type={props.type}
-      value={props.value}
+      defaultValue={props.defaultValue}
       placeholder={props.placeholder}
       onChange={e => props.setState(e.target.value)}
     />

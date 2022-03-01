@@ -14,8 +14,8 @@ import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 //useContext
 import { AuthContext } from "App";
 
-// apis
-import { signOut } from "apis/auth";
+// hooks
+import { UseSignOut } from "hooks/useSignOut";
 
 
 // interface
@@ -26,7 +26,7 @@ interface Props {
   setAnchorEl: any,
 }
 
-const SMenuItem = styled(MenuItem)`
+const RedMenuItem = styled(MenuItem)`
   color: red;
 `
 
@@ -39,7 +39,7 @@ export const UserModal = (props: Props) => {
   // ログアウト
   const handleSignOut = (e: any)  => {
     e.preventDefault()
-    signOut()
+    UseSignOut()
     .then(res => {
       setIsSignedIn(false)
       setCurrentUser(undefined)
@@ -96,12 +96,12 @@ export const UserModal = (props: Props) => {
         <p>設定</p>
       </MenuItem>
 
-      <SMenuItem 
+      <RedMenuItem 
         onClick={handleSignOut}
       >
         <ExitToAppIcon/>
         <p>ログアウト</p>
-      </SMenuItem>
+      </RedMenuItem>
 
     </Menu>
   )

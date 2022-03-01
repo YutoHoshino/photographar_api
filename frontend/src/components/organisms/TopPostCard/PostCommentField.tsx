@@ -6,8 +6,8 @@ import { Box, Button, makeStyles, TextField, Theme } from "@material-ui/core";
 // interface
 import { PostData } from "interfaces/Posts";
 
-// containers
-import { handleComments } from "containers/Comment";
+// hooks
+import { UseComments } from "hooks/useComment";
 
 
 const CommentWapper = styled(Box)`
@@ -63,7 +63,7 @@ export const PostCommentField = (props :Props) => {
           style={{fontWeight: 'bold'}}
           onClick={(e) => {
             e.preventDefault()
-            handleComments(
+            UseComments(
               {
                 comment: comment,
                 postId: postdata.post.id,

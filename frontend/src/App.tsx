@@ -9,13 +9,10 @@ import { HomePage } from "components/pages/HomePage"
 import { SignInPage } from "components/pages/SignInPage"
 import { SignUpPage } from "components/pages/SignUpPage"
 import { DetailPostPage } from "components/pages/DetailPostPage"
-
-
-import { UserProfile } from "containers/UserProfile"
-import { UserEdit } from "containers/UserEdit"
+import { UserProfile } from "components/pages/UserProfile"
+import { UserEdit } from "components/pages/UserEdit"
 
 // interface
-import { GetCurrentUserData } from 'interfaces/index'
 import { User } from "interfaces/get/User";
 
 // apis
