@@ -17,6 +17,7 @@ import { AvaterItem } from "components/molecules/AvaterItem";
 
 // interface
 import { User } from "interfaces/get/User";
+import { UseFollow } from "hooks/useFollow";
 
 
 const ContentWapper = styled(DialogContent)`
@@ -46,65 +47,110 @@ export const FollowListModal = (props: Props) => {
 
 
   return (
-    <Dialog
-      open={props.isOpen}
-      onClose={props.onClose}
-      fullWidth
-    >
-      <DialogTitle>
-        
-        <Tabs
-          value={Switch}
-          onChange={handleChange}
+    <>
+      {
+        currentUser ?
+        <Dialog
+          open={props.isOpen}
+          onClose={props.onClose}
+          fullWidth
         >
-          <Tab value="followings" label="フォロー" />
-          <Tab value="followers" label="フォロワー" />
-        </Tabs>
-
-      </DialogTitle>
-
-      <ContentWapper>
-
-        <List>
-          {
-            Switch == "followings" ?
-
-            followings.map((following) => 
-              <ListItem
-                key={following.id}
-              >
-                <AvaterItem
-                  userName={following.name}
-                  ImageSrc={following.image?.url}
-                  AvaterSize={40}
-                >
-                  <Button>ボタン</Button>
-
-                </AvaterItem>
-              </ListItem>
-            )
-
-            :
-
-            followers.map((follower) => 
-              <ListItem
-                key={follower.id}
-              >
-                <AvaterItem
-                  userName={follower.name}
-                  ImageSrc={follower.image?.url}
-                  AvaterSize={40}
-                >
-                  <Button>ボタン</Button>
-
-                </AvaterItem>
-              </ListItem>
-            )
-          }
-        
-        </List>
-      </ContentWapper>
-
-    </Dialog>
+          <DialogTitle>
+            
+            <Tabs
+              value={Switch}
+              onChange={handleChange}
+            >
+              <Tab value="followings" label="フォロー" />
+              <Tab value="followers" label="フォロワー" />
+            </Tabs>
+    
+          </DialogTitle>
+    
+          <ContentWapper>
+    
+            <List>
+              {
+                Switch == "followings" ?
+    
+                followings.map((OtherUser) => 
+                  <div
+                    key={OtherUser.id}
+                  >
+                    <AvaterItem
+                      userName={OtherUser.name}
+                      ImageSrc={OtherUser.image?.url}
+                      AvaterSize={40}
+                    >
+                      {
+                        currentUser.followings.some((curentFollowing) => curentFollowing.id == OtherUser.id) ?
+                        <Button
+                          id="followed"
+                          onClick={(e) => {
+                            UseFollow({OtherUser, e})
+                          }}                    
+                        >
+                          フォロー中
+                        </Button>
+                        :
+                        <Button
+                          id="follow"
+                          onClick={(e) => {
+                            UseFollow({OtherUser, e})
+                          }}
+                        >
+                          フォローする
+                        </Button>
+                      }
+    
+                    </AvaterItem>
+                  </div>
+                )
+    
+                :
+    
+                followers.map((OtherUser) => 
+                  <div
+                    key={OtherUser.id}
+                  >
+                    <AvaterItem
+                      userName={OtherUser.name}
+                      ImageSrc={OtherUser.image?.url}
+                      AvaterSize={40}
+                    >
+                      {
+                        currentUser.followings.some((curentFollowing) => curentFollowing.id == OtherUser.id) ?
+                        <Button
+                          id="followed"
+                          onClick={(e) => {
+                            UseFollow({OtherUser, e})
+                          }}
+                        >
+                          フォロー中
+                        </Button>
+                        :
+                        <Button
+                          id="follow"
+                          onClick={(e) => {
+                            UseFollow({OtherUser, e})
+                          }}
+                        >
+                          フォローする
+                        </Button>
+                      }
+    
+                    </AvaterItem>
+                  </div>
+                )
+              }
+            
+            </List>
+          </ContentWapper>
+    
+        </Dialog>
+        :
+        <></>
+      }
+    </>
   )
 }

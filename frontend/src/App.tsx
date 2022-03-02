@@ -13,6 +13,7 @@ import { UserProfile } from "components/pages/UserProfile"
 import { UserEdit } from "components/pages/UserEdit"
 
 // interface
+import { CurrentUser } from "interfaces/get/CurrentUser"
 import { User } from "interfaces/get/User";
 
 // apis
@@ -22,8 +23,8 @@ import { getCurrentUser } from "apis/auth"
 export const AuthContext = createContext({} as {
   isSignedIn: boolean
   setIsSignedIn: React.Dispatch<React.SetStateAction<boolean>>
-  currentUser: User | undefined
-  setCurrentUser: React.Dispatch<React.SetStateAction<User | undefined>>
+  currentUser: CurrentUser | undefined
+  setCurrentUser: React.Dispatch<React.SetStateAction<CurrentUser | undefined>>
 })
 
 export const PostContext = createContext({} as {
@@ -31,31 +32,32 @@ export const PostContext = createContext({} as {
   setIsPosted: React.Dispatch<React.SetStateAction<boolean>>
 })
 
+export const FollowContext = createContext({} as {
+  isFollowed: boolean
+  setisFollowed: React.Dispatch<React.SetStateAction<boolean>>
+})
+
 const App = () => {
 
   // ログイン&ユーザー情報
   const [isSignedIn, setIsSignedIn] = useState<boolean>(false)
-  const [currentUser, setCurrentUser] = useState<User | undefined>()
-  const [loading, setLoading] = useState<boolean>(true)
+  const [currentUser, setCurrentUser] = useState<CurrentUser | undefined>()
 
   // 投稿されたかどうかのuseStatue
   const [isPosted, setIsPosted] = useState<boolean>(false);
 
+  // 投稿されたかどうかのuseStatue
+  const [isFollowed, setisFollowed] = useState<boolean>(false);
+
   // ユーザー情報取得
-  const handleGetCurrentUser = async () => {
-    const data = await getCurrentUser()
-    if (data) {
+  useEffect(() => {
+    getCurrentUser()
+    .then((data) => {
       setIsSignedIn(true)
       setCurrentUser(data.user)
-    } else {
-      console.log("No current user")
-    }
-    setLoading(false)
-  }
-  useEffect(() => {
-    handleGetCurrentUser()
-  }, [setCurrentUser])
-
+    })
+    .catch((error) => console.log(error))
+  }, [setCurrentUser, setisFollowed])
 
   return (
     <Router>
@@ -75,32 +77,34 @@ const App = () => {
             />
 
             <PostContext.Provider value={{ isPosted, setIsPosted }}>
-              <Switch>
+              <FollowContext.Provider value={{ isFollowed, setisFollowed }}>
+                <Switch>
 
-                <Route 
-                  exact path="/" 
-                  component={ HomePage } 
-                />
+                  <Route 
+                    exact path="/" 
+                    component={ HomePage } 
+                  />
 
-                <Route           
-                  exact
-                  path="/post/:postId"
-                  render={({ match }) => <DetailPostPage match={match}/> } 
-                />
+                  <Route           
+                    exact
+                    path="/post/:postId"
+                    render={({ match }) => <DetailPostPage match={match}/> } 
+                  />
 
-                <Route           
-                  exact
-                  path="/user/:userName"
-                  render={({ match }) => <UserProfile match={match}/> } 
-                />
+                  <Route           
+                    exact
+                    path="/user/:userName"
+                    render={({ match }) => <UserProfile match={match}/> } 
+                  />
 
-                <Route           
-                  exact
-                  path={`/user/${currentUser?.name}/edit`}
-                  component={ UserEdit } 
-                />
+                  <Route           
+                    exact
+                    path={`/user/${currentUser?.name}/edit`}
+                    component={ UserEdit } 
+                  />
 
-              </Switch>
+                </Switch>
+              </FollowContext.Provider>
             </PostContext.Provider>
 
           </Switch>

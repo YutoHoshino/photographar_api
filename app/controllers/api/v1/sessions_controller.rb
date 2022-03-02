@@ -18,9 +18,9 @@ class Api::V1::SessionsController < ApplicationController
 
   def sign_in?
     if @current_user
-        render json: { user: current_user }, status: :ok
+      render json: { user: current_user.as_json(include: [:followings, :followers]) }, status: :ok
     else
-        render json: {}, status: :no_content
+      render json: {}, status: :no_content
     end
   end
 
