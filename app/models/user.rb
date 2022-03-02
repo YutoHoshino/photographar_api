@@ -36,6 +36,11 @@ class User < ApplicationRecord
       where.not(id: user_id)
     end
 
+    # フォローしていないユーザー
+    def unfollower(user)
+      where.not(id: user.followings.ids)
+    end
+
   end
 
 end

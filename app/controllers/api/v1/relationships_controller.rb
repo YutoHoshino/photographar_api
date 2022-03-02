@@ -1,25 +1,20 @@
 class Api::V1::RelationshipsController < ApplicationController
 
-  def index
-    relationships = Relationship.all.order(created_at: :desc)
-    render json: relationships
-  end
-
   def create
-    relationship = Relationship.new(follow_id: params[:id], user_id: current_api_v1_user.id)
+    relationship = Relationship.new(follow_id: params[:user_id], user_id: current_user.id)
     if relationship.save
-        render json: relationship
+        render json: {}, status: :created
     else
-        render json: relationship.errors, status: 422
+        render json: {}, status: :no_content
     end
   end
 
   def destroy
-    relationship = Relationship.find_by(follow_id: params[:id], user_id: current_api_v1_user.id)
+    relationship = Relationship.find_by(follow_id: params[:user_id], user_id: current_user.id)
     if relationship.destroy
-        render json: relationship
+        render json: {}, status: :ok
     else
-        render json: relationship.errors, status: 422
+        render json: {}, status: :no_content
     end
   end
 end

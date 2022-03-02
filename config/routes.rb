@@ -8,7 +8,7 @@ Rails.application.routes.draw do
       get     '/logged',      to: 'sessions#sign_in?'
 
       resources :users, only:[:index, :update, :show] do
-        resources :relationships, only: [:index, :create, :destroy]
+        resource :relationships, only: [:create, :destroy]
       end
 
       resources :posts do

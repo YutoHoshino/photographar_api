@@ -48,3 +48,15 @@ body {
 #switch_active {
   color: black;
 }
+
+#follow {
+  color: #0095f6;
+  font-weight: 700; 
+  font-size: 11px;
+}
+
+#followed {
+  color: #dadada;
+  font-weight: 700; 
+  font-size: 11px;
+}

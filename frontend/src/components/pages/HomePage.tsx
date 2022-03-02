@@ -22,7 +22,7 @@ import { PostCommentField } from "components/organisms/TopPostCard/PostCommentFi
 import { SideFollowList } from "components/organisms/FollowList/SideFollowList";
 
 // hooks
-import { useFollowUser } from "hooks/useFollowUser";
+import { useOtherUser } from "hooks/useOtherUser";
 import { useAllPosts } from "hooks/useAllPosts";
 
 // interface
@@ -50,12 +50,12 @@ export const HomePage = memo(() => {
 
   const Posts = useAllPosts()
 
-  const FollowUsers = useFollowUser()
+  const OtherUsers = useOtherUser()
 
   return(
     <>
       {
-        currentUser && Posts && FollowUsers ? 
+        currentUser && Posts && OtherUsers ? 
 
         <CommonLayout>
           <FlexBox>
@@ -99,8 +99,9 @@ export const HomePage = memo(() => {
             </Grid>
 
             <FollowList sx={{display: { xs: 'none', md: 'block'}}}>
-              <SideFollowList FollowUsers={FollowUsers}/>
+              <SideFollowList OtherUsers={OtherUsers}/>
             </FollowList>
+            
           </FlexBox>
         </CommonLayout>
 

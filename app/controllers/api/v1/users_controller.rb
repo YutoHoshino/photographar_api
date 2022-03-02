@@ -13,7 +13,7 @@ class Api::V1::UsersController < ApplicationController
   end
   
   def index
-    users = User.other_target_users(current_user.id).sample(5)
+    users = User.unfollower(current_user).sample(5)
     render json: {users: users}, status: :ok
   end
 
