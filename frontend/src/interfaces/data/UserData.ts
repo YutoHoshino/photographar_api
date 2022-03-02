@@ -8,6 +8,8 @@ export interface UserData {
     post: Post
     photos: Array<Photo>
   }>,
+  followers: Array<User>
+  followings: Array<User>
   like_posts: Array<{
     post: Post
     photos: Array<Photo>

@@ -9,6 +9,9 @@ import ImageListItem from '@mui/material/ImageListItem';
 // interface
 import { UserData } from "interfaces/data/UserData";
 
+const ImageWapper = styled(ImageList)`
+  margin: 16px
+`
 const ImageItem = styled(ImageListItem)`
   cursor: pointer;
   border: 1px solid #e4e4e4;
@@ -27,7 +30,7 @@ export const UserProfilePosts = (props: Props) => {
 
   return (
    <Box>
-      <ImageList
+      <ImageWapper
         variant="quilted"
         cols={3}
       >
@@ -55,7 +58,7 @@ export const UserProfilePosts = (props: Props) => {
           ))
         }
 
-      </ImageList>
+      </ImageWapper>
    </Box>
   )
 }

@@ -1,4 +1,4 @@
-// interface
+// apis
 import { followCreate, followDelete } from "apis/follow"
 
 // interface

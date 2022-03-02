@@ -4,7 +4,8 @@ import styled from "styled-components";
 //material
 import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
-import { Typography, CardContent, Button, CardActions } from "@material-ui/core";
+import { CardContent, Button, CardActions } from "@material-ui/core";
+import { Typography } from "@mui/material";
 
 // atom
 import { UserAveter } from "components/atoms/Avater/UserAvater";
@@ -12,6 +13,7 @@ import { UserAveter } from "components/atoms/Avater/UserAvater";
 // interface
 import { UserData } from "interfaces/data/UserData";
 import { User } from "interfaces/get/User";
+
 
 const FlexBox = styled(Box)`
   display: flex;
@@ -25,17 +27,23 @@ const FlexCardContent = styled(CardContent)`
 const EditButton = styled(Button)`
   margin-left: 15px;
 `
-
+const ActionWapper = styled(CardActions)`
+  padding: 10px 16px;
+`
+const Link = styled(Typography)`
+  cursor: pointer;
+`
 interface Props {
   UserData: UserData
   currentUser: User
+  setIsOpen: any
 }
 
 export const UserProfileItem = (props: Props) => {
 
   const history = useHistory();
   
-  const { UserData, currentUser } = props
+  const { UserData, currentUser, setIsOpen } = props
   
   return (
     <FlexBox
@@ -71,19 +79,28 @@ export const UserProfileItem = (props: Props) => {
           }
         </FlexCardContent>
 
-        <CardActions>
-          <Box>
+        <ActionWapper>
+
+
+          <Typography
+            sx={{display: { md: "block", xs: "none"}}}
+          >
             投稿{UserData.posts.length}件
-          </Box>
+          </Typography>
 
-          <Box>
-            フォロワー0人
-          </Box>
+          <Link
+            onClick={() => setIsOpen(true)}
+          >
+            フォロワー{UserData.followers.length}人
+          </Link>
 
-          <Box>
-            フォロー0人
-          </Box>
-        </CardActions>
+          <Link
+            onClick={() => setIsOpen(true)}
+          >
+            フォロー{UserData.followings.length}人
+          </Link>
+
+        </ActionWapper>
       </Grid>
 
 

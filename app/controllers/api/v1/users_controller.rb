@@ -13,7 +13,7 @@ class Api::V1::UsersController < ApplicationController
   end
   
   def index
-    users = User.unfollower(current_user).sample(5)
+    users = User.unfollower(current_user).sample(10)
     render json: {users: users}, status: :ok
   end
 
@@ -21,6 +21,8 @@ class Api::V1::UsersController < ApplicationController
     like_posts = Post.includes(:photos).find(Like.where(user_id: @user.id).pluck(:post_id))
     user = {
       user: @user, 
+      followings: @user.followings, 
+      followers: @user.followers, 
       posts: @user.posts.includes(:photos).alive_records.map{|post|{post: post, photos:post.photos}},
       like_posts: like_posts.map{|like_post|{post: like_post, photos: like_post.photos}}
     }

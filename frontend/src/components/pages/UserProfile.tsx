@@ -20,6 +20,7 @@ import { userShowData } from "apis/user";
 
 // intarface
 import { UserData } from "interfaces/data/UserData";
+import { FollowListModal } from "components/organisms/Modal/FollowListModal";
 
 export const UserProfile = ({match}:any) => {
 
@@ -43,6 +44,8 @@ export const UserProfile = ({match}:any) => {
 
   const [action, setAction] = useState<"ALL" | "LIKE">("ALL")
 
+  const [isOpen, setIsOpen] = useState<boolean>(false)
+
   return (
     <>
       {
@@ -53,6 +56,7 @@ export const UserProfile = ({match}:any) => {
             <UserProfileItem
               currentUser={currentUser}
               UserData={UserData}
+              setIsOpen={setIsOpen}
             />
 
             <UserProfileSwichAction
@@ -65,13 +69,25 @@ export const UserProfile = ({match}:any) => {
               action={action}
             />
 
+            {/* モーダル */}
+            <FollowListModal
+              isOpen={isOpen}
+              onClose={() => setIsOpen(false)}
+              followings={UserData?.followings}
+              followers={UserData?.followers}
+            />
+
           </CommonLayout>
+
+
+          
         :
           <LoadLayout>
             <div>ロード中・・・</div>
             <LinearProgress/>
           </LoadLayout>
       }
+      
     </>
   )
 }

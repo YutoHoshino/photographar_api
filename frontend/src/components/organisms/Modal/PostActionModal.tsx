@@ -6,7 +6,6 @@ import { MenuItem } from "@material-ui/core"
 import Menu from '@mui/material/Menu';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
-import VisibilityIcon from '@material-ui/icons/Visibility';
 
 //apis
 import { postDelete } from "apis/post"
