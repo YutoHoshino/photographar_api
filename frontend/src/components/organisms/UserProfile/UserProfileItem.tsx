@@ -91,13 +91,13 @@ export const UserProfileItem = (props: Props) => {
           <Link
             onClick={() => setIsOpen(true)}
           >
-            フォロワー{UserData.followers.length}人
+            フォロー{UserData.followings.length}人
           </Link>
-
+          
           <Link
             onClick={() => setIsOpen(true)}
           >
-            フォロー{UserData.followings.length}人
+            フォロワー{UserData.followers.length}人
           </Link>
 
         </ActionWapper>

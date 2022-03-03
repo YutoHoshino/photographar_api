@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { memo, useContext, useEffect, useState } from "react";
 import styled from "styled-components";
 
 // material
@@ -7,10 +7,10 @@ import Tab from '@mui/material/Tab';
 import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
-import { Button, List, ListItem } from '@material-ui/core';
+import { Button, List } from '@material-ui/core';
 
 // useContext
-import { AuthContext } from "App";
+import { AuthContext, PostContext } from "App";
 
 // mplecules
 import { AvaterItem } from "components/molecules/AvaterItem";
@@ -18,7 +18,6 @@ import { AvaterItem } from "components/molecules/AvaterItem";
 // interface
 import { User } from "interfaces/get/User";
 import { UseFollow } from "hooks/useFollow";
-
 
 const ContentWapper = styled(DialogContent)`
   height: 600px;
@@ -33,9 +32,11 @@ interface Props {
   followers: Array<User>
 }
 
-export const FollowListModal = (props: Props) => {
+export const FollowListModal = memo((props: Props) => {
 
+  // useContext
   const { currentUser } = useContext(AuthContext)
+  const { isFollowed, setIsFollowed } = useContext(PostContext)
 
   const { followings, followers } = props
   
@@ -87,7 +88,7 @@ export const FollowListModal = (props: Props) => {
                         <Button
                           id="followed"
                           onClick={(e) => {
-                            UseFollow({OtherUser, e})
+                            UseFollow({OtherUser, e, setIsFollowed, isFollowed})
                           }}                    
                         >
                           フォロー中
@@ -96,7 +97,7 @@ export const FollowListModal = (props: Props) => {
                         <Button
                           id="follow"
                           onClick={(e) => {
-                            UseFollow({OtherUser, e})
+                            UseFollow({OtherUser, e, setIsFollowed, isFollowed})
                           }}
                         >
                           フォローする
@@ -123,7 +124,7 @@ export const FollowListModal = (props: Props) => {
                         <Button
                           id="followed"
                           onClick={(e) => {
-                            UseFollow({OtherUser, e})
+                            UseFollow({OtherUser, e, setIsFollowed, isFollowed})
                           }}
                         >
                           フォロー中
@@ -132,7 +133,7 @@ export const FollowListModal = (props: Props) => {
                         <Button
                           id="follow"
                           onClick={(e) => {
-                            UseFollow({OtherUser, e})
+                            UseFollow({OtherUser, e, setIsFollowed, isFollowed})
                           }}
                         >
                           フォローする
@@ -153,4 +154,4 @@ export const FollowListModal = (props: Props) => {
       }
     </>
   )
-}
+})

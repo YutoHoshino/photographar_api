@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { Box, Button, List, Typography } from "@material-ui/core";
 
 // useContext
-import { AuthContext } from "App";
+import { AuthContext, PostContext } from "App";
 
 // molecules
 import { AvaterItem } from "components/molecules/AvaterItem";
@@ -55,6 +55,7 @@ interface Props {
 export const SideFollowList = (props: Props) => {
 
   const { currentUser } = useContext(AuthContext)
+  const { isFollowed, setIsFollowed } = useContext(PostContext)
 
   const { OtherUsers } = props
 
@@ -87,7 +88,7 @@ export const SideFollowList = (props: Props) => {
                     <Button
                       id="follow"
                       onClick={(e) => {
-                        UseFollow({OtherUser, e})
+                        UseFollow({OtherUser, e, setIsFollowed, isFollowed})
                       }}                    
                     >
                       フォローする

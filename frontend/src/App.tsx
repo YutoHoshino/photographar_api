@@ -30,11 +30,8 @@ export const AuthContext = createContext({} as {
 export const PostContext = createContext({} as {
   isPosted: boolean
   setIsPosted: React.Dispatch<React.SetStateAction<boolean>>
-})
-
-export const FollowContext = createContext({} as {
   isFollowed: boolean
-  setisFollowed: React.Dispatch<React.SetStateAction<boolean>>
+  setIsFollowed: React.Dispatch<React.SetStateAction<boolean>>
 })
 
 const App = () => {
@@ -46,8 +43,8 @@ const App = () => {
   // 投稿されたかどうかのuseStatue
   const [isPosted, setIsPosted] = useState<boolean>(false);
 
-  // 投稿されたかどうかのuseStatue
-  const [isFollowed, setisFollowed] = useState<boolean>(false);
+  // フォローされたかどうか
+  const [isFollowed, setIsFollowed] = useState<boolean>(false);
 
   // ユーザー情報取得
   useEffect(() => {
@@ -55,9 +52,10 @@ const App = () => {
     .then((data) => {
       setIsSignedIn(true)
       setCurrentUser(data.user)
+      console.log("レンダリングした！！")
     })
     .catch((error) => console.log(error))
-  }, [setCurrentUser, setisFollowed])
+  }, [isFollowed])
 
   return (
     <Router>
@@ -76,35 +74,33 @@ const App = () => {
               component={ SignInPage } 
             />
 
-            <PostContext.Provider value={{ isPosted, setIsPosted }}>
-              <FollowContext.Provider value={{ isFollowed, setisFollowed }}>
-                <Switch>
+            <PostContext.Provider value={{ isPosted, setIsPosted, isFollowed, setIsFollowed }}>
+              <Switch>
 
-                  <Route 
-                    exact path="/" 
-                    component={ HomePage } 
-                  />
+                <Route 
+                  exact path="/" 
+                  component={ HomePage } 
+                />
 
-                  <Route           
-                    exact
-                    path="/post/:postId"
-                    render={({ match }) => <DetailPostPage match={match}/> } 
-                  />
+                <Route           
+                  exact
+                  path="/post/:postId"
+                  render={({ match }) => <DetailPostPage match={match}/> } 
+                />
 
-                  <Route           
-                    exact
-                    path="/user/:userName"
-                    render={({ match }) => <UserProfile match={match}/> } 
-                  />
+                <Route           
+                  exact
+                  path="/user/:userName"
+                  render={({ match }) => <UserProfile match={match}/> } 
+                />
 
-                  <Route           
-                    exact
-                    path={`/user/${currentUser?.name}/edit`}
-                    component={ UserEdit } 
-                  />
+                <Route           
+                  exact
+                  path={`/user/${currentUser?.name}/edit`}
+                  component={ UserEdit } 
+                />
 
-                </Switch>
-              </FollowContext.Provider>
+              </Switch>
             </PostContext.Provider>
 
           </Switch>
