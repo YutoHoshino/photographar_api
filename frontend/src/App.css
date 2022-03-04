@@ -70,3 +70,8 @@ body {
   background: #b4b4b4;
   color: #dadada;
 }
+
+:root {
+  --swiper-theme-color: #888888 !important;
+  --swiper-navigation-size: 25px !important;
+}
