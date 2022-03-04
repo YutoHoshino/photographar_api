@@ -20,6 +20,7 @@ import { PostCommentContent } from "components/organisms/TopPostCard/PostComment
 import { PostCardAction } from "components/organisms/TopPostCard/PostCardAction";
 import { PostCommentField } from "components/organisms/TopPostCard/PostCommentField";
 import { SideFollowList } from "components/organisms/FollowList/SideFollowList";
+import { SwopperFollowList } from "components/organisms/FollowList/SwipperFollowList";
 
 // hooks
 import { useOtherUser } from "hooks/useOtherUser";
@@ -32,8 +33,8 @@ import { PostData } from "interfaces/data/PostData";
 // style css
 const PostCard = styled(Card)`
   max-width: 500px;
-  margin-bottom: 50px;
-  box-shadow: none;
+  margin-bottom: 30px;
+  box-shadow: none !important;
   border: 1px solid #dbdbdb;
 `
 const FlexBox = styled(Grid)`
@@ -60,6 +61,9 @@ export const HomePage = memo(() => {
         <CommonLayout>
           <FlexBox>
             <Grid>
+              <SwopperFollowList
+                OtherUsers={OtherUsers}
+              />
               {Posts.map((postdata: PostData) => {
                 let likeCount = postdata.likes.length // likeカウント
                 return (

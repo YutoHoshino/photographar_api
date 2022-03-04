@@ -14,7 +14,6 @@ import { UserEdit } from "components/pages/UserEdit"
 
 // interface
 import { CurrentUser } from "interfaces/get/CurrentUser"
-import { User } from "interfaces/get/User";
 
 // apis
 import { getCurrentUser } from "apis/auth"
@@ -52,7 +51,6 @@ const App = () => {
     .then((data) => {
       setIsSignedIn(true)
       setCurrentUser(data.user)
-      console.log("レンダリングした！！")
     })
     .catch((error) => console.log(error))
   }, [isFollowed])

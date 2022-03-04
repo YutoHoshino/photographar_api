@@ -60,3 +60,13 @@ body {
   font-weight: 700; 
   font-size: 11px;
 }
+
+#follow_button {
+  background: #0095f6;
+  color: #fff;
+}
+
+#followed_button {
+  background: #b4b4b4;
+  color: #dadada;
+}
