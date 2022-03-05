@@ -34,6 +34,7 @@ export const AvaterItem = (props: Props) => {
             userName={userName}
             ImageSrc={ImageSrc}
             AvaterSize={AvaterSize}
+            Url={`user/${userName}`}
           />
       </ListItemAvatar>
       <ListItemText

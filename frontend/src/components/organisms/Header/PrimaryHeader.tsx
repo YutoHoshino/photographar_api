@@ -1,28 +1,23 @@
 import { useContext, useState } from "react";
+import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 
 // material
 import Box from '@mui/material/Box';
-import InputBase from '@mui/material/InputBase';
 import Typography from '@mui/material/Typography';
 import { Avatar, AppBar, Button } from "@material-ui/core"
 import IconButton from '@mui/material/IconButton';
 
 // material icon
 import SearchIcon from '@mui/icons-material/Search';
-import CreateOutlinedIcon from '@mui/icons-material/CreateOutlined';
-import MailOutlineIcon from '@mui/icons-material/MailOutline';
 import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
 
 // useContext
 import { AuthContext } from "App";
 
 // Modal
-import { SearchModal } from "components/organisms/Modal/SearchModal";
 import { PostModal } from "components/organisms/Modal/PostModal";
 import { UserModal } from "components/organisms/Modal/UserModal";
-
-
 
 const HeaderBar = styled(AppBar)`
   background: white;
@@ -37,28 +32,38 @@ const Toolbar = styled(Box)`
 const LogoText = styled(Typography)`
   text-decoration: none;
   font-weight: bold !important;
-`
-const SeachWapper = styled(Box)`
-  padding: 0 10px;
-  border-radius: 10px;
-  background: #efefef;
-  display: flex;
-  align-items: center;
-`
-const Input = styled(InputBase)`
-  font-size: 13px !important;
-  padding: 3px 5px;
+  cursor: pointer; 
 `
 const Search = styled(SearchIcon)`
   color: rgb(142, 142, 142);
 `
 const ItemWapper = styled(Box)`
+  align-items: center;
   display: flex;
+`
+const PostButton = styled(Button)`
+  margin: 10px;
+  color: #0095f6;
+  font-weight: bold;
+  border: 1px solid #0095f6;
+  font-size: 12px;
 `
 
 export const PrimaryHeader = () => {
 
   const { currentUser } = useContext(AuthContext)
+
+  const history = useHistory();
+
+  // ホーム画面に移動
+  const handleHome = () => {
+    history.push("/")
+  }
+
+  // ホーム画面に移動
+  const handleSearch = () => {
+    history.push("/search")
+  }
 
   // Postモーダル
   const [isOpen, setIsOpen] = useState<boolean>(false)
@@ -66,22 +71,12 @@ export const PrimaryHeader = () => {
     e.preventDefault()
     setIsOpen(true)
   }
-  
 
   // Userメニューモーダル
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const isPostModal = Boolean(anchorEl);
   const handleMobileMenuOpen = (event: any) => {
     setAnchorEl(event.currentTarget);
-  }
-
-
-  // 検索ロジック
-  const [SearchText, setSearchText] = useState<string>()
-  // const [SearchEl, setSearchEl]      = useState<null | HTMLElement>()
-  // const isSearchModal = Boolean(SearchEl)
-  const handleSerch = (e: any) => {
-    // setSearchEl(e.target)
   }
 
   return (
@@ -94,52 +89,28 @@ export const PrimaryHeader = () => {
 
             <Toolbar sx={{ padding: {xs: '10px', md: '0 320px'} }}>
 
-                <LogoText>photographar</LogoText>
-
-
-                <SeachWapper
-                  sx={{ display: {sm: 'none', md: 'flex'} }}
+                <LogoText
+                  onClick={handleHome}
                 >
-                  <Search/>
-                  <form>
-        
-                    <Input
-                      placeholder="検索..."
-                      onChange={e => setSearchText(e.target.value)}
-                    />
-                    <Button
-                      style={{display:"none"}}
-                      type="submit"
-                      onClick={e => {
-                        e.preventDefault()
-                        handleSerch(e)
-                      }}
-                    >
-                      送信
-                    </Button>
-                    
-                  </form>
-
-                </SeachWapper>
+                  photographar
+                </LogoText>
 
 
                 <ItemWapper>
 
-                  <IconButton
-                    
-                  >
-                    <Search/>
-                  </IconButton>
-                  <IconButton
-                    onClick={handlePost}
-                  >
-                    <CreateOutlinedIcon/>
-                  </IconButton>
+                  <Box>
+                    <IconButton
+                      onClick={handleSearch}
+                    >
+                      <Search/>
+                    </IconButton>
+                  </Box>
 
-                  <IconButton
-                  >
-                    <NotificationsNoneIcon/>
-                  </IconButton>
+                  <Box>
+                    <IconButton>
+                      <NotificationsNoneIcon/>
+                    </IconButton>
+                  </Box>
 
                   <IconButton
                     onClick={handleMobileMenuOpen} 
@@ -149,6 +120,12 @@ export const PrimaryHeader = () => {
                       src={currentUser?.image?.url}
                     />
                   </IconButton>
+
+                  <PostButton
+                    onClick={handlePost}
+                  >
+                    投稿
+                  </PostButton>
                   
                 </ItemWapper>
 
@@ -172,7 +149,6 @@ export const PrimaryHeader = () => {
         isOpen={isOpen}
         onClose={() => setIsOpen(false)}
       />
-
           
     </>
 

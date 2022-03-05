@@ -7,6 +7,7 @@ Rails.application.routes.draw do
       delete  '/signout',     to: 'sessions#signout'
       get     '/logged',      to: 'sessions#sign_in?'
 
+      get '/search/:keyword', to: 'users#search'
       resources :users, only:[:index, :update, :show] do
         resource :relationships, only: [:create, :destroy]
         get '/followers',   to: 'relationships#followers'

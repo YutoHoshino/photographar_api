@@ -11,6 +11,7 @@ import { SignUpPage } from "components/pages/SignUpPage"
 import { DetailPostPage } from "components/pages/DetailPostPage"
 import { UserProfile } from "components/pages/UserProfile"
 import { UserEdit } from "components/pages/UserEdit"
+import { SearchPage } from "components/pages/SearchPage"
 
 // interface
 import { CurrentUser } from "interfaces/get/CurrentUser"
@@ -96,6 +97,12 @@ const App = () => {
                   exact
                   path={`/user/${currentUser?.name}/edit`}
                   component={ UserEdit } 
+                />
+
+                <Route           
+                  exact
+                  path="/search"
+                  component={ SearchPage } 
                 />
 
               </Switch>

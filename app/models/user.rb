@@ -41,6 +41,11 @@ class User < ApplicationRecord
       where.not(id: user.followings.ids).where.not(id: user.id)
     end
 
+    # 検索
+    def search(keyword)
+      where('name LIKE ?', '%' + keyword + '%')
+    end
+
   end
 
 end
