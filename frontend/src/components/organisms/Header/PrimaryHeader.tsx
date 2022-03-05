@@ -24,7 +24,6 @@ import { UserModal } from "components/organisms/Modal/UserModal";
 
 
 
-
 const HeaderBar = styled(AppBar)`
   background: white;
   box-shadow: none;
@@ -79,6 +78,11 @@ export const PrimaryHeader = () => {
 
   // 検索ロジック
   const [SearchText, setSearchText] = useState<string>()
+  // const [SearchEl, setSearchEl]      = useState<null | HTMLElement>()
+  // const isSearchModal = Boolean(SearchEl)
+  const handleSerch = (e: any) => {
+    // setSearchEl(e.target)
+  }
 
   return (
     <>
@@ -94,19 +98,38 @@ export const PrimaryHeader = () => {
 
 
                 <SeachWapper
-                  sx={{ display: {xs: 'none', md: 'flex'} }}
+                  sx={{ display: {sm: 'none', md: 'flex'} }}
                 >
                   <Search/>
-                  <Input
-                    placeholder="検索..."
-                    onChange={e => setSearchText(e.target.value)}
-                  />
+                  <form>
+        
+                    <Input
+                      placeholder="検索..."
+                      onChange={e => setSearchText(e.target.value)}
+                    />
+                    <Button
+                      style={{display:"none"}}
+                      type="submit"
+                      onClick={e => {
+                        e.preventDefault()
+                        handleSerch(e)
+                      }}
+                    >
+                      送信
+                    </Button>
+                    
+                  </form>
 
                 </SeachWapper>
 
 
                 <ItemWapper>
 
+                  <IconButton
+                    
+                  >
+                    <Search/>
+                  </IconButton>
                   <IconButton
                     onClick={handlePost}
                   >
