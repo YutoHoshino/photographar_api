@@ -7,9 +7,9 @@ import { MenuItem, makeStyles } from "@material-ui/core"
 import Menu from '@mui/material/Menu';
 
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
-import FavoriteIcon from '@material-ui/icons/Favorite';
 import SettingsIcon from '@material-ui/icons/Settings';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import MailIcon from '@mui/icons-material/Mail';
 
 //useContext
 import { AuthContext } from "App";
@@ -47,8 +47,14 @@ export const UserModal = (props: Props) => {
     })
   }
 
+  // ユーザープロフィール移動
   const handleProfile = () => {
     history.push(`/user/${currentUser?.name}`)
+  }
+
+  // ユーザー編集移動
+  const handleUserEdit = () => {
+    history.push(`/user/${currentUser?.name}/edit`)
   }
 
   return (
@@ -87,11 +93,13 @@ export const UserModal = (props: Props) => {
       </MenuItem>
 
       <MenuItem>
-        <FavoriteIcon/>
-        <p>いいね</p>
+        <MailIcon/>
+        <p>メッセージ</p>
       </MenuItem>
 
-      <MenuItem>
+      <MenuItem
+        onClick={handleUserEdit}
+      >
         <SettingsIcon/>
         <p>設定</p>
       </MenuItem>

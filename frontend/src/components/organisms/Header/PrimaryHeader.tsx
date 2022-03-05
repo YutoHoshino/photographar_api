@@ -138,11 +138,6 @@ export const PrimaryHeader = () => {
 
                   <IconButton
                   >
-                    <MailOutlineIcon/>
-                  </IconButton>
-
-                  <IconButton
-                  >
                     <NotificationsNoneIcon/>
                   </IconButton>
 
