@@ -1,10 +1,13 @@
+import { useHistory } from "react-router-dom";
 import styled from "styled-components";
+
 import { Box, Button, Grid } from "@material-ui/core";
+
+// molecures
+import { AvaterItem } from "components/molecules/AvaterItem";
 
 // interface
 import { User } from "interfaces/get/User";
-import { UserAveter } from "components/atoms/Avater/UserAvater";
-import { AvaterItem } from "components/molecules/AvaterItem";
 
 const Wapper = styled(Box)`
   margin: 20px 0;
@@ -16,44 +19,58 @@ const UserWapper = styled(Box)`
 `
 const NoContent = styled(Box)`
   color: #93a5b1;
+  overflow-wrap: break-word;
+`
+const UserButton = styled(Button)`
+  margin: 0 10px;
+  font-size: 10px;
+  color: #0095f6;
+  font-weight: bold;
+  border: 1px solid #0095f6;
 `
 
 interface Props {
-  SearchedUsers: Array<User> | undefined
+  SearchedUsers: Array<User>
+  DisplayText: string | undefined
 }
 
 export const SearchContent = (props: Props) => {
 
-  const { SearchedUsers } = props
+  const history = useHistory();
 
-  console.log(SearchedUsers)
+  const { SearchedUsers, DisplayText } = props
 
   return (
     <Grid container justifyContent="center">
       
-      <Wapper>
+      <Wapper
+        sx={{width: {sx: "400px", md: "400px"}}}
+      >
 
         {
-          SearchedUsers ?
+          SearchedUsers  ?
 
           SearchedUsers.map((User) => 
-            <UserWapper>
+            <UserWapper key={User.id}>
               <AvaterItem
                 userName={User.name}
                 ImageSrc={User.image?.url}
                 AvaterSize={50}
                 ItemGap={10}
               >
-              <Button
-              >
-                
-              </Button>
+                <UserButton
+                  onClick={e => history.push(`/user/${User.name}`)}
+                >
+                  アカウントへ移動
+                </UserButton>
+
               </AvaterItem>
             </UserWapper>
           )
 
           :
-          <NoContent>検索結果がありません</NoContent>
+
+          <NoContent>{DisplayText} 検索結果がありません</NoContent>
 
         }
 

@@ -20,7 +20,9 @@ export const SearchPage = () => {
 
   const [SearchText, setSearchText] = useState<string>()
 
-  const [SearchedUsers, setSearchedUsers] = useState<Array<User>>()
+  const [SearchedUsers, setSearchedUsers] = useState<Array<User>>([])
+
+  const [DisplayText, setDisplayText] = useState<string>()
 
   const handleSearch = () => {
     if (SearchText) {
@@ -29,6 +31,7 @@ export const SearchPage = () => {
       .then((data) => {
         setSearchedUsers(data.users)
       })
+      setDisplayText(SearchText)
     }
   }
 
@@ -42,6 +45,7 @@ export const SearchPage = () => {
 
       <SearchContent
         SearchedUsers={SearchedUsers}
+        DisplayText={DisplayText}
       />
 
     </CommonLayout>
