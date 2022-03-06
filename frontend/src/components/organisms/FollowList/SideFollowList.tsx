@@ -84,6 +84,7 @@ export const SideFollowList = (props: Props) => {
                     userName={OtherUser.name}
                     ImageSrc={OtherUser.image?.url}
                     AvaterSize={30}
+                    ItemGap={15}
                   >
                     <Button
                       id="follow"

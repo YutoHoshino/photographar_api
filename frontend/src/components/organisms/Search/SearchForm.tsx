@@ -38,9 +38,7 @@ export const SearchForm = (props: Props) => {
 
   return (
     <form>
-      <SeachWapper
-        sx={{width: {sx: "300px", md: "400px"}}}
-      >
+      <SeachWapper>
           
         <TextField
           fullWidth

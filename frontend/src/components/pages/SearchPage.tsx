@@ -38,15 +38,20 @@ export const SearchPage = () => {
   return (
     <CommonLayout>
 
-      <SearchForm
-        setSearchText={setSearchText}
-        handleSearch={handleSearch}
-      />
+      <Box
+        sx={{width: {xs: "300px", md: "600px" }}}      
+      >
+        <SearchForm
+          setSearchText={setSearchText}
+          handleSearch={handleSearch}
+        />
 
-      <SearchContent
-        SearchedUsers={SearchedUsers}
-        DisplayText={DisplayText}
-      />
+        <SearchContent
+          SearchedUsers={SearchedUsers}
+          DisplayText={DisplayText}
+        />
+        
+      </Box>
 
     </CommonLayout>
   )
