@@ -54,7 +54,6 @@ export const UserProfile = ({match}:any) => {
           <CommonLayout>
 
             <UserProfileItem
-              currentUser={currentUser}
               UserData={UserData}
               setIsOpen={setIsOpen}
             />

@@ -1,3 +1,4 @@
+import { useContext } from "react";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 
@@ -13,6 +14,14 @@ import { UserAveter } from "components/atoms/Avater/UserAvater";
 // interface
 import { UserData } from "interfaces/data/UserData";
 import { User } from "interfaces/get/User";
+import { LinkButton } from "components/atoms/Button/LinkButton";
+
+// hooks
+import { useSizing } from "hooks/useSizing";
+import { UseFollowUserBox } from "hooks/useFollow";
+
+// useContext
+import { AuthContext, PostContext } from "App";
 
 
 const FlexBox = styled(Box)`
@@ -21,90 +30,135 @@ const FlexBox = styled(Box)`
 const ImageWapper = styled(Grid)`
   padding: 10px;
 `
-const FlexCardContent = styled(CardContent)`
+const ItemWapper = styled(Box)`
+  padding: 20px;
+`
+const FlexItem = styled.div`
   display: flex;
 `
-const EditButton = styled(Button)`
-  margin-left: 15px;
-`
-const ActionWapper = styled(CardActions)`
-  padding: 10px 16px;
+const FlexList = styled.div`
+  display: flex;
+  margin-top: 10px;
 `
 const Link = styled(Typography)`
   cursor: pointer;
+  margin-right: 10px !important;
 `
+const FollowButton = styled(Button)`
+  margin: 2px 5px;
+  font-size: 10px;
+  font-weight: bold;
+`
+
+
 interface Props {
   UserData: UserData
-  currentUser: User
   setIsOpen: any
 }
 
 export const UserProfileItem = (props: Props) => {
 
+  const { currentUser } = useContext(AuthContext)
+  const { isFollowed, setIsFollowed } = useContext(PostContext)
+
   const history = useHistory();
   
-  const { UserData, currentUser, setIsOpen } = props
+  const { UserData, setIsOpen } = props
+
+  // サイズ変更
+  const AvaterSize = useSizing() ? 110 : 90
+  const NameSize   = useSizing() ? "h5" : "h6"
+  const LinkSize   = useSizing() ? "inherit" : "subtitle2"
   
+  // フォロー機能の代入
+  const User = UserData.user
+
   return (
-    <FlexBox
-      sx={{ width: { md: "950px"}}}
-    >
-
-      <ImageWapper>
-        <UserAveter
-          userName={UserData.user.name}
-          ImageSrc={UserData.user.image?.url}
-          AvaterSize={120}
-        />
-      </ImageWapper>
-
-      <Grid>
-
-        <FlexCardContent>
-          <Typography variant="h4">
-            {UserData.user.name}
-          </Typography>
-          {
-            UserData.user.id == currentUser.id ?
-            <>
-              <EditButton
-                onClick={()=> {history.push(`/user/${UserData.user?.name}/edit`)}}
-                variant="outlined" 
-              >
-                修正
-              </EditButton>
-            </>
-            :
-            null
-          }
-        </FlexCardContent>
-
-        <ActionWapper>
-
-
-          <Typography
-            sx={{display: { md: "block", xs: "none"}}}
+    <>
+      {
+        currentUser ?
+          <FlexBox
+            sx={{ width: { md: "950px"}}}
           >
-            投稿{UserData.posts.length}件
-          </Typography>
-
-          <Link
-            onClick={() => setIsOpen(true)}
-          >
-            フォロー{UserData.followings.length}人
-          </Link>
-          
-          <Link
-            onClick={() => setIsOpen(true)}
-          >
-            フォロワー{UserData.followers.length}人
-          </Link>
-
-        </ActionWapper>
-      </Grid>
-
-
-
-    </FlexBox>
+    
+            <ImageWapper>
+              <UserAveter
+                userName={UserData.user.name}
+                ImageSrc={UserData.user.image?.url}
+                AvaterSize={AvaterSize}
+              />
+            </ImageWapper>
+      
+            <ItemWapper>
+      
+              <FlexItem>
+      
+                <Typography variant={NameSize}>
+                  {UserData.user.name}
+                </Typography>
+      
+                {
+                  UserData.user.id == currentUser?.id ?
+                    <LinkButton
+                      Url={`/user/${UserData.user?.name}/edit`}
+                    >
+                      修正
+                    </LinkButton>
+                  :
+                  <>
+                    {
+                      currentUser?.followings.some((curentFollowing) => curentFollowing.id == UserData.user.id) ?
+                        <FollowButton
+                          id="followed_button"
+                          onClick={(e) => {
+                            UseFollowUserBox({User, e, setIsFollowed, isFollowed})
+                          }}
+                        >
+                          フォロー中
+                        </FollowButton>
+                      :
+                        <FollowButton
+                          id="follow_button"
+                          onClick={(e) => {
+                            UseFollowUserBox({User, e, setIsFollowed, isFollowed})
+                          }}
+                        >
+                          フォロー
+                        </FollowButton>
+                    }
+                    <LinkButton>
+                      メッセージ
+                    </LinkButton>
+                  </>
+                }
+      
+              </FlexItem>
+      
+              <FlexList>
+      
+                <Link
+                  onClick={() => setIsOpen(true)}
+                  variant={LinkSize}
+                >
+                  フォロー{UserData.followings.length}人
+                </Link>
+                
+                <Link
+                  onClick={() => setIsOpen(true)}
+                  variant={LinkSize}
+                >
+                  フォロワー{UserData.followers.length}人
+                </Link>
+      
+              </FlexList>
+      
+            </ItemWapper>
+    
+    
+          </FlexBox>
+        :
+          <></>
+      }
+    </>
   )
 }

@@ -5,7 +5,7 @@ import styled from "styled-components";
 import { Box, Button, Grid } from "@material-ui/core";
 
 // useContext
-import { AuthContext } from "App";
+import { AuthContext, PostContext } from "App";
 
 // molecures
 import { AvaterItem } from "components/molecules/AvaterItem";
@@ -15,6 +15,7 @@ import { User } from "interfaces/get/User";
 
 // hooks
 import { useSizing } from "hooks/useSizing";
+import { UseFollowUserBox } from "hooks/useFollow";
 
 const Wapper = styled(Box)`
   margin: 20px 0;
@@ -47,13 +48,15 @@ interface Props {
 
 export const SearchContent = (props: Props) => {
 
+  
   // サイズレスポンシブ
   const AvaterSize = useSizing() ? 50 : 35
   const ItemGap    = useSizing() ? 10 : 5
-
+  
   const history = useHistory();
-
+  
   const { currentUser } = useContext(AuthContext)
+  const { isFollowed, setIsFollowed } = useContext(PostContext)
 
   const { SearchedUsers, DisplayText } = props
 
@@ -78,12 +81,18 @@ export const SearchContent = (props: Props) => {
                   currentUser.followings.some((curentFollowing) => curentFollowing.id == User.id) ?
                   <FollowButton
                     id="followed_button"
+                    onClick={(e) => {
+                      UseFollowUserBox({User, e, setIsFollowed, isFollowed})
+                    }}
                   >
                     フォロー中
                   </FollowButton>
                   :
                   <FollowButton
                     id="follow_button"
+                    onClick={(e) => {
+                      UseFollowUserBox({User, e, setIsFollowed, isFollowed})
+                    }}
                   >
                     フォロー
                   </FollowButton>

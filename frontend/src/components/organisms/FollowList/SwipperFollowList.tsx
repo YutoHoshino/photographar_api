@@ -112,32 +112,32 @@ export const SwopperFollowList = (props: Props) => {
       >
 
         {
-          OtherUsers.map((OtherUser) => 
+          OtherUsers.map((User) => 
           <SwiperSlide
-            key={OtherUser.id}
+            key={User.id}
           >
 
             <UserCard>
 
               <Avaterwapper>
                 <UserAveter
-                  userName={OtherUser.name}
-                  ImageSrc={OtherUser.image?.url}
+                  userName={User.name}
+                  ImageSrc={User.image?.url}
                   AvaterSize={50}
-                  Url={`/user/${OtherUser.name}`}
+                  Url={`/user/${User.name}`}
                 />
               </Avaterwapper>
 
               <NameText
                 variant="body2"
               >
-                {OtherUser.name}
+                {User.name}
               </NameText>
 
               <FollowButton
                 id="follow_button"
                 onClick={(e) => {
-                  UseFollowUserBox({OtherUser, e, setIsFollowed, isFollowed})
+                  UseFollowUserBox({User, e, setIsFollowed, isFollowed})
                 }}
               >
                 フォローする

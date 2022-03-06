@@ -78,18 +78,18 @@ export const SideFollowList = (props: Props) => {
             </ListTextItem>
 
             {
-              OtherUsers.map((OtherUser) => (
-                <div key={OtherUser.id}>
+              OtherUsers.map((User) => (
+                <div key={User.id}>
                   <AvaterItem
-                    userName={OtherUser.name}
-                    ImageSrc={OtherUser.image?.url}
+                    userName={User.name}
+                    ImageSrc={User.image?.url}
                     AvaterSize={30}
                     ItemGap={15}
                   >
                     <Button
                       id="follow"
                       onClick={(e) => {
-                        UseFollow({OtherUser, e, setIsFollowed, isFollowed})
+                        UseFollow({User, e, setIsFollowed, isFollowed})
                       }}                    
                     >
                       フォローする

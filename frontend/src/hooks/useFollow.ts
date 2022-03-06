@@ -5,9 +5,9 @@ import { FollowHook } from "interfaces/hooks/FollowHook"
 
 export const UseFollow = (props :FollowHook) => {
   
-  const { OtherUser, e, setIsFollowed, isFollowed } = props
+  const { User, e, setIsFollowed, isFollowed } = props
 
-  const data = {UserId: OtherUser.id}
+  const data = {UserId: User.id}
 
   const element = e.currentTarget
 
@@ -39,9 +39,9 @@ export const UseFollow = (props :FollowHook) => {
 
 export const UseFollowUserBox = (props :FollowHook) => {
   
-  const { OtherUser, e, setIsFollowed, isFollowed } = props
+  const { User, e, setIsFollowed, isFollowed } = props
 
-  const data = {UserId: OtherUser.id}
+  const data = {UserId: User.id}
 
   const element = e.currentTarget
 

@@ -74,21 +74,22 @@ export const FollowListModal = memo((props: Props) => {
               {
                 Switch == "followings" ?
     
-                followings.map((OtherUser) => 
+                followings.map((User) => 
                   <div
-                    key={OtherUser.id}
+                    key={User.id}
                   >
                     <AvaterItem
-                      userName={OtherUser.name}
-                      ImageSrc={OtherUser.image?.url}
+                      userName={User.name}
+                      ImageSrc={User.image?.url}
                       AvaterSize={40}
+                      ItemGap={10}
                     >
                       {
-                        currentUser.followings.some((curentFollowing) => curentFollowing.id == OtherUser.id) ?
+                        currentUser.followings.some((curentFollowing) => curentFollowing.id == User.id) ?
                         <Button
                           id="followed"
                           onClick={(e) => {
-                            UseFollow({OtherUser, e, setIsFollowed, isFollowed})
+                            UseFollow({User, e, setIsFollowed, isFollowed})
                           }}                    
                         >
                           フォロー中
@@ -97,7 +98,7 @@ export const FollowListModal = memo((props: Props) => {
                         <Button
                           id="follow"
                           onClick={(e) => {
-                            UseFollow({OtherUser, e, setIsFollowed, isFollowed})
+                            UseFollow({User, e, setIsFollowed, isFollowed})
                           }}
                         >
                           フォローする
@@ -110,21 +111,22 @@ export const FollowListModal = memo((props: Props) => {
     
                 :
     
-                followers.map((OtherUser) => 
+                followers.map((User) => 
                   <div
-                    key={OtherUser.id}
+                    key={User.id}
                   >
                     <AvaterItem
-                      userName={OtherUser.name}
-                      ImageSrc={OtherUser.image?.url}
+                      userName={User.name}
+                      ImageSrc={User.image?.url}
                       AvaterSize={40}
+                      ItemGap={10}
                     >
                       {
-                        currentUser.followings.some((curentFollowing) => curentFollowing.id == OtherUser.id) ?
+                        currentUser.followings.some((curentFollowing) => curentFollowing.id == User.id) ?
                         <Button
                           id="followed"
                           onClick={(e) => {
-                            UseFollow({OtherUser, e, setIsFollowed, isFollowed})
+                            UseFollow({User, e, setIsFollowed, isFollowed})
                           }}
                         >
                           フォロー中
@@ -133,7 +135,7 @@ export const FollowListModal = memo((props: Props) => {
                         <Button
                           id="follow"
                           onClick={(e) => {
-                            UseFollow({OtherUser, e, setIsFollowed, isFollowed})
+                            UseFollow({User, e, setIsFollowed, isFollowed})
                           }}
                         >
                           フォローする
