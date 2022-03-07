@@ -31,7 +31,7 @@ import { PostData } from 'interfaces/data/PostData';
 const PostCard = styled(Card)`
   max-width: 800px;
   min-height: 550px;
-  boxShadow: none;
+  box-shadow: none !important;
   border: 1px solid #dbdbdb;
 `
 
