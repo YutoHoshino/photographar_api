@@ -13,6 +13,9 @@ import { AuthContext } from "App";
 import { AuthTextField } from "components/atoms/TextField/AuthTextField";
 import { AuthButton } from "components/atoms/Button/AuthButton";
 
+// organisms
+import { AlertMessage } from "components/organisms/Alert/AlertMessage";
+
 // apis
 import { signIn } from "apis/auth";
 
@@ -45,6 +48,9 @@ export const SignInForm = memo(() => {
   const [email, setEmail] = useState<string>("")
   const [password, setPassword] = useState<string>("")
 
+  // アラート
+  const [alertMessageOpen, setAlertMessageOpen] = useState<boolean>(false)
+
   // 送信イベント
   const handleSubmit = (e: any) => {
     e.preventDefault()
@@ -60,39 +66,54 @@ export const SignInForm = memo(() => {
       setCurrentUser(data.user)
       history.push("/")
     })
+    .catch(() => {
+      setAlertMessageOpen(true)
+    })
   }
 
   return (
 
-    <Form onSubmit={handleSubmit}>
-      <CardContent>
+    <>
+      <Form onSubmit={handleSubmit}>
+        <CardContent>
 
-        <CardHeader title="ログイン" />
+          <CardHeader title="ログイン" />
 
-        <AuthTextField
-          label="メールアドレス"
-          setState={setEmail}
-        />    
+          <AuthTextField
+            label="メールアドレス"
+            type="email"
+            setState={setEmail}
+          />    
 
-        <AuthTextField
-          label="パスワード"
-          type="password"
-          placeholder="6文字以上"
-          setState={setPassword}
-        />
+          <AuthTextField
+            label="パスワード"
+            type="password"
+            placeholder="6文字以上"
+            setState={setPassword}
+          />
 
-        <ButtonWrapper>
-          <AuthButton>登録</AuthButton>     
-        </ButtonWrapper>
+          <ButtonWrapper>
+            <AuthButton>ログイン</AuthButton>     
+          </ButtonWrapper>
 
-        <LinkWapper>
-          <LinkButton to="/signup">
-            新規アカウントを作成
-          </LinkButton>
-        </LinkWapper>
+          <LinkWapper>
+            <LinkButton to="/signup">
+              新規アカウントを作成
+            </LinkButton>
+          </LinkWapper>
 
-      </CardContent>
-    </Form>
+        </CardContent>
+      </Form>
+
+      <AlertMessage
+        open={alertMessageOpen}
+        setOpen={setAlertMessageOpen}
+        severity="error"
+        message="メールアドレスかパスワードが間違っています"
+      />
+
+    </>
+
 
   )
 })

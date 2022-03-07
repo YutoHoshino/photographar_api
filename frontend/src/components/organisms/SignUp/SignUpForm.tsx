@@ -9,6 +9,9 @@ import { Box, CardContent, CardHeader } from "@material-ui/core";
 import { AuthTextField } from "components/atoms/TextField/AuthTextField";
 import { AuthButton } from "components/atoms/Button/AuthButton";
 
+// organisms
+import { AlertMessage } from "components/organisms/Alert/AlertMessage";
+
 // apis
 import { signUp } from "apis/auth";
 
@@ -48,6 +51,9 @@ export const SignUpForm = () => {
   const [password, setPassword] = useState<string>("")
   const [passwordConfirmation, setPasswordConfirmation] = useState<string>("")
 
+  // アラート
+  const [alertMessageOpen, setAlertMessageOpen] = useState<boolean>(false)
+
   // 送信イベント
   const handleSubmit = (e: any) => {
     e.preventDefault()
@@ -65,51 +71,64 @@ export const SignUpForm = () => {
       setCurrentUser(data.user)
       history.push("/")
     })
+    .catch(() => {
+      setAlertMessageOpen(true)
+    })
   }
 
 
   return (
+      <>
+        <Form onSubmit={handleSubmit}>
+          <CardContent>
+            <CardHeader title="新規アカウント" />
+
+            <AuthTextField
+              label="名前"
+              setState={setName}
+            />
+
+            <AuthTextField
+              label="メールアドレス"
+              type="email"
+              setState={setEmail}
+            />
+
+            <AuthTextField
+              label="パスワード"
+              type="password"
+              placeholder="6文字以上"
+              setState={setPassword}
+            />
+
+            <AuthTextField
+              label="パスワード（確認用）"
+              type="password"
+              placeholder="6文字以上"
+              setState={setPasswordConfirmation}
+            />
+
+            <ButtonWrapper>
+              <AuthButton>登録</AuthButton>
+            </ButtonWrapper>
+
+            <LinkWapper>
+              <LinkButton to="/signin">
+                ログインする
+              </LinkButton>
+            </LinkWapper>
     
-      <Form onSubmit={handleSubmit}>
-        <CardContent>
-          <CardHeader title="新規アカウント" />
+          </CardContent>
+        </Form>
 
-          <AuthTextField
-            label="名前"
-            setState={setName}
-          />
+        <AlertMessage
+          open={alertMessageOpen}
+          setOpen={setAlertMessageOpen}
+          severity="error"
+          message="パスワードが一致しません"
+        />
 
-          <AuthTextField
-            label="メールアドレス"
-            setState={setEmail}
-          />
-
-          <AuthTextField
-            label="パスワード"
-            type="password"
-            placeholder="6文字以上"
-            setState={setPassword}
-          />
-
-          <AuthTextField
-            label="パスワード（確認用）"
-            type="password"
-            placeholder="6文字以上"
-            setState={setPasswordConfirmation}
-          />
-
-          <ButtonWrapper>
-            <AuthButton>登録</AuthButton>
-          </ButtonWrapper>
-
-          <LinkWapper>
-            <LinkButton to="/signin">
-              ログインする
-            </LinkButton>
-          </LinkWapper>
-  
-        </CardContent>
-      </Form>
+      </>
 
   )
 }
