@@ -8,7 +8,7 @@ import { CommentHook } from "interfaces/hooks/CommentHook";
 // 一覧画面用
 export const UseComments = (props: CommentHook) => {
 
-  const { comment, postId } = props
+  const { comment, postId, setAlertMessageOpen } = props
 
   const data = {postId: postId, comment: comment}
 
@@ -19,6 +19,7 @@ export const UseComments = (props: CommentHook) => {
     p.innerHTML=`<strong>${data.user.name}</strong> ${data.comment.text}`;
     const commentElement = document.getElementById(`comment-${postId}`)
     if (commentElement) commentElement.appendChild(p);
+    setAlertMessageOpen(true)
   })
   .catch((error) => {
     console.log(error)
@@ -28,7 +29,7 @@ export const UseComments = (props: CommentHook) => {
 // 詳細画面用
 export const UseComment = (props: CommentHook) => {
 
-  const { comment, postId, setPost } = props
+  const { comment, postId, setPost, setAlertMessageOpen } = props
 
   const data = {postId: postId, comment: comment}
 
@@ -37,6 +38,7 @@ export const UseComment = (props: CommentHook) => {
     postShowData({id: postId})
     .then((data) => {
       setPost(data.post)
+      setAlertMessageOpen(true)
     })
   })
   .catch((error) => {

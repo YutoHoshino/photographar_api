@@ -8,6 +8,10 @@ import { PostData } from "interfaces/data/PostData";
 
 // hooks
 import { UseComments } from "hooks/useComment";
+import { AnyAaaaRecord } from "dns";
+
+// organisms
+import { AlertMessage } from "components/organisms/Alert/AlertMessage";
 
 
 const CommentWapper = styled(Box)`
@@ -38,44 +42,58 @@ export const PostCommentField = (props :Props) => {
 
   const [comment, setComment] = useState<string>("")
 
+  // アラート
+  const [alertMessageOpen, setAlertMessageOpen] = useState<boolean>(false)
+
   return (
-    <CommentWapper>
-      <FlexFrom>
-        
-        <TextField
-          margin="dense"
-          required
-          fullWidth
-          placeholder='コメントを追加...'
-          multiline
-          value={comment}
-          onChange={e => setComment(e.target.value)}
-          InputProps={{
-            disableUnderline: true,
-            classes: {input: classes.CommentField}
-          }}
-        />
+    <>
+      <CommentWapper>
+        <FlexFrom>
+          
+          <TextField
+            margin="dense"
+            required
+            fullWidth
+            placeholder='コメントを追加...'
+            multiline
+            value={comment}
+            onChange={e => setComment(e.target.value)}
+            InputProps={{
+              disableUnderline: true,
+              classes: {input: classes.CommentField}
+            }}
+          />
 
-        <Button
-          type="submit"
-          variant="text"
-          color="primary"
-          style={{fontWeight: 'bold'}}
-          onClick={(e) => {
-            e.preventDefault()
-            UseComments(
-              {
-                comment: comment,
-                postId: postdata.post.id,
-              }
-            )
-            setComment("")
-          }}
-        >
-          送信
-        </Button>
+          <Button
+            type="submit"
+            variant="text"
+            color="primary"
+            style={{fontWeight: 'bold'}}
+            onClick={(e) => {
+              e.preventDefault()
+              UseComments(
+                {
+                  comment: comment,
+                  postId: postdata.post.id,
+                  setAlertMessageOpen: setAlertMessageOpen
+                }
+              )
+              setComment("")
+            }}
+          >
+            送信
+          </Button>
 
-      </FlexFrom>
-    </CommentWapper>
+        </FlexFrom>
+      </CommentWapper>
+
+      <AlertMessage
+        open={alertMessageOpen}
+        setOpen={setAlertMessageOpen}
+        severity="success"
+        message={`${postdata.user.name}さんの投稿にコメントしました`}
+      />
+    </>
+    
   )
 }
