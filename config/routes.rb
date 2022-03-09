@@ -15,6 +15,9 @@ Rails.application.routes.draw do
         get '/followings', to: 'relationships#followings'
       end
 
+      resources :rooms, only: [:index, :create ]
+      resources :chats, only: [:create]
+
       resources :posts do
         resources :likes, only: [:create, :destroy]
         resources :comments, only: [:create, :destroy]

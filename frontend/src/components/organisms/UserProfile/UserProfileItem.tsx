@@ -126,9 +126,11 @@ export const UserProfileItem = (props: Props) => {
                           フォロー
                         </FollowButton>
                     }
-                    <LinkButton>
-                      メッセージ
-                    </LinkButton>
+                      <LinkButton
+                        Url={`/room/${UserData.user.id}`}
+                      >
+                        メッセージ
+                      </LinkButton>
                   </>
                 }
       

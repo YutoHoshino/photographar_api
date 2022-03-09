@@ -4,6 +4,12 @@ import { BrowserRouter as Router, Switch, Route, Redirect, RouteProps } from "re
 // CSSシート
 import 'App.css'
 
+// interface
+import { CurrentUser } from "interfaces/get/CurrentUser"
+
+// apis
+import { getCurrentUser } from "apis/auth"
+
 // pages
 import { HomePage } from "components/pages/HomePage"
 import { SignInPage } from "components/pages/SignInPage"
@@ -12,12 +18,8 @@ import { DetailPostPage } from "components/pages/DetailPostPage"
 import { UserProfile } from "components/pages/UserProfile"
 import { UserEdit } from "components/pages/UserEdit"
 import { SearchPage } from "components/pages/SearchPage"
-
-// interface
-import { CurrentUser } from "interfaces/get/CurrentUser"
-
-// apis
-import { getCurrentUser } from "apis/auth"
+import { RoomPage } from "components/pages/RoomPage"
+import { ChatPage } from "components/pages/ChatPage"
 
 // グローバルで扱う変数・関数
 export const AuthContext = createContext({} as {
@@ -103,6 +105,18 @@ const App = () => {
                   exact
                   path="/search"
                   component={ SearchPage } 
+                />
+
+                <Route           
+                  exact
+                  path="/room"
+                  component={ RoomPage } 
+                />
+
+                <Route           
+                  exact
+                  path="/room/:userId"
+                  render={({ match }) => <ChatPage match={match}/> } 
                 />
 
               </Switch>
