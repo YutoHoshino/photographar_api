@@ -24,7 +24,7 @@ class Api::V1::RoomsController < ApplicationController
 
     partner = room.user_rooms.where.not(user_id:current_user.id).first.user
 
-    render json: { chats: room.chats.as_json(include: [:user]), partner: partner}
+    render json: { chats: room.chats.as_json(includes: [:user]), partner: partner}
   end
 
 end

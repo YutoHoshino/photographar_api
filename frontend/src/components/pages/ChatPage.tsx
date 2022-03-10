@@ -38,17 +38,26 @@ export const ChatPage = ({ match }: any) => {
 
   const [SendFlag, setSendFlag] = useState<boolean>(false)
 
+  const [count, setCount] = useState<number>(0);
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCount(c => c + 1);
+    }, 10000);
+    return () => clearInterval(interval);
+  }, []);
+
   useEffect(() => {
     CreateRoom(params)
     .then((data) => {
       setChatData(data)
     })
-  },[SendFlag])
+  },[SendFlag, count])
 
   return (
     <>
       {
         ChatData ?
+        
         <CommonLayout>
           <ChatCard>
             <Box sx={{width: {xs: "350px", md: "500px"}}}>
