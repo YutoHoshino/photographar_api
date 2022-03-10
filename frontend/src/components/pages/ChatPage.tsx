@@ -69,7 +69,7 @@ export const ChatPage = ({ match }: any) => {
               <ChatFeild 
                 setMessage={setMessage} 
                 Message={Message} 
-                RoomId={ChatData.chats[0].room_id}
+                RoomId={ChatData.room_id}
                 setSendFlag={setSendFlag}
                 SendFlag={SendFlag}
               />

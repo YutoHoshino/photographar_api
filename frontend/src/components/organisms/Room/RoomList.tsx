@@ -81,8 +81,7 @@ export const RoomList = () => {
               }/>
           {
             ChatRooms.map((ChatRoom) => 
-              <>
-              
+
               <ChatListItem 
                 key={ChatRoom.room.id}
                 onClick={e => history.push(`/room/${ChatRoom.other_user.id}`)}
@@ -121,8 +120,7 @@ export const RoomList = () => {
                 </ItemWapper>
 
               </ChatListItem>
-              </>
-            
+
             )
           }
           </Box>

@@ -7,5 +7,4 @@ export interface Chat {
   room_id: number
   created_at: Date
   updated_at: Date
-  user: User
 }
