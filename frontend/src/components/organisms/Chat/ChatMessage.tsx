@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 
@@ -67,6 +67,7 @@ const CurrentUserMessageTime = styled(Box)`
 
 interface Props {
   ChatData: ChatData
+  messageBox: any
 }
 
 export const ChatMessage = (props: Props) => {
@@ -75,7 +76,7 @@ export const ChatMessage = (props: Props) => {
 
   const { currentUser } = useContext(AuthContext)
 
-  const { ChatData } = props
+  const { ChatData, messageBox } = props
 
   return (
     <>
@@ -100,7 +101,7 @@ export const ChatMessage = (props: Props) => {
               </UserName>
             }
           />
-          <MessageWapper>
+          <MessageWapper ref={messageBox}>
             {
               ChatData.chats.map((Chat) => 
 

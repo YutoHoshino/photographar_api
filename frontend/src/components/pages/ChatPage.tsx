@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react"
+import { useContext, useEffect, useRef, useState } from "react"
 import styled from "styled-components";
 
 import { Card, Box } from '@material-ui/core';
@@ -38,6 +38,8 @@ export const ChatPage = ({ match }: any) => {
 
   const [SendFlag, setSendFlag] = useState<boolean>(false)
 
+  const messageBox = useRef<HTMLDivElement>(null);
+
   const [count, setCount] = useState<number>(0);
   useEffect(() => {
     const interval = setInterval(() => {
@@ -50,6 +52,9 @@ export const ChatPage = ({ match }: any) => {
     CreateRoom(params)
     .then((data) => {
       setChatData(data)
+      if (messageBox.current) {
+        messageBox.current.scrollTop = messageBox.current.scrollHeight + 16;
+      }
     })
   },[SendFlag, count])
 
@@ -64,6 +69,7 @@ export const ChatPage = ({ match }: any) => {
 
               <ChatMessage 
                 ChatData={ChatData}
+                messageBox={messageBox}
               />
 
               <ChatFeild 
