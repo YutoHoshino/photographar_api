@@ -106,12 +106,6 @@ export const PrimaryHeader = () => {
                     </IconButton>
                   </Box>
 
-                  <Box>
-                    <IconButton>
-                      <NotificationsNoneIcon/>
-                    </IconButton>
-                  </Box>
-
                   <IconButton
                     onClick={handleMobileMenuOpen} 
                   >

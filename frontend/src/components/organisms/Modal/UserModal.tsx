@@ -52,6 +52,11 @@ export const UserModal = (props: Props) => {
     history.push(`/user/${currentUser?.name}`)
   }
 
+  // メッセージ移動
+  const handlexRoom = () => {
+    history.push('/room')
+  }
+
   // ユーザー編集移動
   const handleUserEdit = () => {
     history.push(`/user/${currentUser?.name}/edit`)
@@ -92,7 +97,9 @@ export const UserModal = (props: Props) => {
         <p>プロフィール</p>
       </MenuItem>
 
-      <MenuItem>
+      <MenuItem
+        onClick={handlexRoom}
+      >
         <MailIcon/>
         <p>メッセージ</p>
       </MenuItem>

@@ -1,7 +1,7 @@
 class Api::V1::RoomsController < ApplicationController
 
   def index
-    rooms = current_user.rooms.map do |room|
+    rooms = current_user.rooms.includes([:chats]).map do |room|
       {
         room: {id: room.id, created_at: room.created_at, updated_at: room.updated_time },
         other_user: room.users.other_target_users(current_user)[0],
