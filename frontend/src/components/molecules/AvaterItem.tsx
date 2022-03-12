@@ -33,7 +33,7 @@ export const AvaterItem = (props: Props) => {
           userName={userName}
           ImageSrc={ImageSrc}
           AvaterSize={AvaterSize}
-          Url={`user/${userName}`}
+          Url={`/user/${userName}`}
         />
       <ListItemText
         style={{paddingLeft: `${ItemGap? ItemGap : 0 }px`}}
