@@ -1,8 +1,14 @@
+import { useState } from 'react';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
+
 import { CardActions, IconButton } from "@material-ui/core"
 
 // material icon
 import FavoriteIcon from "@material-ui/icons/Favorite"
 import ShareIcon from "@material-ui/icons/Share"
+
+// organisms
+import { AlertMessage } from 'components/organisms/Alert/AlertMessage';
 
 // hooks
 import { UseLike } from "hooks/useLike"
@@ -23,7 +29,11 @@ export const PostCardAction = (props: Props) => {
 
   const { postdata, currentUser } = props 
 
+  // アラート
+  const [alertMessageOpen, setAlertMessageOpen] = useState<boolean>(false)
+
   return (
+    <>
     <CardActions disableSpacing>
 
       <IconButton
@@ -40,16 +50,23 @@ export const PostCardAction = (props: Props) => {
         <FavoriteIcon id={postdata.likes.some((like)=>like.user_id == currentUser?.id) ? "liked" : ""}/>
       </IconButton>
       
-      <IconButton
-        onClick={() => {
-          const url = `${window.location.href}post/` + `${postdata.post.id}`
-          navigator.clipboard.writeText(url)
-          alert("クリップボードにコピーされました!!")
-        }}
+      <CopyToClipboard
+        text={`${window.location.href}post/` + `${postdata.post.id}`}
+        onCopy={e => setAlertMessageOpen(true)}
       >
-        <ShareIcon/>
-      </IconButton>
+        <IconButton>
+          <ShareIcon/>
+        </IconButton>
+      </CopyToClipboard>
 
     </CardActions>
+
+    <AlertMessage
+      open={alertMessageOpen}
+      setOpen={setAlertMessageOpen}
+      severity="success"
+      message="リンクがクリップボードにコピーされました。"
+    />
+  </>
   )
 }
