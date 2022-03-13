@@ -32,7 +32,8 @@ const Toolbar = styled(Box)`
 const LogoText = styled(Typography)`
   text-decoration: none;
   font-weight: bold !important;
-  cursor: pointer; 
+  cursor: pointer;
+  color: #444444;
 `
 const Search = styled(SearchIcon)`
   color: rgb(142, 142, 142);
