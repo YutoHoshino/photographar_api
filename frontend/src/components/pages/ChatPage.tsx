@@ -59,33 +59,32 @@ export const ChatPage = ({ match }: any) => {
   },[SendFlag, count])
 
   return (
-    <>
-      {
-        ChatData ?
         
         <CommonLayout>
           <ChatCard>
             <Box sx={{width: {xs: "350px", md: "500px"}}}>
+            {
+              ChatData ?
+              <>
+                <ChatMessage 
+                  ChatData={ChatData}
+                  messageBox={messageBox}
+                />
 
-              <ChatMessage 
-                ChatData={ChatData}
-                messageBox={messageBox}
-              />
-
-              <ChatFeild 
-                setMessage={setMessage} 
-                Message={Message} 
-                RoomId={ChatData.room_id}
-                setSendFlag={setSendFlag}
-                SendFlag={SendFlag}
-              />
-
+                <ChatFeild 
+                  setMessage={setMessage} 
+                  Message={Message} 
+                  RoomId={ChatData.room_id}
+                  setSendFlag={setSendFlag}
+                  SendFlag={SendFlag}
+                />
+              </>
+              :
+              <></>
+            }
+            
             </Box>
           </ChatCard>
         </CommonLayout>
-        :
-        <></>
-      }
-    </>
   )
 }
