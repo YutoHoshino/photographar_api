@@ -81,6 +81,7 @@ test:
 #
 production:
   <<: *default
-  database: photogramer_production
-  username: photogramer
-  password: <%= ENV['PHOTOGRAMER_DATABASE_PASSWORD'] %>
+  database: <%= ENV['DATABASE_NAME'] %>
+  username: <%= ENV['DATABASE_USERNAME'] %>
+  password: <%= ENV['DATABASE_PASSWORD'] %>
+  url: <%= ENV['DATABASE_URL'] %>
