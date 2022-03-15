@@ -12,7 +12,10 @@
 
 ActiveRecord::Schema.define(version: 2022_03_07_063425) do
 
-  create_table "chats", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
+  create_table "chats", force: :cascade do |t|
     t.integer "user_id"
     t.integer "room_id"
     t.text "message"
@@ -20,7 +23,7 @@ ActiveRecord::Schema.define(version: 2022_03_07_063425) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "comments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "comments", force: :cascade do |t|
     t.text "text", null: false, comment: "コメント"
     t.bigint "post_id", null: false, comment: "投稿ID"
     t.bigint "user_id", null: false, comment: "ユーザーID"
@@ -30,7 +33,7 @@ ActiveRecord::Schema.define(version: 2022_03_07_063425) do
     t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
-  create_table "likes", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "likes", force: :cascade do |t|
     t.bigint "post_id", null: false, comment: "投稿ID"
     t.bigint "user_id", null: false, comment: "ユーザーID"
     t.datetime "created_at", precision: 6, null: false
@@ -39,7 +42,7 @@ ActiveRecord::Schema.define(version: 2022_03_07_063425) do
     t.index ["user_id"], name: "index_likes_on_user_id"
   end
 
-  create_table "photos", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "photos", force: :cascade do |t|
     t.string "image", null: false, comment: "画像"
     t.bigint "post_id", null: false, comment: "投稿ID"
     t.datetime "created_at", precision: 6, null: false
@@ -47,7 +50,7 @@ ActiveRecord::Schema.define(version: 2022_03_07_063425) do
     t.index ["post_id"], name: "index_photos_on_post_id"
   end
 
-  create_table "posts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "posts", force: :cascade do |t|
     t.string "caption", comment: "キャンプション"
     t.bigint "user_id", null: false, comment: "ユーザーID"
     t.integer "deleted", default: 0, null: false, comment: "削除フラグ(0=>未削除,1=>削除)"
@@ -57,7 +60,7 @@ ActiveRecord::Schema.define(version: 2022_03_07_063425) do
     t.index ["user_id"], name: "index_posts_on_user_id"
   end
 
-  create_table "relationships", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "relationships", force: :cascade do |t|
     t.bigint "user_id", null: false, comment: "ユーザーID"
     t.bigint "follow_id", null: false, comment: "フォローID"
     t.datetime "created_at", precision: 6, null: false
@@ -67,19 +70,19 @@ ActiveRecord::Schema.define(version: 2022_03_07_063425) do
     t.index ["user_id"], name: "index_relationships_on_user_id"
   end
 
-  create_table "rooms", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "rooms", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "user_rooms", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "user_rooms", force: :cascade do |t|
     t.integer "user_id"
     t.integer "room_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "users", force: :cascade do |t|
     t.string "name", null: false, comment: "名前"
     t.string "email", null: false, comment: "メールアドレス"
     t.string "password_digest", null: false, comment: "パスワード"
