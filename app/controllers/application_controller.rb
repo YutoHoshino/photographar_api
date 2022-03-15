@@ -9,6 +9,8 @@ class ApplicationController < ActionController::API
   end
 
   def current_user
+    p "ここにsessionを表示"
+    p session
     remember_token = User.encrypt(session[:user_remember_token])
     @current_user ||= User.find_by(remember_token: remember_token)
   end
