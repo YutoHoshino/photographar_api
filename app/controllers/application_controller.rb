@@ -1,6 +1,4 @@
 class ApplicationController < ActionController::API
-  include ActionController::Cookies
-  
   before_action :current_user
 
   def login(user)
