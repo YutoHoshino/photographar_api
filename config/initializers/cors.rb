@@ -16,7 +16,7 @@ Rails.application.config.middleware.insert_before 0, Rack::Cors do
   end
 
   allow do
-    origins 'https://photographar-react-frontend.herokuapp.com'
+    origins 'https://photographar-front.herokuapp.com'
 
     resource '*',
         headers: :any,
