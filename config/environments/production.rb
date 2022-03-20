@@ -102,6 +102,6 @@ Rails.application.configure do
   # config.active_record.database_selector = { delay: 2.seconds }
   # config.active_record.database_resolver = ActiveRecord::Middleware::DatabaseSelector::Resolver
   # config.active_record.database_resolver_context = ActiveRecord::Middleware::DatabaseSelector::Resolver::Session
-  config.session_store :redis_store, servers: 'redis://:p45e816e3b3c9f8e0184778279b45fd33f7db19e69513fe89127262d0c45bc021@ec2-3-217-132-137.compute-1.amazonaws.com:29939', expire_after: 1.day
+  config.session_store_servers = ENV["REDISCLOUD_URL"]
 
 end
