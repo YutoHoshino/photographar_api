@@ -15,6 +15,8 @@ class ApplicationController < ActionController::API
     p session[:user_remember_token]
     p "ここにクラスを表示"
     p session.class
+    p "ここにkeysを表示"
+    p session.keys
     remember_token = User.encrypt(session[:user_remember_token])
     @current_user ||= User.find_by(remember_token: remember_token)
   end
