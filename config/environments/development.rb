@@ -60,5 +60,5 @@ Rails.application.configure do
   # routes, locales, etc. This feature depends on the listen gem.
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 
-  config.session_store :redis_store, servers: 'redis://localhost:6379/0'
+  config.session_store_servers = 'redis://localhost:6379/0'
 end
