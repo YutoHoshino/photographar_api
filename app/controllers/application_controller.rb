@@ -11,6 +11,8 @@ class ApplicationController < ActionController::API
   end
 
   def current_user
+    p "ここにsessionのオプションを表示"
+    p session.options
     p "ここにsessionを表示"
     p session[:user_remember_token]
     p "ここにクラスを表示"
