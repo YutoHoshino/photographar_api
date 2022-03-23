@@ -1,6 +1,4 @@
 class ApplicationController < ActionController::API
-  include ActionController::Cookies
-
   before_action :current_user
 
   def login(user)
@@ -13,14 +11,8 @@ class ApplicationController < ActionController::API
   end
 
   def current_user
-    p "ここにsessionのオプションを表示"
-    p session.options
     p "ここにsessionを表示"
     p session[:user_remember_token]
-    p "ここにクラスを表示"
-    p session.class
-    p "ここにkeysを表示"
-    p session.keys
     remember_token = User.encrypt(session[:user_remember_token])
     @current_user ||= User.find_by(remember_token: remember_token)
   end
