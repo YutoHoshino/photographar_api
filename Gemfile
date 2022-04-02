@@ -44,3 +44,4 @@ gem 'pry-rails'
 gem 'carrierwave'
 gem 'rmagick'
 gem 'redis-rails'
+gem "rails_same_site_cookie", "~> 0.1.8"
