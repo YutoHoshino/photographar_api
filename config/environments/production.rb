@@ -105,5 +105,5 @@ Rails.application.configure do
   # config.active_record.database_resolver_context = ActiveRecord::Middleware::DatabaseSelector::Resolver::Session
   config.action_cable.disable_request_forgery_protection = true
   
-  config.session_store :redis_store, servers: 'rediss://:pe2eccf520f8dc555fee9c128331905a4f5bc44f87f5f275c994e17eccf099242@ec2-18-211-243-81.compute-1.amazonaws.com:10240'
+  config.session_store :redis_store, servers: 'redis://:pe2eccf520f8dc555fee9c128331905a4f5bc44f87f5f275c994e17eccf099242@ec2-18-211-243-81.compute-1.amazonaws.com:10239'
 end
