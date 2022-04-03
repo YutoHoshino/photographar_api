@@ -18,7 +18,7 @@ class Api::V1::UsersController < ApplicationController
   end
 
   def show
-    like_posts = Post.includes(:photos).find(Like.where(user_id: @user.id).pluck(:post_id))
+    like_posts = Post.includes(:photos).where(id: Like.where(user_id: @user.id).pluck(:post_id), deleted: "alive")
     user = {
       user: @user, 
       followings: @user.followings, 
