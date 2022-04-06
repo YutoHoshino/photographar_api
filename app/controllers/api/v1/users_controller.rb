@@ -13,8 +13,12 @@ class Api::V1::UsersController < ApplicationController
   end
   
   def index
-    users = User.unfollower(current_user).sample(10)
-    render json: {users: users}, status: :ok
+    if @current_user
+      users = User.unfollower(current_user).sample(10)
+      render json: {users: users}, status: :ok
+    else
+      render json: {}, status: :no_content
+    end
   end
 
   def show
