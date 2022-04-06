@@ -45,3 +45,6 @@ gem 'carrierwave'
 gem 'rmagick'
 gem 'redis-rails'
 gem "rails_same_site_cookie", "~> 0.1.8"
+gem 'fog-aws'
+gem "aws-sdk-s3", require: false 
+gem 'dotenv-rails'
